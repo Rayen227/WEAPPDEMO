@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/game/game",
     "pages/index/index",
     "pages/login/login",
-    "pages/miniSpace/miniSpace",
-    "pages/game/game"
+    "pages/miniSpace/miniSpace"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

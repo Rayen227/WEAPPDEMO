@@ -2,9 +2,7 @@
  * Promise化小程序接口
  */
 class Wechat {
-  /**
-   * @return {Promise} 
-   */
+  
 
   static getStorage(key){
     return new Promise((resolve, reject)=>wx.getStorage({
