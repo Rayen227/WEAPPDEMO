@@ -6,7 +6,7 @@ let User = function () {
     function expUp() {
         this.data.exp += 3;
     }
-    this.update = function (user) {
+    function update(user) {
         this.details = user.details;
         this.update_time = time.getTime();
     }
