@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/game/game",
+    "pages/wordDetails/wordDetails",
     "pages/index/index",
     "pages/login/login",
     "pages/miniSpace/miniSpace"
