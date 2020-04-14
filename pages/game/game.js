@@ -154,33 +154,6 @@ let time = require('../../utils/time.js');
 let DB = wx.cloud.database();
 let word = new Word;
 let user = new User;
-// let User = {
-//     data : {},//经验、等级等信息
-//     update_time : {},//同步时间点
-//     items : [],//道具列表
-//     init : function(user_info){//初始化函数
-//         this.details = user_info;
-//         this.update_time = time.getTime();
-//         //console.log(this);
-//     },
-//     expUp : function(){
-//         this.data.exp+=3;
-//         if(1){
-//             this.levelUp();
-//             console.log(this);
-//         }
-//     },
-//     levelUp : function(){
-//         this.data.level++;
-//     },
-//     update : function(user){
-//         if(time.compare(user, this)){
-//             this.details = user.details;
-//             this.update_time = user.update_time;
-//         }
-//     }
-// };
-
 
 Page({
     data: {
