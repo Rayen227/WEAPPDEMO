@@ -156,7 +156,7 @@ let user = new User;
 
 Page({
     data: {
-        problem: { a: 1, b: 2, c: 3 },
+        problem: {},
         options: [],
         hover_class: ['', '', '', ''],
         selected: false,
