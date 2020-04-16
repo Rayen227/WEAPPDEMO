@@ -23,12 +23,9 @@ let Word = function () {
     };
     //初始化函数//以缓存中的Word对象(word)为参数
     this.init = function (local) {
-        local.problem = res.data.problem;
-        local.options = res.data.options;
-        local.hover_class = res.data.hover_class;
-        local.selected = res.data.selected;
-        local.correct = res.data.correct;
-        local.click = res.data.click;
+        list = local.list;
+        true_option = local.true_option;
+        page = local.page;
     }
     //更新全局中的页面数据
     this.resetPage = function () {
