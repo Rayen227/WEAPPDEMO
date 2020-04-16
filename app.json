@@ -1,11 +1,10 @@
 {
   "pages": [
     "pages/game/game",
-    "pages/wordDetails/wordDetails",
+    "pages/game/wordDetails/wordDetails",
     "pages/index/index",
     "pages/login/login",
     "pages/miniSpace/miniSpace"
-    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,13 +13,16 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/index",
-      "text": "主页"
-    }, {
-      "pagePath": "pages/miniSpace/miniSpace",
-      "text": "小空间"
-    }]
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/miniSpace/miniSpace",
+        "text": "小空间"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
