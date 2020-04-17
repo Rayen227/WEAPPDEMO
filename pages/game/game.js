@@ -12,6 +12,8 @@ let Word = function () {
     this.list = [];
     //正确选项 0~3
     this.true_option = 0;
+    //玩家的选则
+    this.my_option = 0;
     //页面相关的数据
     this.page = {
         problem: {},
@@ -22,13 +24,21 @@ let Word = function () {
         correct: false
     };
     //初始化函数//以缓存中的Word对象(word)为参数
-    this.init = function (local) {
-        list = local.list;
-        true_option = local.true_option;
-        page = local.page;
+    this.asyncInit = function () {
+        wechat.getStorage("word_list").then(res => {
+            var word_list = res.data;
+            if (word_list.length < 4) {//缓存中单词数量不足
+                return wechat.callFunction("pull").then(res => {//云调用数据库更新
+                    word_list = res.data[User.level - 1];
+                    return wechat.setStorage("word_list", word_list);//同时写入缓存
+                }, err = {});
+            }
+        }, err => { }).then(empty => {
+            list = word_list;//同步至全局
+        })
     }
     //更新全局中的页面数据
-    this.resetPage = function () {
+    this.resetPage = function (this_pointer) {
 
         //更新单词
         var temp = {};
@@ -83,6 +93,14 @@ let Word = function () {
         }
         //console.log(temp);
         page.options = temp;
+        //同步页面
+        this_pointer.setData({
+            problem: problem,
+            options: options,
+            hover_class: hover_class,
+            selected: selected,
+            correct: correct
+        });
     }
 
 }
@@ -104,7 +122,16 @@ Page({
         correct: false
     },
     onLoad: function () {
-
+        word.asyncInit();//单词初始化
+        word.resetPage(this);//信息同步至页面
+    },
+    selectHandle: function (event) {
+        word.my_option = event.currentTarget.dataset.id;
+        if (word.my_option == word.true_option) {
+            //选对啦
+        } else {
+            // ... 
+        }
     },
     showDetailsHandle: function () {
         wx.navigateTo({
@@ -130,5 +157,3 @@ wx.cloud.callFunction({
 let User = require('../../utils/User');
 
 console.log(User);
-
-

@@ -1,1 +1,5 @@
 <button type="primary" bindtap="showDetailsHandle">test</button>
+<button data-id="0" bindtap="selectHandle">A</button>
+<button data-id="1" bindtap="selectHandle">B</button>
+<button data-id="2" bindtap="selectHandle">C</button>
+<button data-id="3" bindtap="selectHandle">D</button>
