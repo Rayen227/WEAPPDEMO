@@ -5,5 +5,5 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await wx.cloud.database.collection(event.key)
+  return await cloud.database().collection(event.key).get();
 }

@@ -7,17 +7,29 @@ function cmp(local, cloud) {
 }
 
 
-var basic = {};//系统获取的用户信息
+var basic = {};//系统获取的用户信息//包括sha1加密的openid
 var data = {};//游戏所用到的信息
 var update_time = {};//上一次更新的时间
-var items = [];//玩家拥有的道具列表
+
+//!归入data成员
+//var items = [];//玩家拥有的道具列表
 
 
-//以系统获取的用户信息为参数
-var asyncInit = function (basic) {
+//传入打包好的user对象的成员信息
+var init = function (obj) {
+    basic = obj.basic;
+    data = obj.data;
+    update_time = obj.update_time;
+    items = obj.items;
+}
+
+//用于login页面以外的其他页面进行数据的初始化
+var asyncInit = function () {
     var local, cloud;
-    wechat.getStorage("user").then(res => {
-        local = res.data;
+    //缓存中的user_info储存User实例化对象所具有的数据成员(不包含函数)
+    wechat.getStorage("user_info").then(res => {
+        console.log(res);
+        //local = res.data;
         return wechat.callFunction("pull", {
             key: 'user'
         });
@@ -48,10 +60,10 @@ var getPoint = function (word) {
 }
 
 module.exports = {
+    init: init,
     asyncInit: asyncInit,
     getPoint: getPoint,
     basic: basic,
     data: data,
-    update_time: update_time,
-    items: items
+    update_time: update_time
 }
