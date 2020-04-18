@@ -24,7 +24,7 @@ let Word = function () {
         selected: false,
         correct: false
     };
-    //初始化函数//以缓存中的Word对象(word)为参数
+    //初始化函数//以缓存中的Word对象(word_list)为参数
     this.asyncInit = function () {
         wechat.getStorage("word_list").then(res => {
             word_list = res.data;
@@ -38,7 +38,7 @@ let Word = function () {
         }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
             this.list = word_list;//同步至全局对象word
             //console.log(this.list);
-        })
+        });
     }
     //更新全局中的页面数据
     this.resetPage = function (this_pointer) {
@@ -46,6 +46,7 @@ let Word = function () {
         //更新单词
         console.log(this);
         console.log(this.list)
+        console.log(this_pointer.list);
         var temp = {};
         for (var i = 0; i < 30; i++) {
 
