@@ -1,0 +1,69 @@
+<!--index.wxml-->
+<!-- html头部区域的开始 -->
+<view wx:if="{{ !open }}">
+   <text>点击进入单词世界</text>
+   <button
+      size="default"
+      open-type="getUserInfo"
+      bindgetuserinfo="onGetUserInfo"
+      bindtap="changeHandle"
+   >
+    dianji 
+   </button>
+   <!-- 获取云数据库中的段位 -->
+
+
+
+
+
+
+
+
+
+</view>
+<view class="header" wx:if="{{ open }}">
+  <view class="logo">
+     logo区域
+  </view>
+  <!-- 用户 openid -->
+  <view class="avatar">
+    <navigator
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+      size="default" 
+      url="../rankingList/rankingList"
+       redirect>
+  </navigator>
+    <view class="ranking">{{ ranking }}</view>
+ 
+  </view>
+  
+<!-- html头部区域的结束 -->
+  </view> 
+  <!-- 中间跳转区域的开始 -->
+  <view class="core" wx:if="{{ open }}">
+      <view class="core-navigator">
+         <navigator  
+         class="navigator1"
+         url="../game/game"
+          redirect>
+            开始游戏
+         </navigator>
+         <navigator
+          class="navigator2"
+          url="../mistakesCollection/mistakesCollection" 
+          redirect
+         >
+          错题集
+         
+         </navigator>
+      </view>
+  </view>
+<!-- 中间区域的结束 -->
+
+
+<!-- 布局结束 -->
+
+  
