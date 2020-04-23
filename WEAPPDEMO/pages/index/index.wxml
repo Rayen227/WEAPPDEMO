@@ -12,6 +12,14 @@
    </button>
    <!-- 获取云数据库中的段位 -->
 
+
+
+
+
+
+
+
+
 </view>
 <view class="header" wx:if="{{ open }}">
   <view class="logo">

@@ -34,8 +34,8 @@ class Wechat {
     }))
   }
 
-  static showModel(content, mode){
-    return new Promise((resolve, reject) => wx.showModel({
+  static showModal(content, mode){
+    return new Promise((resolve, reject) => wx.showModal({
       title: mode=="confirm" ? '请确认' : '警告',
       content: content,
       confirmColor: mode=="confirm" ? 'green' : '',
@@ -69,16 +69,19 @@ class Wechat {
 
   static getSetting(authSetting) {
     return new Promise((resolve, reject) => wx.getSetting({
+      success: resolve, fail: reject,
       authSetting: authSetting
     }))
   }
 
-  static getUserInfo(avatarUrl, userInfo) {
+  static getUserInfo() {
     return new Promise((resolve, reject) => wx.getUserInfo({
-      avatarUrl: avatarUrl,
-      userInfo: userInfo
+      success: resolve, fail: reject
     }))
   }
+
+  
 };
+
 
 module.exports = Wechat;

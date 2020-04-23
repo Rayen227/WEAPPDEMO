@@ -1,0 +1,5 @@
+<button
+
+bindtap="changeHandle">
+ 授权获取头像昵称 
+ </button>

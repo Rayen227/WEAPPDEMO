@@ -7,19 +7,13 @@ let wechat = require('../../utils/promise.js');
 
 
 
-Page({
+Page({ 
   data: {
     open: false,
-    disopen: false,
-    // avatarUrl: './user-unlogin.png',
     avatarUrl: '',
     userInfo: {},
     logined: false,
-    takeSession: false,
-    requestResult: '',
-    authSetting:'',
     ranking:"",
-    datalist:[]
   },
  
 
@@ -47,70 +41,18 @@ Page({
   },
 
   onLoad: function () {
-    // if (!wx.cloud) {
-    //   wx.redirectTo({
-    //     url: '../chooseLib/chooseLib',
-    //   })
-    //   return
-    // }
-    // 获取用户信息
-    // 获取用户信息（这是在onLoad函数里面的 
-    // "authSetting")
-    wechat.getSetting("authSetting").then(res=>{
-        authSetting  = res.authSetting;
-        console.log("获取用户信息成功",authSetting);
-        // return wechat.getSetting("authSetting");
-       if (res.authSetting['scope.userInfo']) {
-         wechat.getUserInfo("avatarUrl", "userInfo").then(res=>{
-           avatarUrl = res.userInfo.avatarUrl;
-           userInfo =  res.userInfo;
-           console.log("获取头像地址成功",userInfo);
-         },err=>console.log("获取头像地址失败",err))
-       }
-     },err=>{console.log("获取用户信息失败",err)})
-    
-    // wx.getSetting({
-    //   success: res => {
-    //     if (res.authSetting['scope.userInfo']) {
-    //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           this.setData({
-    //             avatarUrl: res.userInfo.avatarUrl,
-    //             userInfo: res.userInfo,
-            
-    //           })
-    //           console.log(res.userInfo)
-    //         }
-    //       })
-    //     }
-    //   }
-    // })
+   
   
   },
   // 这只是一个普通的事件处理函数
   onGetUserInfo:function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
+    if (!this.data.logined && e.detail.userInfo) {
       this.setData({
-        logged: true,
+        logined: true,
         avatarUrl: e.detail.userInfo.avatarUrl,
         userInfo: e.detail.userInfo
       })
       
     }
   }
-  // addData() {
-  //   wx.cloud.database.collection("users").add ({
-  //        data:{
-  //          name: res.nickName
-  //        },
-  //        success(res) {
-  //          console.log("添加成功")
-  //        },
-  //        fail(res) {
-  //          console.log("添加失败")
-  //        }
-  //     })
-  //   }
-
 })
