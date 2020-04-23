@@ -1,3 +1,5 @@
+/* pages/game1/game1.wxss */
+
 page {
     background-color: skyblue;
     margin: 0;

@@ -1,60 +1,33 @@
-<!-- <button type="primary" bindtap="showDetailsHandle">test</button> -->
-
-<!-- 使用选项卡
-      出现无法设置样式 -->
-<!-- <button class="button" hover-class="button-hover-ture">选项</button>
-<button class="button" hover-class="button-hover-false">选项</button>
-<button class="button" hover-class="button-hover-false">选项</button>
-<button class="button" hover-class="button-hover-false">选项</button> -->
-
-<!-- 图片加载问题 -->
-<!-- <view class="background">
-    <image src="../../images/01.jpg"/>
-
-    <view class="button" hover-class="button-hover-true">
-        选项
+<!-- 问题 -->
+<!-- problem 引入方式？ -->
+<view class="question">{{problem}}</view>
+<!-- 选项 -->
+<view class="answer">
+    <!-- 使用 selected 判断？ -->
+    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
+        1{{options[0]}}
     </view>
-    <view class="button" hover-class="button-hover-true">
-        选项
+    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
+        2{{options[1]}}
     </view>
-    <view class="button" hover-class="button-hover-true">
-        选项
+    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
+        3{{options[2]}}
     </view>
-    <view class="button" hover-class="button-hover-true">
-        选项
-    </view> -->
-
-<!-- 链接js  模板？-->
-<!-- </view> 
- <view class='quest_container' wx:for="{{quest}}" wx:key="id" wx:for-index="outterIndex">
-  <text>{{problem}}</text>
-  <view wx:for="{{item.answers}}" wx:key="content" bindtap="answerSelected" data-outidx='{{outterIndex}}' data-idx="{{index}}" class="item {{item.selected?'active':''}}">
-    <text>{{item.content}}</text>
-  </view>
-</view> -->
-
-<!-- <view class="background"> -->
-<view class="page">
-  <view class="menu" hover-class="menu-hover">菜单</view>
-
-  <view class="q-a">
-      <!-- 使用图片？ -->
-      <view class="question">{{problem}}问题</view>
-
-      <!-- 选项待改，由js 控制选中后的效果 -->
-      <!-- 使用图片？ -->
-      <view class="butt" hover-class="butt-hover-false">
-          {{options}} 选项
-      </view>
-      <view class="butt" hover-class="butt-hover-true">
-          {{options}} 选项
-      </view>
-      <view class="butt" hover-class="butt-hover-false">
-          {{options}} 选项
-      </view>
-      <view class="butt" hover-class="butt-hover-false">
-          {{options}} 选项
-      </view>
-  </view>
+    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
+        4{{options[3]}}
+    </view>
 </view>
-  
+<!-- <view class="background">
+<view class="page">
+    <view class="menu" hover-class="menu-hover">菜单</view>
+    <view class="q-a">
+        使用图片？
+        <view class="question">{{problem}}问题</view>
+        选项待改，由js 控制选中后的效果
+        使用图片？
+        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
+        <view class="butt" hover-class="butt-hover-true">{{options}} 选项</view>
+        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
+        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
+    </view>
+</view> -->
