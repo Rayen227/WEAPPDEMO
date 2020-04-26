@@ -1,123 +1,15 @@
-let Word = function () {
-    //private:
-    var word_list;
-    function allDifferent(item, array) {
-        for (var i = 0; i < array.length; i++) {
-            if (item == array[i])
-                return false;
-        }
-        return true;
-    }
-    //public:
-    //全局单词表
-    this.list = [];
-    //正确选项 0~3
-    this.true_option = 0;
-    //玩家的选则
-    this.my_option = 0;
-    //页面相关的数据
-    this.page = {
-        problem: {},
-        options: [],
-        click: 0,//用于在showDetails页面获取需要展示的单词
-        hover_class: ['', '', '', ''],
-        selected: false,
-        correct: false
-    };
-    //初始化函数//以缓存中的Word对象(word_list)为参数
-    this.asyncInit = function () {
-        wechat.getStorage("word_list").then(res => {
-            word_list = res.data;
-            if (word_list.length < 4) {//缓存中单词数量不足
-                return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
-                    //console.log(res.result.data);
-                    word_list = res.result.data;//DEBUG ONLY
-                    return wechat.setStorage("word_list", word_list);//同时写入缓存
-                }, err => { console.log("!callFunction:pull, ERROR: ", err) });
-            }
-        }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
-            this.list = word_list;//同步至全局对象word
-            //console.log(this.list);
-        });
-    }
-    //更新全局中的页面数据
-    this.resetPage = function (this_pointer) {
-        //console.log(this);
-        //更新单词
-        console.log(this);
-        console.log(this.list)
-        console.log(this_pointer.list);
-        var temp = {};
-        for (var i = 0; i < 30; i++) {
-
-            //获取随机数下标,保证随机数范围在[0, list.length)内
-            var random_index = Math.floor(Math.random() * this.list.length);
-            //console.log(random);
-            temp = this.list[random_index];
-            //优先挑选10分钟内未遇到过的,且已经错过一次以上的单词
-            if (temp.last_view_time >= 10 * 60 && temp.power >= 3) {
-                break;
-            }
-        }
-        wordIndex = random_index;
-        this.page.problem = temp;
-
-        //更新选项
-        var temp = [];
-        var right = this.list[word_index];
-        if (this.list.length < 4) {
-            Update();
-        }
-        //已选中
-        var got = [];
-        //随机挑选选项
-        for (var i = 0; i < 3;) {
-            var random_index = Math.floor(Math.random() * this.list.length);
-            if (random_index != word_index && allDifferent(random_index, got)) {//不冲突
-                //temp[i++]=list[randomIndex];
-                temp[i] = (this.list[random_index]);
-                got[i] = random_index;
-                //console.log(last);
-                i++;
-                //console.log(randomIndex);
-            }
-        }
-        //随机插入正确答案
-        var random = Math.random();
-
-        if (random >= 0 && random < 0.25) {
-            temp.insert(0, right);
-            this.true_option = 0;
-        } else if (random >= 0.25 && random < 0.5) {
-            temp.insert(1, right);
-            this.true_option = 1;
-        } else if (random >= 0.5 && random < 0.75) {
-            temp.insert(2, right);
-            this.true_option = 2;
-        } else {
-            temp.insert(3, right);
-            this.true_option = 3;
-        }
-        //console.log(temp);
-        this.page.options = temp;
-        //同步页面
-        this_pointer.setData({
-            problem: this.page.problem,
-            options: this.page.options,
-            hover_class: this.page.hover_class,
-            selected: this.page.selected,
-            correct: this.page.correct
-        });
-    }
-
-}
-
-
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let DB = wx.cloud.database();
-let word = new Word;
 let user = require('../../utils/User.js');
+
+var word_list = [];
+var true_option = 0;
+var my_option = 0;
+var page = {
+    problem: {},
+    options: []
+};
+
 
 
 Page({
@@ -130,28 +22,66 @@ Page({
     },
     onLoad: function () {
         var that = this;
-        wechat.setStorage("test", 1).then(res => {
-            word.asyncInit();
-        }, err => { }).then(empty => {
-            word.resetPage(that);
+        wechat.getStorage("word_list").then(res => {
+            word_list = res.data;
+            // console.log(word_list);
+            if (word_list.length < 4) {//缓存中单词数量不足
+                return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
+                    //console.log(res.result.data);
+                    word_list = res.result.data;//DEBUG ONLY
+                    return wechat.setStorage("word_list", word_list);//同时写入缓存
+                }, err => { console.log("!callFunction:pull, ERROR: ", err) });
+            }
+            // console.log(word_list);
+        }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
+            resetPage(that);
         })
     },
     selectHandle: function (event) {
-        word.my_option = event.currentTarget.dataset.id;
-        if (word.my_option == word.true_option) {
+        my_option = event.currentTarget.dataset.id;
+        // console.log("selectHandle");
+        if (my_option == true_option) {
             //选对啦
+            console.log(true);
+            this.setData({
+                correct: true,
+                selected: true
+            });
         } else {
             // ... 
+            console.log(false);
+            this.setData({
+                correct: false,
+                selected: true
+            });
         }
     },
-    showDetailsHandle: function () {
-        wx.navigateTo({
-            url: 'wordDetails/wordDetails'
+    showDetailsHandle: function (event) {
+        // console.log("showDetailesHandle");
+        let that = this;
+        wx.setStorage({
+            key: "gamePage",
+            data: {
+                problem: page.problem,
+                options: page.options
+            },
+            success: function () {
+                wx.navigateTo({
+                    url: 'wordDetails/wordDetails?item=' + event.currentTarget.dataset.id
+                });
+            }
         })
+
+    },
+    resetHandle: function () {
+        resetPage(this);
     }
 });
 
-let sha = require('../../utils/HASH_SHA1');
+// let sha = require('../../utils/HASH_SHA1');
+
+
+
 
 
 //演示代码
@@ -172,7 +102,7 @@ let sha = require('../../utils/HASH_SHA1');
 // console.log(User);
 
 
-//测试代码
+// 测试代码
 // wx.setStorage({
 //     key: "user_info",
 //     data: {
@@ -200,3 +130,95 @@ let sha = require('../../utils/HASH_SHA1');
 //         { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
 //     ]
 // })
+
+
+function allDifferent(item, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (item == array[i])
+            return false;
+    }
+    return true;
+}
+
+// function asyncInit() {
+//     wechat.getStorage("word_list").then(res => {
+//         var word_list = res.data;
+//         // console.log(word_list);
+//         if (word_list.length < 4) {//缓存中单词数量不足
+//             return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
+//                 //console.log(res.result.data);
+//                 word_list = res.result.data;//DEBUG ONLY
+//                 return wechat.setStorage("word_list", word_list);//同时写入缓存
+//             }, err => { console.log("!callFunction:pull, ERROR: ", err) });
+//         }
+//     }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
+//         word_list = word_list;//同步至全局对象word
+//         console.log(this);
+//     });
+// }
+
+function resetPage(this_pointer) {
+    var temp = {};
+    for (let i = 0; i < 30; i++) {
+
+        //获取随机数下标,保证随机数范围在[0, word_list.length)内
+        var random_index = Math.floor(Math.random() * word_list.length);
+        //console.log(random);
+        temp = word_list[random_index];
+        //优先挑选10分钟内未遇到过的,且已经错过一次以上的单词
+        if (temp.last_view_time >= 10 * 60 && temp.power >= 3) {
+            break;
+        }
+    }
+    let word_index = random_index;
+    page.problem = temp;//全局同步
+
+    //更新选项
+    temp = [];
+    let right = word_list[word_index];
+    if (word_list.length < 4) {
+        Update();
+    }
+    //已选中
+    let got = [];
+    //随机挑选选项
+    for (let i = 0; i < 3;) {
+        random_index = Math.floor(Math.random() * word_list.length);
+        if (random_index != word_index && allDifferent(random_index, got)) {//不冲突
+            //temp[i++]=word_list[randomIndex];
+            temp[i] = (word_list[random_index]);
+            got[i] = random_index;
+            //console.log(last);
+            i++;
+            //console.log(randomIndex);
+        }
+    }
+    //随机插入正确答案
+    let random = Math.random();
+
+    if (random >= 0 && random < 0.25) {
+        temp.insert(0, right);
+        true_option = 0;
+    } else if (random >= 0.25 && random < 0.5) {
+        temp.insert(1, right);
+        true_option = 1;
+    } else if (random >= 0.5 && random < 0.75) {
+        temp.insert(2, right);
+        true_option = 2;
+    } else {
+        temp.insert(3, right);
+        true_option = 3;
+    }
+    //console.log(temp);
+    page.options = temp;//全局同步
+    //页面同步
+    this_pointer.setData({
+        problem: page.problem,
+        options: page.options,
+        selected: false,//刷新状态
+        correct: false,
+        hover_class: ['', '', '', '']
+    });
+
+
+}

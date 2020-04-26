@@ -1,5 +1,13 @@
 <text class="" selectable="false" space="false" decode="false">{{problem.en}}</text>
-<button data-id="0" bindtap="selectHandle">{{options[0].ch}}</button>
-<button data-id="1" bindtap="selectHandle">{{options[1].ch}}</button>
-<button data-id="2" bindtap="selectHandle">{{options[2].ch}}</button>
-<button data-id="3" bindtap="selectHandle">{{options[3].ch}}</button>
+<button data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[0].ch}}
+</button>
+<button data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[1].ch}}
+</button>
+<button data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[2].ch}}
+</button>
+<button data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[3].ch}}
+</button>

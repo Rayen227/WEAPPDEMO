@@ -1,2 +1,2 @@
-<!--pages/wordDetails/wordDetails.wxml-->
-<text>pages/wordDetails/wordDetails.wxml</text>
+<!-- pages/wordDetails/wordDetails.wxml -->
+<view class="" hover-class="none" hover-stop-propagation="false">{{word.ch}}</view>

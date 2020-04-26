@@ -72,9 +72,7 @@ class Wechat {
     }))
   }
 
-  static emt(callBack) {
-    return new Promise((resolve, reject) => { callBack; })
-  }
+
 
 };
 
