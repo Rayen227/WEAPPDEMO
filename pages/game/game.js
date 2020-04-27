@@ -3,14 +3,11 @@ let time = require('../../utils/time.js');
 
 var user_info = {};
 var word_list = [];
+var listId = 0;
 var true_option = 0;
 var my_option = 0;
-var page = {
-    problem: {},
-    options: []
-};
-
-
+var problem = {};
+var options = [];
 
 Page({
     data: {
@@ -35,14 +32,23 @@ Page({
             // console.log(word_list);
         }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
             resetPage(that);
-        })
+            return wechat.getStorage("user_info");
+        }).then(res => {//获取用户信息
+            user_info = res.data;
+        }, err => { });
     },
     selectHandle: function (event) {
         my_option = event.currentTarget.dataset.id;
+        let word = word_list[listId];
         // console.log("selectHandle");
         var tmp = ['', '', '', ''];
         if (my_option == true_option) {
             //选对啦
+            word.power--;
+            word.last_view_time = time.getTime().timestamp;
+            if (word.power <= 0) {//权小于零则移除缓存记录
+                word_list.remove(listId);
+            }
             console.log(true);
             tmp[my_option] = 'answer-hover-true';
             this.setData({
@@ -51,7 +57,12 @@ Page({
                 hover_class: tmp
             });
         } else {
-            // ... 
+            // 选错了
+
+            word.power += word.power < 3 ? 1 : 0;//权上限为3
+            //加入错题本
+            let mistaken = user_info.word_tag.mistaken;
+            mistaken.insert(mistaken.length, { field: user_info.data.level, wordId: word._id });
             console.log(false);
             tmp[my_option] = 'answer-hover-false';
             this.setData({
@@ -59,7 +70,10 @@ Page({
                 selected: true,
                 hover_class: tmp
             });
-        }
+        }//更新缓存
+        wechat.setStorage("word_list", word_list).then(res => {
+            return wechat.setStorage("user_info", user_info);
+        }, err => { })
     },
     showDetailsHandle: function (event) {
         // console.log("showDetailesHandle");
@@ -67,8 +81,8 @@ Page({
         wx.setStorage({
             key: "gamePage",
             data: {
-                problem: page.problem,
-                options: page.options
+                problem: problem,
+                options: options
             },
             success: function () {
                 wx.navigateTo({
@@ -115,8 +129,13 @@ Page({
 //     key: "user_info",
 //     data: {
 //         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
-//         data: { level: "0", exp: "12", items: [0, 0, 0, 0, 1] },
-//         update_time: {}
+//         data: { level: 0, exp: 12, items: [0, 0, 0, 0, 1] },
+//         update_time: {},
+//         word_tag: {
+//             completed: [{ field: 0, wordId: "" }],
+//             mistaken: [{ field: 0, wordId: "" }],
+//             collected: [{ field: 0, wordId: "" }]
+//         }
 //     }
 // })
 
@@ -182,21 +201,21 @@ function resetPage(this_pointer) {
             break;
         }
     }
-    let word_index = random_index;
-    page.problem = temp;//全局同步
+    listId = random_index;
+    problem = temp;//全局同步
 
     //更新选项
     temp = [];
-    let right = word_list[word_index];
+    let right = word_list[listId];
     if (word_list.length < 4) {
-        Update();
+        //更新单词
     }
     //已选中
     let got = [];
     //随机挑选选项
     for (let i = 0; i < 3;) {
         random_index = Math.floor(Math.random() * word_list.length);
-        if (random_index != word_index && allDifferent(random_index, got)) {//不冲突
+        if (random_index != listId && allDifferent(random_index, got)) {//不冲突
             //temp[i++]=word_list[randomIndex];
             temp[i] = (word_list[random_index]);
             got[i] = random_index;
@@ -222,11 +241,11 @@ function resetPage(this_pointer) {
         true_option = 3;
     }
     //console.log(temp);
-    page.options = temp;//全局同步
+    options = temp;//全局同步
     //页面同步
     this_pointer.setData({
-        problem: page.problem,
-        options: page.options,
+        problem: problem,
+        options: options,
         selected: false,//刷新状态
         correct: false,
         hover_class: ['', '', '', '']
