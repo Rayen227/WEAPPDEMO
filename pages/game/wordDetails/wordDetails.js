@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    word: {}
   },
 
   /**
@@ -13,6 +13,15 @@ Page({
    */
   onLoad: function (options) {
     console.log(options);
+    let that = this;
+    wx.getStorage({
+      key: "gamePage",
+      success: function (res) {
+        that.setData({
+          word: res.data.options[options.item]
+        });
+      }
+    })
   },
 
   /**

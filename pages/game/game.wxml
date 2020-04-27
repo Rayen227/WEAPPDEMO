@@ -1,33 +1,32 @@
+<!-- <text class="" selectable="false" space="false" decode="false">{{problem.en}}</text>
+<button data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[0].ch}}
+</button>
+<button data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[1].ch}}
+</button>
+<button data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[2].ch}}
+</button>
+<button data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
+    {{options[3].ch}}
+</button> -->
+<!-- pages/game1/game1.wxml -->
 <!-- 问题 -->
-<!-- problem 引入方式？ -->
-<view class="question">{{problem}}</view>
+<view class="question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
 <!-- 选项 -->
 <view class="answer">
-    <!-- 使用 selected 判断？ -->
-    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
-        1{{options[0]}}
+    <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" class="options {{hover_class[0]}}">
+        {{problem.power % 2 ? options[0].ch : options[0].en}}
     </view>
-    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
-        2{{options[1]}}
+    <view data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" class="options {{hover_class[1]}}">
+        {{problem.power % 2 ? options[1].ch : options[1].en}}
     </view>
-    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
-        3{{options[2]}}
+    <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" class="options {{hover_class[2]}}">
+        {{problem.power % 2 ? options[2].ch : options[2].en}}
     </view>
-    <view class="options" hover-class="{{ correct? answer-hover-true : answer-hover-false}}">
-        4{{options[3]}}
+    <view data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" class="options {{hover_class[3]}}">
+        {{problem.power % 2 ? options[3].ch : options[3].en}}
     </view>
 </view>
-<!-- <view class="background">
-<view class="page">
-    <view class="menu" hover-class="menu-hover">菜单</view>
-    <view class="q-a">
-        使用图片？
-        <view class="question">{{problem}}问题</view>
-        选项待改，由js 控制选中后的效果
-        使用图片？
-        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
-        <view class="butt" hover-class="butt-hover-true">{{options}} 选项</view>
-        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
-        <view class="butt" hover-class="butt-hover-false">{{options}} 选项</view>
-    </view>
-</view> -->
+<view class="prompt"></view>
