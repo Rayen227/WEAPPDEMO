@@ -1,7 +1,7 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let user = require('../../utils/User.js');
 
+var user_info = {};
 var word_list = [];
 var true_option = 0;
 var my_option = 0;
@@ -40,19 +40,24 @@ Page({
     selectHandle: function (event) {
         my_option = event.currentTarget.dataset.id;
         // console.log("selectHandle");
+        var tmp = ['', '', '', ''];
         if (my_option == true_option) {
             //选对啦
             console.log(true);
+            tmp[my_option] = 'answer-hover-true';
             this.setData({
                 correct: true,
-                selected: true
+                selected: true,
+                hover_class: tmp
             });
         } else {
             // ... 
             console.log(false);
+            tmp[my_option] = 'answer-hover-false';
             this.setData({
                 correct: false,
-                selected: true
+                selected: true,
+                hover_class: tmp
             });
         }
     },
@@ -75,6 +80,9 @@ Page({
     },
     resetHandle: function () {
         resetPage(this);
+    },
+    backToMenuHandle: function () {
+
     }
 });
 
@@ -131,6 +139,10 @@ Page({
 //     ]
 // })
 
+
+function upGrade(this_pointer) {
+    wx.setStorage("user_info")
+}
 
 function allDifferent(item, array) {
     for (let i = 0; i < array.length; i++) {

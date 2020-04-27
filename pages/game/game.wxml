@@ -11,3 +11,4 @@
 <button data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
     {{options[3].ch}}
 </button>
+<button wx:if="{{selected}}" bindtap="resetHandle" type="primary">下一题</button>
