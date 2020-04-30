@@ -15,14 +15,11 @@ Page({
     bindGetUserInfo: function (e) {
         if (e.detail.userInfo) {
             var tmp = e.detail.userInfo;
-            console.log(e.detail.userInfo);
-            console.log(tmp);
             wechat.callFunction("getOpenId").then(res => {
-                var openid = sha.SHA1(res.result.openId);
+                var openid = res.result.openId;
                 var user_info = {
                     nickname: tmp.nickName,
                     avatarUrl: tmp.avatarUrl,
-                    openid: openid,
                     data: { level: 0, exp: 0, items: [] },
                     update_time: time.getTime(),
                     word_tag: {
@@ -30,19 +27,44 @@ Page({
                         mistaken: [],
                         collected: []
                     }
-                }
-                console.log(user_info);
-                return wechat.setStorage("user_info", user_info)
-            }, err => { }).then(res => {
-                // return wechat.callFunction("push", { key: "users", data: user_info })
-                db.collection("users")
-            }, err => { }).then(res => {
-                return wechat.setStorage("word_list", []);
-            }, err => { }).then(res => {
-                wx.switchTab({
-                    url: '../index/index'
+                };
+
+                db.collection("users").add({
+                    data: user_info,
+                    success: function () {
+                        db.collection("users").where({ _openid: openid }).get({
+                            success: function (res) {
+                                // console.log(res.data[0]);
+                                user_info = {
+                                    _id: res.data[0]._id,
+                                    _openid: openid,
+                                    nickname: tmp.nickName,
+                                    avatarUrl: tmp.avatarUrl,
+                                    data: { level: 0, exp: 0, items: [] },
+                                    update_time: time.getTime(),
+                                    word_tag: {
+                                        completed: [],
+                                        mistaken: [],
+                                        collected: []
+                                    }
+                                };
+                                wx.setStorage({
+                                    key: "user_info",
+                                    data: user_info,
+                                    success: function () {
+                                        wx.redirectTo({
+                                            url: '../index/index'
+                                        });
+
+                                    }
+                                })
+                            }
+                        })
+                    }
                 })
-            }, err => { });
+            })
+
+
 
 
 

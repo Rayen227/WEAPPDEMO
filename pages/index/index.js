@@ -3,47 +3,52 @@ let time = require('../../utils/time.js');
 const db = wx.cloud.database();
 var user_info = {};
 Page({
-    data: {},
+    data: {
+        avatarUrl: ''
+    },
     onLoad: function () {
+        var that = this;
+        var flag = 1;
         wechat.getSetting().then(res => {
             if (!res.authSetting['scope.userInfo']) {
                 wx.navigateTo({
                     url: '../login/login'
-                })
+                });
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
             user_info = res.data;
-            return wechat.callFunction("pull", {
-                key: "users",
-                where: { openid: user_info.basic.openid }
+            return wechat.callFunction("getUser", { _id: user_info._id });
+
+        }, err => {//若玩家清除了数据缓存
+            flag = 0;
+            return wechat.callFunction("getUser", { _id: user_info._id });
+        }).then(res => {
+            var cloud = res.result.data;
+            if (flag && time.compare(user_info.update_time, cloud.update_time)) {//缓存更新时间较晚
+                //更新数据库
+                user_info.update_time = time.getTime();
+                db.collection("users").doc(user_info._id).update({
+                    data: user_info
+                });
+            }
+            else {//数据库更新时间较晚
+                //跟新缓存
+                cloud.update_time = time.getTime();
+                wx.setStorage({
+                    key: "user_info",
+                    data: cloud
+                });
+            }
+        }, err => { }).then(empty => {
+            that.setData({
+                avatarUrl: user_info.avatarUrl
             });
-        }, err => { }).then(res => {
-            // user_info = time.compare(user_info.update_time, res.result.data.update_time) ? user_info : res.result.data;
-            console.log(res.result);
-            user_info.update_time = time.getTime();
-            return wechat.setStorage("user_info", user_info);
-        }, err => { console.log("!callFunction ERROR: ", err); }).then(res => {
-            return wechat.callFunction("push", {
-                key: "users",
-                where: { openid: user_info.basic.openid },
-                data: user_info
-            });
-        }, err => { console.log("!callFunction ERROR: ", err); })
+        })
     },
     startGameHandle: function () {
         wx.redirectTo({
             url: '../game/game'
-        })
+        });
     }
 });
-
-
-// wechat.callFunction("pull", {
-//     key: "users",
-//     where: {
-//         openid: "155a72dc45b86fc324b9649a89b59d717164fc7f"
-//     }
-// }).then(res => {
-//     console.log("测试结果：", res.result.data[0]);
-// }, err => { })

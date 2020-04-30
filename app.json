@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/login/login",
     "pages/game/game",
     "pages/game/wordDetails/wordDetails",
-    "pages/index/index",
     "pages/miniSpace/miniSpace"
   ],
   "window": {
@@ -11,18 +11,6 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "主页"
-      },
-      {
-        "pagePath": "pages/miniSpace/miniSpace",
-        "text": "小空间"
-      }
-    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
