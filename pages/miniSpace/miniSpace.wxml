@@ -1,0 +1,5 @@
+<view class="container" style="position: relative">
+    <button catchtouchmove="buttonMove" catchtouchstart="buttonStart" catchtouchend="buttonEnd" style="position: absolute;top:{{buttonTop}}px;left:{{buttonLeft}}px;width: 100px;height: 40px">
+        item
+    </button>
+</view>
