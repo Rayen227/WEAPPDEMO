@@ -2,6 +2,7 @@ let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 const db = wx.cloud.database();
 var user_info = {};
+//还未设计完item表...
 Page({
     data: {
         avatarUrl: ''
@@ -18,29 +19,45 @@ Page({
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
             user_info = res.data;
+            // console.log(user_info);
             return wechat.callFunction("getUser", { _id: user_info._id });
-
         }, err => {//若玩家清除了数据缓存
             flag = 0;
             return wechat.callFunction("getUser", { _id: user_info._id });
         }).then(res => {
+
             var cloud = res.result.data;
-            if (flag && time.compare(user_info.update_time, cloud.update_time)) {//缓存更新时间较晚
+            if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
                 user_info.update_time = time.getTime();
+                var tmp = {
+                    avatarUrl: user_info.avatarUrl,
+                    data: user_info.data,
+                    nickname: user_info.nickname,
+                    update_time: user_info.update_time,
+                    word_tag: user_info.word_tag
+                };
+                console.log(tmp);
                 db.collection("users").doc(user_info._id).update({
-                    data: user_info
+                    data: tmp,
+                    success: function () {
+                        console.log("更新成功");
+                    },
+                    fail: function (err) {
+                        console.log("更新失败: ", err);
+                    }
                 });
             }
             else {//数据库更新时间较晚
-                //跟新缓存
+                //更新缓存
                 cloud.update_time = time.getTime();
                 wx.setStorage({
                     key: "user_info",
                     data: cloud
                 });
             }
-        }, err => { }).then(empty => {
+        }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
+
             that.setData({
                 avatarUrl: user_info.avatarUrl
             });

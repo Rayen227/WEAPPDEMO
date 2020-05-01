@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/miniSpace/miniSpace",
-    "pages/login/login",
     "pages/index/index",
+    "pages/login/login",
+    "pages/miniSpace/miniSpace",
     "pages/game/game",
     "pages/game/wordDetails/wordDetails"
   ],

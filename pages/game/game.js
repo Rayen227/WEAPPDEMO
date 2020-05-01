@@ -250,6 +250,6 @@ function resetPage(this_pointer) {
         correct: false,
         hover_class: ['', '', '', '']
     });
-
-
 }
+
+

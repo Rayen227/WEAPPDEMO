@@ -30,7 +30,6 @@ Page({
         startPoint = endPoint;
         var buttonTop = this.data.buttonTop + translateY;
         var buttonLeft = this.data.buttonLeft + translateX;
-
         this.setData({
             buttonTop: buttonTop,
             buttonLeft: buttonLeft
