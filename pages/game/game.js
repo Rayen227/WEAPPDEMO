@@ -1,5 +1,6 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
+let item_list = require('../../utils/items.js');
 
 var user_info = {};
 var word_list = [];
@@ -8,6 +9,7 @@ var true_option = 0;
 var my_option = 0;
 var problem = {};
 var options = [];
+var count = 0;
 
 Page({
     data: {
@@ -45,6 +47,10 @@ Page({
         if (my_option == true_option) {
             //选对啦
             word.power--;
+            count += Math.floor(Math.random() * 2);
+            if (count >= 10) {
+                var item = drawItem();
+            }
             word.last_view_time = time.getTime().timestamp;
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
@@ -158,11 +164,6 @@ Page({
 //     ]
 // })
 
-
-function upGrade(this_pointer) {
-    wx.setStorage("user_info")
-}
-
 function allDifferent(item, array) {
     for (let i = 0; i < array.length; i++) {
         if (item == array[i])
@@ -250,6 +251,17 @@ function resetPage(this_pointer) {
         correct: false,
         hover_class: ['', '', '', '']
     });
+}
+
+
+//抽取碎片
+function drawItem() {
+    var tmp = [];
+    for (var i = 0; ; i++) {
+
+    }
+    var randomIndex = random(0, item.length);
+    return item[randomIndex];
 }
 
 

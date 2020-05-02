@@ -2,7 +2,6 @@ let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 const db = wx.cloud.database();
 var user_info = {};
-//还未设计完item表...
 Page({
     data: {
         avatarUrl: ''
@@ -25,7 +24,6 @@ Page({
             flag = 0;
             return wechat.callFunction("getUser", { _id: user_info._id });
         }).then(res => {
-
             var cloud = res.result.data;
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
