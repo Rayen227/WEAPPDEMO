@@ -1,0 +1,119 @@
+/* /pages/game3/game3.wxss */
+/* page {
+  margin: 0;
+  padding: 0;
+  background-color: cornflowerblue;
+}
+
+.top {
+  margin-top: -100;
+  width: 100%;
+  background-color: chartreuse;
+}
+.head {
+  float: left;
+  margin-top: 20rpx;
+  width: 30rpx;
+  height: 30rpx;
+  background-color: brown;
+}
+
+.setup {
+  float: right;
+  margin-top: 20rpx;
+  width: 30rpx;
+  height: 30rpx;
+  background-color: brown;
+}
+
+.logo {
+  margin-top: 100rpx;
+  margin-right: -150rpx;
+  width: 300rpx;
+  height: 100rpx;
+  background-color: blueviolet;
+}
+
+.rank {
+  margin: 100rpx auto;
+  width: 300rpx;
+  height: 100rpx;
+  background-color: crimson;
+} */
+
+page {
+  margin: 0;
+  padding: 0;
+  background-color: cornflowerblue;
+}
+
+/* .top {
+  position: relative;
+  box-sizing: border-box;
+  padding: 10rpx;
+  width: 100%;
+  background-color: coral;
+}*/
+/* .top::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+} */ 
+
+.head {
+  box-sizing: border-box;
+  margin: 80rpx auto;
+  width: 160rpx;
+  height: 160rpx;
+  background-color: crimson;
+}
+
+.setup {
+  position: absolute;
+  box-sizing: border-box;
+  right: 10rpx;
+  top: 10rpx;
+  width: 90rpx;
+  height: 90rpx;
+  background-color: crimson;
+}
+
+.rank {
+  margin: 70rpx auto;
+  width: 80%;
+  height: 300rpx;
+  background-color: darkgoldenrod;
+}
+
+.game {
+  margin: 80rpx auto;
+  width: 400rpx;
+  height: 130rpx;
+  background-color: darkgoldenrod;
+  text-align: center;
+  font-size: 62rpx;
+  font-weight: 900;
+  line-height: 130rpx;
+}
+
+.room {
+  margin: 80rpx auto;
+  width: 400rpx;
+  height: 130rpx;
+  background-color: darkgoldenrod;
+  text-align: center;
+  font-size: 62rpx;
+  font-weight: 900;
+  line-height: 130rpx;
+}
+
+.mistake {
+  position: absolute;
+  left: 20rpx;
+  bottom: 20rpx;
+  width: 150rpx;
+  height: 150rpx;
+  background-color: bisque;
+}
