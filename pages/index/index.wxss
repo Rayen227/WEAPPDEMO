@@ -64,11 +64,21 @@ page {
 
 .head {
   box-sizing: border-box;
-  margin: 80rpx auto;
+  /* margin: 60rpx auto; */
+  margin-block-start: 100rpx;
+  margin-inline-start: 100rpx;
   width: 160rpx;
   height: 160rpx;
-  background-color: crimson;
+  border-radius: 80rpx;
 }
+
+.head image {
+  box-sizing: border-box;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+}
+
 
 .setup {
   position: absolute;

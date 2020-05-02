@@ -3,6 +3,6 @@
 </view>
 <view class="setup">2</view>
 <view class="rank">排名</view>
-<view class="game">开始</view>
-<view class="room">空间</view>
+<view class="game" bind:tap="startGameHandle">开始</view>
+<view class="room" bind:tap="toMiniSpaceHandle">空间</view>
 <view class="mistake"></view>

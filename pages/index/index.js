@@ -18,6 +18,9 @@ Page({
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
             user_info = res.data;
+            that.setData({
+                avatarUrl: user_info.avatarUrl
+            });
             // console.log(user_info);
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存
@@ -56,14 +59,17 @@ Page({
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
 
-            that.setData({
-                avatarUrl: user_info.avatarUrl
-            });
+
         })
     },
     startGameHandle: function () {
         wx.redirectTo({
             url: '../game/game'
+        });
+    },
+    toMiniSpaceHandle: function () {
+        wx.redirectTo({
+            url: '../miniSpace/miniSpace'
         });
     }
 });
