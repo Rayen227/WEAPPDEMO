@@ -5,6 +5,29 @@ page {
     
 }
 
+/* 提问区的小盒子的样式的开始 by cjq */
+.box {
+  position: absolute;
+  left: 225rpx;
+  right: 150rpx;
+  bottom: 35rpx;
+  height: 120rpx;
+  width: 300rpx;
+  background-color: yellow;
+}
+
+.box2 {
+  position: absolute;
+  left: 225rpx;
+  right: 150rpx;
+  bottom: 35rpx;
+  height: 120rpx;
+  width: 300rpx;
+  background-color: transparent;
+}
+
+/* 提问区的小盒子的样式的结束 by cjq */
+
 .question {
     box-sizing:border-box;
     margin:100rpx auto;
@@ -17,18 +40,29 @@ page {
     color: black;
     text-shadow: 1rpx 1rpx gray;
     line-height: 240rpx;
+    text-align: center;
 }
 
 .answer {
-    box-sizing:border-box;
-    margin: 10rpx auto;
+    box-sizing: border-box;
+    margin: 0 auto;
     width: 680rpx;
-    background-color: slateblue;
+    /* 待删 */
+    background-color: slateblue; 
     font-size: 48rpx;
     /* font-weight: bold; */
     text-shadow: 3rpx 3rpx grey;
     line-height: 200rpx;
     text-align: center;
+}
+
+/* 清除浮动 */
+.answer:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 
 .answer .options {
@@ -66,6 +100,21 @@ page {
     text-shadow: 3rpx 3rpx hotpink;
     color: red;
     background-color: hotpink;
+}
+
+/* .box {
+    margin: 50rpx auto;
+    width: 300rpx;
+    height: 100rpx;
+    background-color: aquamarine;
+    font-size: 72rpx;
+    font-weight: 1000;
+    text-align: center;
+    line-height: 100rpx;
+} */
+
+.next-hover {
+    background-color: brown;
 }
 
 
