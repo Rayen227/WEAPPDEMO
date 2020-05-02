@@ -1,7 +1,7 @@
 {
-  "pages": [
+  "pages": ["pages/index/index",
     "pages/login/login",
-    "pages/index/index",
+    
     "pages/definition/definition",
     "pages/game1/game1",
     "pages/game/game",

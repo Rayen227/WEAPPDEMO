@@ -64,9 +64,11 @@ page {
 
 .head {
   box-sizing: border-box;
-  margin: 80rpx auto;
+  margin: 60rpx auto;
+  margin-bottom: 10rpx;
   width: 160rpx;
   height: 160rpx;
+  border-radius: 80rpx;
   background-color: crimson;
 }
 
