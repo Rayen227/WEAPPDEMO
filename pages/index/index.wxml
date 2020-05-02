@@ -1,4 +1,6 @@
-<view class="head">1</view>
+<view class="head">
+    <image src="{{avatarUrl}}" />
+</view>
 <view class="setup">2</view>
 <view class="rank">排名</view>
 <view class="game">开始</view>

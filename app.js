@@ -14,7 +14,15 @@ Array.prototype.insert = function (index, item) {
 };
 
 Array.prototype.remove = function (index) {
-	this.splice(index, 1);
+  this.splice(index, 1);
 };
+
+Array.prototype.add = function (item) {
+  this.splice(this.length, 0, item);
+};
+
+function random(lower, upper) {
+  return Math.floor(Math.random() * (upper - lower)) + lower;
+}
 
 

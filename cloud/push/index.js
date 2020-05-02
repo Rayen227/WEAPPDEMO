@@ -7,7 +7,8 @@ cloud.init()
 exports.main = async (event, context) => {
 
   return await cloud.database().collection(event.key).add({
-    data: event.data
+    data: event.data,
+    success: console.log, fail: console.error
   })
   // const wxContext = cloud.getWXContext()
 

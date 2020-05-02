@@ -16,35 +16,22 @@
 <view class="question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
 <!-- 选项 -->
 <view class="answer">
-    <view data-id="0" 
-    bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}"
-     animation="{{correct?animationData0: animationWrongData0}}"
-      class="options {{hover_class[0]}}">
+    <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{correct?animationData0: animationWrongData0}}" class="options {{hover_class[0]}}">
         {{problem.power % 2 ? options[0].ch : options[0].en}}
     </view>
-    <view data-id="1"
-     bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}"
-      animation="{{selected&&correct?animationData1:animationWrongData1}}"
-       class="options {{hover_class[1]}}">
+    <view data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{selected&&correct?animationData1:animationWrongData1}}" class="options {{hover_class[1]}}">
         {{problem.power % 2 ? options[1].ch : options[1].en}}
     </view>
-    <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}"
-     animation="{{selected&&correct?animationData2:animationWrongData2}}"
-      class="options {{hover_class[2]}}">
+    <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{selected&&correct?animationData2:animationWrongData2}}" class="options {{hover_class[2]}}">
         {{problem.power % 2 ? options[2].ch : options[2].en}}
     </view>
-    <view data-id="3" 
-    bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" 
-    animation="{{selected&&correct?animationData3:animationWrongData3}}"
-     class="options {{hover_class[3]}}">
+    <view data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{selected&&correct?animationData3:animationWrongData3}}" class="options {{hover_class[3]}}">
         {{problem.power % 2 ? options[3].ch : options[3].en}}
     </view>
 </view>
 <!-- 一个提示下一题的小盒子的开始 -->
-<view class="{{ selected?'box':'box2' }}" animation="{{ animationNextPage }}" hover-class="next-hover" bindtap="resetHandle" >
-{{ tips }}
-</view> 
-
-
+<view class="{{ selected?'box':'box2' }}" animation="{{ animationNextPage }}" hover-class="next-hover" bindtap="resetHandle">
+    {{ tips }}
+</view>
 <!-- 一个提示下一题的小盒子的结束 -->
 <!-- <view class="next" hover-class="next-hover" wx:if="{{selected}}" bindtap="resetHandle">下一题</view> -->
