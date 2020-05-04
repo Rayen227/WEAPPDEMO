@@ -58,9 +58,7 @@ Page({
                 });
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
-
-
-        })
+        });
     },
     startGameHandle: function () {
         wx.redirectTo({

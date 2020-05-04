@@ -55,150 +55,149 @@ Page({
     },
     selectHandle: function (event) {
         // 动画效果的开始
-        //   var animation = wx.createAnimation({
-        //       duration: 200,
-        //       timingFunction:'linear',
-        //   })
-        //   animation.translateY(-100).step(1);
-        //   animation.translateY(0).step(2);
-        //   // 动画效果的结束
-        //   my_option = event.currentTarget.dataset.id;
-        //   let word = word_list[listId];
-        //   // console.log("selectHandle");
-        //   var tmp = ['', '', '', ''];
-        //   if (my_option == true_option) {
-        //       //选对啦
-        //       word.power--;
-        //       count += Math.floor(Math.random() * 2);
-        //       if (count >= 10) {
-        //           var item = drawItem();
-        //       }
-        //       word.last_view_time = time.getTime().timestamp;
-        //       if (word.power <= 0) {//权小于零则移除缓存记录
-        //           word_list.remove(listId);
-        //       }
-        //       console.log(true);
-        //       tmp[my_option] = 'answer-hover-true';
-        //       this.setData({
-        //           correct: true,
-        //           selected: true,
-        //           hover_class: tmp
-        //       });
-        //       // 选对了的跳动样式的开始
-        //       if(my_option == 0) {
-        //         this.setData({
-        //           animationData0: animation
-        //         })
-        //       }
-        //       else if(my_option == 1) {
-        //         this.setData({
-        //           animationData1 : animation
-        //         })
-        //       }
-        //       else if (my_option == 2) {
-        //         this.setData({
-        //           animationData2: animation
-        //         })
-        //       }
-        //       else if (my_option == 3) {
-        //         this.setData({
-        //           animationData3: animation
-        //         })
-        //       }
-        //     // 选对了的跳动样式的结束
+        var animation = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'linear',
+        })
+        animation.translateY(-100).step(1);
+        animation.translateY(0).step(2);
+        // 动画效果的结束
+        my_option = event.currentTarget.dataset.id;
+        let word = word_list[listId];
+        // console.log("selectHandle");
+        var tmp = ['', '', '', ''];
+        if (my_option == true_option) {
+            //选对啦
+            word.power--;
+            count += Math.floor(Math.random() * 2);
+            if (count >= 10) {
+                var item = drawItem();
+            }
+            word.last_view_time = time.getTime().timestamp;
+            if (word.power <= 0) {//权小于零则移除缓存记录
+                word_list.remove(listId);
+            }
+            console.log(true);
+            tmp[my_option] = 'answer-hover-true';
+            this.setData({
+                correct: true,
+                selected: true,
+                hover_class: tmp
+            });
+            // 选对了的跳动样式的开始
+            if (my_option == 0) {
+                this.setData({
+                    animationData0: animation
+                })
+            }
+            else if (my_option == 1) {
+                this.setData({
+                    animationData1: animation
+                })
+            }
+            else if (my_option == 2) {
+                this.setData({
+                    animationData2: animation
+                })
+            }
+            else if (my_option == 3) {
+                this.setData({
+                    animationData3: animation
+                })
+            }
+            // 选对了的跳动样式的结束
 
-        //     // 选对了的旁边提示栏部分动画的开始
-        //    var animationBottom1  = wx.createAnimation({
-        //      duration:20,
-        //      timingFunction:'linear'
-        //    })
-        //    animationBottom1.translateY(-60).step(1),
-        //    animationBottom1.translateY(5).step(2),
-        //    this.setData({
-        //      animationNextPage: animationBottom1,
-        //      word:"选对了"
-        //    })
+            // 选对了的旁边提示栏部分动画的开始
+            var animationBottom1 = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
+            animationBottom1.translateY(-60).step(1),
+                animationBottom1.translateY(5).step(2),
+                this.setData({
+                    animationNextPage: animationBottom1,
+                    word: "选对了"
+                })
 
-        //   // 选对了的旁边提示栏部分的结束
-        //   } else {
-        //       // 选错了
+            // 选对了的旁边提示栏部分的结束
+        } else {
+            // 选错了
 
-        //       word.power += word.power < 3 ? 1 : 0;//权上限为3
-        //       //加入错题本
-        //       let mistaken = user_info.word_tag.mistaken;
-        //       mistaken.insert(mistaken.length, { field: user_info.data.level, wordId: word._id });
-        //       console.log(false);
-        //       tmp[my_option] = 'answer-hover-false';
-        //       this.setData({
-        //           correct: false,
-        //           selected: true,
-        //           hover_class: tmp
-        //       });
-        //   // 选错了的跳动样式的开始
-        //        var animation2 = wx.createAnimation({
-        //           duration:50,
-        //           timingFunction:'linear'
-        //         })
-        //           animation2.translateX(-10).step(1);
-        //           animation2.translateX(0).step(2);
-        //           animation2.translateX(10).step(3);
-        //           animation2.translateX(0).step(4);
-        //           if(my_option == 0) {
-        //             this.setData({
-        //               animationWrongData0: animation2
-        //             })
-        //           }
-        //           else if(my_option == 1) {
-        //             this.setData({
-        //               animationWrongData1: animation2
-        //             })
-        //           }
-        //           else if (my_option == 2) {
-        //             this.setData({
-        //               animationWrongData2: animation2
-        //             })
-        //           }
-        //           else if (my_option == 3) {
-        //             this.setData({
-        //               animationWrongData3: animation2
-        //             })
-        //           }
-        //   // 选错了的跳动样式的结束
+            word.power += word.power < 3 ? 1 : 0;//权上限为3
+            //加入错题本
+            let mistaken = user_info.word_tag.mistaken;
+            mistaken.insert(mistaken.length, { field: user_info.data.level, wordId: word._id });
+            console.log(false);
+            tmp[my_option] = 'answer-hover-false';
+            this.setData({
+                correct: false,
+                selected: true,
+                hover_class: tmp
+            });
+            // 选错了的跳动样式的开始
+            var animation2 = wx.createAnimation({
+                duration: 50,
+                timingFunction: 'linear'
+            })
+            animation2.translateX(-10).step(1);
+            animation2.translateX(0).step(2);
+            animation2.translateX(10).step(3);
+            animation2.translateX(0).step(4);
+            if (my_option == 0) {
+                this.setData({
+                    animationWrongData0: animation2
+                })
+            }
+            else if (my_option == 1) {
+                this.setData({
+                    animationWrongData1: animation2
+                })
+            }
+            else if (my_option == 2) {
+                this.setData({
+                    animationWrongData2: animation2
+                })
+            }
+            else if (my_option == 3) {
+                this.setData({
+                    animationWrongData3: animation2
+                })
+            }
+            // 选错了的跳动样式的结束
 
-        //   // 选错了的提示部分的开始
-        //     var animationBottom2 = wx.createAnimation({
-        //       duration: 20,
-        //       timingFunction: 'linear'
-        //     })
+            // 选错了的提示部分的开始
+            var animationBottom2 = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
 
-        //       animationBottom2.translateY(-60).step(1),
-        //       animationBottom2.translateY(5).step(2),
-        //       this.setData({
-        //         animationNextPage: animationBottom2,
-        //         word: "选错了"
-        //       })
-
-
-        //   // 选错了的提示部分的结束
+            animationBottom2.translateY(-60).step(1),
+                animationBottom2.translateY(5).step(2),
+                this.setData({
+                    animationNextPage: animationBottom2,
+                    word: "选错了"
+                })
 
 
-        //   }
-        //   // 重新把animation清空
-        //  this.setData({
-        //   animationNextPage: {},
-        //   animationData3:{},
-        //   animationData2:{},
-        //   animationData1:{},
-        //   animationData0:{},
-        //   animationWrongData0:{},
-        //   animationWrongData1:{},
-        //   animationWrongData2:{},
-        //   animationWrongData3:{},
-        //  })
-        //}//更新缓存
-        // wechat.setStorage("word_list", word_list).then(res => {
-        //     return wechat.setStorage("user_info", user_info);
-        // }, err => { })
+            // 选错了的提示部分的结束
+
+
+        }
+        // 重新把animation清空
+        this.setData({
+            animationNextPage: {},
+            animationData3: {},
+            animationData2: {},
+            animationData1: {},
+            animationData0: {},
+            animationWrongData0: {},
+            animationWrongData1: {},
+            animationWrongData2: {},
+            animationWrongData3: {},
+        });
+        wechat.setStorage("word_list", word_list).then(res => {
+            return wechat.setStorage("user_info", user_info);
+        }, err => { });
     },
 
 
