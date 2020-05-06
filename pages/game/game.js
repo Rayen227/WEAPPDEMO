@@ -10,31 +10,76 @@ var my_option = 0;
 var problem = {};
 var options = [];
 var count = 0;
+var startPoint = 0;
+var oldTop;
+var oldLeft;
 
 Page({
     data: {
+        gameType: 1,
         problem: {},
         options: [],
         // 要用到的动画参数的开始
-        animationData0: {},
-        animationData1: {},
-        animationData2: {},
-        animationData3: {},
-        animationNextPage: {},
-        animationWrongData0: {},
-        animationWrongData1: {},
-        animationWrongData2: {},
-        animationWrongData3: {},
-        // 要用到的动画参数的结束
+        animation: [],
+        nextPageAnimation: {},
         hover_class: ['', '', '', ''],
         selected: false,
         correct: false,
         // tips只用于demo版的
-        tips: ""
-        // 所以才特地圈起来，有了图之后可以删掉
+        tips: "",
+        problemTop: [35, 35, 35, 35],
+        problemLeft: [25, 100, 175, 250],
+        curTop: [500, 500, 500, 500],
+        curLeft: [25, 100, 175, 250],
+        letter: ['e', 'p', 'n', 'a']
+    },
+    moveStart: function (e) {
+        // console.log(e.touches);
+        var index = e.currentTarget.dataset.id;
+        // console.log(index);
+        startPoint = e.touches[0];
+    },
+    moving: function (e) {
+        var index = e.currentTarget.dataset.index;
+        var endPoint = e.touches[e.touches.length - 1];
+        // console.log(startPoint.undefined);
+        // console.log(startPoint[index]);
+        var translateX = endPoint.clientX - startPoint.clientX;
+        var translateY = endPoint.clientY - startPoint.clientY;
+        startPoint = endPoint;
+        // console.log(startPoint[index]);
+        // console.log(curTop);
+        var curTop = this.data.curTop[index] + translateY;
+        var curLeft = this.data.curLeft[index] + translateX;
+        var tmpTop = this.data.curTop;
+        tmpTop[index] = curTop;
+        var tmpLeft = this.data.curLeft;
+        tmpLeft[index] = curLeft;
+        this.setData({
+            curTop: tmpTop,
+            curLeft: tmpLeft
+        });
+    },
+    moveEnd: function (e) {//最终定位
+        // console.log(actPts);
+        var index = e.currentTarget.dataset.index;
+        // console.log(e.currentTarget);
+        // console.log(oldTop);
+        var endLeft = e.currentTarget.offsetLeft;
+        var endTop = e.currentTarget.offsetTop;
+        var tmpLeft = oldLeft;
+        var tmpTop = oldTop;
+
+        this.setData({
+            curTop: [500, 500, 500, 500],
+            curLeft: [25, 100, 175, 250],
+        })
+
     },
     onLoad: function () {
         var that = this;
+        oldLeft = this.data.curLeft;
+        oldTop = this.data.curTop;
         wechat.getStorage("word_list").then(res => {
             word_list = res.data;
             // console.log(word_list);
@@ -58,7 +103,7 @@ Page({
         var animation = wx.createAnimation({
             duration: 200,
             timingFunction: 'linear',
-        })
+        });
         animation.translateY(-100).step(1);
         animation.translateY(0).step(2);
         // 动画效果的结束
@@ -87,35 +132,35 @@ Page({
             // 选对了的跳动样式的开始
             if (my_option == 0) {
                 this.setData({
-                    animationData0: animation
+                    animation: [animation, null, null, null]
                 })
             }
             else if (my_option == 1) {
                 this.setData({
-                    animationData1: animation
+                    animation: [null, animation, null, null]
                 })
             }
             else if (my_option == 2) {
                 this.setData({
-                    animationData2: animation
+                    animation: [null, null, animation, null]
                 })
             }
             else if (my_option == 3) {
                 this.setData({
-                    animationData3: animation
+                    animation: [null, null, null, animation]
                 })
             }
             // 选对了的跳动样式的结束
 
             // 选对了的旁边提示栏部分动画的开始
-            var animationBottom1 = wx.createAnimation({
+            var nextPageAnimation = wx.createAnimation({
                 duration: 20,
                 timingFunction: 'linear'
             })
-            animationBottom1.translateY(-60).step(1),
-                animationBottom1.translateY(5).step(2),
+            nextPageAnimation.translateY(-60).step(1),
+                nextPageAnimation.translateY(5).step(2),
                 this.setData({
-                    animationNextPage: animationBottom1,
+                    nextPageAnimation: nextPageAnimation,
                     word: "选对了"
                 })
 
@@ -145,36 +190,36 @@ Page({
             animation2.translateX(0).step(4);
             if (my_option == 0) {
                 this.setData({
-                    animationWrongData0: animation2
+                    animation: [animation2, null, null, null]
                 })
             }
             else if (my_option == 1) {
                 this.setData({
-                    animationWrongData1: animation2
+                    animation: [null, animation2, null, null]
                 })
             }
             else if (my_option == 2) {
                 this.setData({
-                    animationWrongData2: animation2
+                    animation: [null, null, animation2, null]
                 })
             }
             else if (my_option == 3) {
                 this.setData({
-                    animationWrongData3: animation2
+                    animation: [null, null, null, animation2]
                 })
             }
             // 选错了的跳动样式的结束
 
             // 选错了的提示部分的开始
-            var animationBottom2 = wx.createAnimation({
+            var nextPageAnimation = wx.createAnimation({
                 duration: 20,
                 timingFunction: 'linear'
             })
 
-            animationBottom2.translateY(-60).step(1),
-                animationBottom2.translateY(5).step(2),
+            nextPageAnimation.translateY(-60).step(1),
+                nextPageAnimation.translateY(5).step(2),
                 this.setData({
-                    animationNextPage: animationBottom2,
+                    nextPageAnimation: nextPageAnimation,
                     word: "选错了"
                 })
 
@@ -185,15 +230,7 @@ Page({
         }
         // 重新把animation清空
         this.setData({
-            animationNextPage: {},
-            animationData3: {},
-            animationData2: {},
-            animationData1: {},
-            animationData0: {},
-            animationWrongData0: {},
-            animationWrongData1: {},
-            animationWrongData2: {},
-            animationWrongData3: {},
+            animation: []
         });
         wechat.setStorage("word_list", word_list).then(res => {
             return wechat.setStorage("user_info", user_info);
@@ -227,29 +264,6 @@ Page({
 
     }
 });
-
-// let sha = require('../../utils/HASH_SHA1');
-
-
-
-
-
-//演示代码
-//console.log(sha);
-
-
-// wx.cloud.callFunction({
-//     name: "getOpenId",
-//     success: function (res) {
-//         console.log("openid: ", res.result.openId);
-//         var sec = sha.SHA1(res.result.openId);
-//         console.log("openid sha1加密结果: ", sec);
-//     }
-// })
-
-// let User = require('../../utils/User');
-
-// console.log(User);
 
 
 // 测试代码
@@ -293,23 +307,6 @@ function allDifferent(item, array) {
     }
     return true;
 }
-
-// function asyncInit() {
-//     wechat.getStorage("word_list").then(res => {
-//         var word_list = res.data;
-//         // console.log(word_list);
-//         if (word_list.length < 4) {//缓存中单词数量不足
-//             return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
-//                 //console.log(res.result.data);
-//                 word_list = res.result.data;//DEBUG ONLY
-//                 return wechat.setStorage("word_list", word_list);//同时写入缓存
-//             }, err => { console.log("!callFunction:pull, ERROR: ", err) });
-//         }
-//     }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
-//         word_list = word_list;//同步至全局对象word
-//         console.log(this);
-//     });
-// }
 
 function resetPage(this_pointer) {
     var temp = {};

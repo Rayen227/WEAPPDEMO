@@ -117,4 +117,12 @@ page {
     background-color: brown;
 }
 
+.letter{
+    border: 1px solid #000;
+}
 
+.problem-block{
+    width: 80rpx;
+    height: 60rpx;
+    background-color: #fff;
+}

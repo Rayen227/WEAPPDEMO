@@ -1,10 +1,10 @@
 {
   "pages": [
+    "pages/game/game",
+    "pages/game1/game1",
     "pages/index/index",
     "pages/login/login",
     "pages/definition/definition",
-    "pages/game1/game1",
-    "pages/game/game",
     "pages/game/wordDetails/wordDetails",
     "pages/miniSpace/miniSpace"
   ],

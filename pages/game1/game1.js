@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
+    a: {
 
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    for (var i = 0; i < 3; i++) {
+      this.data.a['a' + i] = i + 3;
+    }
+    console.log(this.data);
   },
 
   /**
