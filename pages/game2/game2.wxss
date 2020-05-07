@@ -1,0 +1,46 @@
+/* pages/game2/game2.wxss */
+page {
+    margin: 0;
+    padding: 0;
+}
+
+.question {
+    box-sizing: border-box;
+    margin: 40rpx 40rpx;
+    padding-top: 1rpx;
+    height: 300rpx;
+    background-color: darkgoldenrod;
+    text-align: center;
+}
+
+/* .word {
+    margin: 100rpx auto;
+    height: 100rpx;
+    border-bottom: 2rpx  solid #ccc;
+}
+
+.word:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+} */
+
+.letter {
+    display: inline-block;
+    /* float: left; */
+    margin: 10rpx;
+    font-size: 42rpx;
+    font-weight: 700;
+    line-height: 300rpx;
+}
+
+.prompt {
+    float: right;
+    margin-top: 20rpx;
+    margin-right: 50rpx;
+    width: 500rpx;
+    height: 300rpx;
+    background-color: khaki;
+}

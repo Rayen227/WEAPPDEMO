@@ -1,5 +1,17 @@
-<view class="container" style="position: relative">
-    <button type="primary" catchtouchmove="buttonMove" catchtouchstart="buttonStart" catchtouchend="buttonEnd" style="position: absolute;top:{{buttonTop}}px;left:{{buttonLeft}}px;width: 100px;height: 40px">
-        item
-    </button>
+<view class="menu">
+    <view class="setup">1</view>
+    <view class="screenshot">2</view>
+</view>
+<view class="list">
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
 </view>
