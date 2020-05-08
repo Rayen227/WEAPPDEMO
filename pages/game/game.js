@@ -9,14 +9,15 @@ var true_option = 0;
 var my_option = 0;
 var problem = {};
 var options = [];
+var letters = [];
 var count = 0;
 var startPoint = 0;
-var oldTop;
-var oldLeft;
+var oldLeft = [25, 100, 175, 250];
+var oldTop = [500, 500, 500, 500];
 
 Page({
     data: {
-        gameType: 1,
+        gameType: 0,
         problem: {},
         options: [],
         // 要用到的动画参数的开始
@@ -51,9 +52,9 @@ Page({
         // console.log(curTop);
         var curTop = this.data.curTop[index] + translateY;
         var curLeft = this.data.curLeft[index] + translateX;
-        var tmpTop = this.data.curTop;
+        let tmpTop = this.data.curTop;
         tmpTop[index] = curTop;
-        var tmpLeft = this.data.curLeft;
+        let tmpLeft = this.data.curLeft;
         tmpLeft[index] = curLeft;
         this.setData({
             curTop: tmpTop,
@@ -62,24 +63,49 @@ Page({
     },
     moveEnd: function (e) {//最终定位
         // console.log(actPts);
+        var suc = false;
         var index = e.currentTarget.dataset.index;
         // console.log(e.currentTarget);
         // console.log(oldTop);
         var endLeft = e.currentTarget.offsetLeft;
         var endTop = e.currentTarget.offsetTop;
-        var tmpLeft = oldLeft;
-        var tmpTop = oldTop;
-
-        this.setData({
-            curTop: [500, 500, 500, 500],
-            curLeft: [25, 100, 175, 250],
-        })
+        var proLeft = this.data.problemLeft;
+        var proTop = this.data.problemTop;
+        var boxIndex;
+        // let tmpLeft = oldLeft;
+        // let tmpTop = oldTop;
+        // var curLeft = this.data.curLeft;
+        // var curTop = this.data.curTop;
+        // console.log(oldLeft.length);
+        // console.log(oldLeft);
+        for (var i = 0; i < oldLeft.length; i++) {
+            if (endLeft >= proLeft[i] - 25 && endLeft <= proLeft[i] + 25 && endTop >= proTop[i] - 50 && endTop <= proTop[i] + 50) {
+                this.data.curLeft[index] = proLeft[i];
+                this.data.curTop[index] = proTop[i];
+                this.setData({
+                    curTop: this.data.curTop,
+                    curLeft: this.data.curLeft,
+                });
+                boxIndex = i;
+                suc = true;
+                break;
+            }
+        }
+        if (!suc) {
+            this.data.curLeft[index] = oldLeft[index];
+            this.data.curTop[index] = oldTop[index];
+            this.setData({
+                curTop: this.data.curTop,
+                curLeft: this.data.curLeft
+            });
+        }
+        else {
+            console.log("判断对错");
+        }
 
     },
     onLoad: function () {
         var that = this;
-        oldLeft = this.data.curLeft;
-        oldTop = this.data.curTop;
         wechat.getStorage("word_list").then(res => {
             word_list = res.data;
             // console.log(word_list);
@@ -96,6 +122,8 @@ Page({
             return wechat.getStorage("user_info");
         }).then(res => {//获取用户信息
             user_info = res.data;
+            // console.log(getWord());
+            getLeters(3);
         }, err => { });
     },
     selectHandle: function (event) {
@@ -237,10 +265,7 @@ Page({
         }, err => { });
     },
 
-
-
     showDetailsHandle: function (event) {
-
         // console.log("showDetailesHandle");
         let that = this;
         wx.setStorage({
@@ -258,47 +283,28 @@ Page({
 
     },
     resetHandle: function () {
-        resetPage(this);
+        if (!this.data.gameType) {
+            resetPage(this);
+            this.setData({
+                gameType: 1
+            });
+        }
+        else {
+            console.log(1);
+            getLeters(2);
+            // console.log(letters);
+            this.setData({
+                letter: letters,
+                gameType: 0
+            });
+            console.log(this.data.letter);
+        }
+
     },
     backToMenuHandle: function () {
 
     }
 });
-
-
-// 测试代码
-// wx.setStorage({
-//     key: "user_info",
-//     data: {
-//         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
-//         data: { level: 0, exp: 12, items: [0, 0, 0, 0, 1] },
-//         update_time: {},
-//         word_tag: {
-//             completed: [{ field: 0, wordId: "" }],
-//             mistaken: [{ field: 0, wordId: "" }],
-//             collected: [{ field: 0, wordId: "" }]
-//         }
-//     }
-// })
-
-// wx.setStorage({
-//   key: "word_list",
-//   data: [
-//     { "_id": "cloud-word-apple", "power": 1.0, "last_view_time": 3600.0, "en": "apple", "ch": "n.苹果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-banana", "power": 2.0, "last_view_time": 3600.0, "en": "banana", "ch": "n.香蕉;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-carambola", "power": 2.0, "last_view_time": 3600.0, "en": "carambola", "ch": "n.杨桃;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-durian", "power": 2.0, "last_view_time": 3600.0, "en": "durian", "ch": "n.榴莲;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-grape", "power": 2.0, "last_view_time": 3600.0, "en": "grape", "ch": "n.葡萄;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-mango", "power": 2.0, "last_view_time": 3600.0, "en": "mango", "ch": "n.芒果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-mangosteen", "power": 2.0, "last_view_time": 3600.0, "en": "mangosteen", "ch": "n.山竹;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-orange", "power": 2.0, "last_view_time": 3600.0, "en": "orange", "ch": "n.橙子;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pear", "power": 2.0, "last_view_time": 3600.0, "en": "pear", "ch": "n.梨;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pineapple", "power": 2.0, "last_view_time": 3600.0, "en": "pineapple", "ch": "n.菠萝;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pitaya", "power": 2.0, "last_view_time": 3600.0, "en": "pitaya", "ch": "n.火龙果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-strawberry", "power": 2.0, "last_view_time": 3600.0, "en": "strawberry", "ch": "n.草莓;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
-//   ]
-// })
 
 function allDifferent(item, array) {
     for (let i = 0; i < array.length; i++) {
@@ -382,3 +388,92 @@ function drawItem() {
     var randomIndex = random(0, item.length);
     return item[randomIndex];
 }
+
+
+function getLeters(n) {
+    var words = [];
+    var tmp = {};
+    for (var i = 0; i < n;) {
+        tmp = getWord();
+        // console.log(tmp);
+        // console.log(1);
+        if (tmp && words.includes(tmp.en)) {
+            words[i++] = tmp.en;
+        }
+
+    }
+    // console.log(words);
+    // console.log(words);
+    letters = split(words);
+    // console.log(letters);
+}
+
+function split(words) {
+    var tmp = [];
+    var k = 0;
+    for (var i = 0; i < words.length; i++) {
+        // console.log(i);
+        // console.log(words);
+        for (var j = 0; j < words[i].length; j++) {
+            // console.log(j);
+            if (!tmp.includes(words[i][j]) && words[i][j]) {
+                tmp[k++] = words[i][j];
+                // console.log(tmp);
+            }
+        }
+    }
+    return tmp;
+}
+function getWord() {
+    var temp = {};
+    for (let i = 0; i < 30; i++) {
+        //获取随机数下标,保证随机数范围在[0, word_list.length)内
+        var random_index = Math.floor(Math.random() * word_list.length);
+        //console.log(random);
+        temp = word_list[random_index];
+        //优先挑选10分钟内未遇到过的,且已经错过一次以上的单词
+        if (temp.last_view_time >= 10 * 60 && temp.power >= 3) {
+            break;
+        }
+    }
+    // console.log(word_list);
+    return temp;
+}
+
+
+
+
+
+// 测试代码
+// wx.setStorage({
+//     key: "user_info",
+//     data: {
+//         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
+//         data: { level: 0, exp: 12, items: [0, 0, 0, 0, 1] },
+//         update_time: {},
+//         word_tag: {
+//             completed: [{ field: 0, wordId: "" }],
+//             mistaken: [{ field: 0, wordId: "" }],
+//             collected: [{ field: 0, wordId: "" }]
+//         }
+//     }
+// })
+
+// wx.setStorage({
+//   key: "word_list",
+//   data: [
+//     { "_id": "cloud-word-apple", "power": 1.0, "last_view_time": 3600.0, "en": "apple", "ch": "n.苹果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-banana", "power": 2.0, "last_view_time": 3600.0, "en": "banana", "ch": "n.香蕉;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-carambola", "power": 2.0, "last_view_time": 3600.0, "en": "carambola", "ch": "n.杨桃;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-durian", "power": 2.0, "last_view_time": 3600.0, "en": "durian", "ch": "n.榴莲;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-grape", "power": 2.0, "last_view_time": 3600.0, "en": "grape", "ch": "n.葡萄;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-mango", "power": 2.0, "last_view_time": 3600.0, "en": "mango", "ch": "n.芒果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-mangosteen", "power": 2.0, "last_view_time": 3600.0, "en": "mangosteen", "ch": "n.山竹;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-orange", "power": 2.0, "last_view_time": 3600.0, "en": "orange", "ch": "n.橙子;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pear", "power": 2.0, "last_view_time": 3600.0, "en": "pear", "ch": "n.梨;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pineapple", "power": 2.0, "last_view_time": 3600.0, "en": "pineapple", "ch": "n.菠萝;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pitaya", "power": 2.0, "last_view_time": 3600.0, "en": "pitaya", "ch": "n.火龙果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-strawberry", "power": 2.0, "last_view_time": 3600.0, "en": "strawberry", "ch": "n.草莓;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
+//   ]
+// })

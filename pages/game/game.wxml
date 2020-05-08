@@ -54,3 +54,4 @@
         n
     </view> -->
 </view>
+<button bindtap="resetHandle">test</button>
