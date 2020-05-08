@@ -4,6 +4,12 @@ page {
   background-color: cornflowerblue;
 }
 
+.font {
+  font-family: 'FZSJ-MUJHXYJX';
+  font-size: 62rpx;
+  font-weight: 900;
+}
+
 .head {
   box-sizing: border-box;
   margin: 80rpx auto -40rpx;
@@ -24,11 +30,11 @@ page {
 .setup {
   position: absolute;
   box-sizing: border-box;
-  right: 10rpx;
+  right: 22rpx;
   top: 10rpx;
-  width: 90rpx;
-  height: 90rpx;
-  background-color: crimson;
+  /* width: 50rpx; */
+  /* height: 90rpx; */
+  /* background-color: crimson; */
 }
 
 .rank {
@@ -44,8 +50,6 @@ page {
   height: 130rpx;
   background-color: darkgoldenrod;
   text-align: center;
-  font-size: 62rpx;
-  font-weight: 900;
   line-height: 130rpx;
 }
 
@@ -55,8 +59,6 @@ page {
   height: 130rpx;
   background-color: darkgoldenrod;
   text-align: center;
-  font-size: 62rpx;
-  font-weight: 900;
   line-height: 130rpx;
 }
 

@@ -2,12 +2,12 @@
 <!-- <view class="" hover-class="none" hover-stop-propagation="false">{{word.ch}}</view> -->
 <!-- pages/definition/definition.wxml -->
 <!-- 单词 -->
-<view class="word">
+<view class="font word">
     <view>Strawberry :</view>
     <view>草莓</view>
     <view></view>
 </view>
-<view class="example">
+<view class="font example">
     <view>草莓应该种在向阳的场地。</view>
     <view>Strawberries should have a sunny place</view>
     <view>草莓应该种在向阳的场地。</view>
@@ -15,4 +15,4 @@
     <view>草莓应该种在向阳的场地。</view>
     <view>Strawberries should have a sunny place</view>
 </view>
-<view class="back">返回</view>
+<view class="font back">返回</view>

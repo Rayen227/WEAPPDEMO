@@ -1,21 +1,9 @@
-<!-- <text class="" selectable="false" space="false" decode="false">{{problem.en}}</text>
-<button data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
-    {{options[0].ch}}
-</button>
-<button data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
-    {{options[1].ch}}
-</button>
-<button data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
-    {{options[2].ch}}
-</button>
-<button data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}">
-    {{options[3].ch}}
-</button> -->
 <!-- pages/game1/game1.wxml -->
+<view class="setup iconfont .icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
 <!-- 问题 -->
-<view class="question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
+<view class="font question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
 <!-- 选项 -->
-<view class="answer">
+<view class="font answer">
     <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{correct?animationData0: animationWrongData0}}" class="options {{hover_class[0]}}">
         {{problem.power % 2 ? options[0].ch : options[0].en}}
     </view>

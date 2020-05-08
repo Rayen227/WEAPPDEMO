@@ -1,13 +1,14 @@
 {
-  "pages": [
+  "pages": [ "pages/game/wordDetails/wordDetails",
+    "pages/miniSpace/miniSpace",
     "pages/game2/game2",
     "pages/index/index",
     "pages/login/login",
     "pages/definition/definition",
     "pages/game1/game1",
-    "pages/game/game",
-    "pages/game/wordDetails/wordDetails",
-    "pages/miniSpace/miniSpace"
+    "pages/game/game"
+   
+    
   ],
   "window": {
     "backgroundTextStyle": "dark",

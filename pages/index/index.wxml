@@ -1,8 +1,8 @@
 <view class="head">
     <image src="{{avatarUrl}}" />
 </view>
-<view class="setup">2</view>
-<view class="rank">排名</view>
-<view class="game" bind:tap="startGameHandle">开始</view>
-<view class="room" bind:tap="toMiniSpaceHandle">空间</view>
+<view class="setup iconfont .icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
+<view class="rank font">排名</view>
+<view class="game font" bind:tap="startGameHandle">开始</view>
+<view class="room font" bind:tap="toMiniSpaceHandle">空间</view>
 <view class="mistake"></view>

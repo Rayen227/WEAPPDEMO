@@ -2,10 +2,12 @@ page {
   margin: 0;
   padding: 0;
 }
+
 .background { 
   z-index: -1;
   background-color: lawngreen;
 }
+
 .background image {
   display: inline-block;
   margin-bottom: 130rpx;
@@ -21,18 +23,19 @@ page {
   top: 150rpx;
   /* background-color: cornflowerblue; */
 }
+
 .setup {
   margin: 20rpx;
   width: 80rpx;
   height: 80rpx;
-  background-color: cyan;
+  /* color: brown; */
 }
 
 .screenshot {
   margin: 20rpx;
   width: 80rpx;
   height: 80rpx;
-  background-color: cyan;
+  /* color: brown; */
 }
 
 .list{

@@ -1,6 +1,6 @@
 <view class="menu">
-    <view class="setup">1</view>
-    <view class="screenshot">2</view>
+    <view class="setup iconfont .icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
+    <view class="screenshot iconfont .icon-jiandaoxuanzhong"></view>
 </view>
 <view class="list">
     <view class="classify">分类1</view>
