@@ -1,24 +1,19 @@
-/* pages/wordDetails/wordDetails.wxss */
-/* pages/definition/definition.wxss */
 page {
   background-color: skyblue;
   margin: 0;
   padding: 0;
 }
-
-.font {
-  font-family: 'FZSJ-MUJHXYJX';
-  font-size: 62rpx;
-  /* font-weight: 900; */
+/* 静音后 */
+.select {
+  color: #1eff00;
 }
-
+/* 单词 */
 .word{
-  margin-top: 30rpx;
   width: 100%;
   height: 300rpx;
   background-color: palegoldenrod;
 }
-
+/* 单词--英文 */
 .word view:nth-child(1){
   padding-left: 40rpx;
   font-size: 60rpx;
@@ -26,7 +21,7 @@ page {
   line-height: 110rpx;
   background-color: honeydew;
 }
-
+/* 单词--中文 */
 .word view:nth-child(2) {
   padding-left: 50rpx;
   font-size: 40rpx;
@@ -36,15 +31,20 @@ page {
   background-color: khaki;
 }
 
-.word view:nth-child(3) {
+.play {
+  margin-left: 50rpx;
+  line-height: 100rpx;
+  color: brown;
+}
+/* .word view:nth-child(3) {
   margin-left: 40rpx;
   margin-top: 30rpx;
   width: 30rpx;
   height: 30rpx;
   font-size: 20rpx;
-  line-height: 100rpx;
+  
   background-color: greenyellow;
-}
+} */
 
 .example {
   margin-top: 40rpx;

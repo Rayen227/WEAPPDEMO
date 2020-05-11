@@ -4,18 +4,6 @@ page {
     padding: 0;
 }
 
-.font {
-    font-family: 'FZSJ-MUJHXYJX';
-    font-size: 62rpx;
-    font-weight: 900;
-}
-
-.setup{
-    position: fixed;
-    right: 22rpx;
-    top: 10rpx;
-}
-
 /* 提问区的小盒子的样式的开始 by cjq */
 .box {
   position: absolute;
@@ -128,4 +116,12 @@ page {
     background-color: brown;
 }
 
+.letter{
+    border: 1px solid #000;
+}
 
+.problem-block{
+    width: 80rpx;
+    height: 60rpx;
+    background-color: #fff;
+}

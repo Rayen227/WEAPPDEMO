@@ -8,3 +8,4 @@
     <view class="options" hover-class="answer-hover-false">Strawberry3</view>
     <view class="options" hover-class="answer-hover-false">Strawberry4</view>
 </view>
+<!-- <view wx:for="{{a}}" wx:for-index="key" wx:for-item="value">{{value}}</view> -->
