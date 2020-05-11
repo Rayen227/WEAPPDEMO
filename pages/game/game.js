@@ -7,26 +7,24 @@ var word_list = [];
 var listId = 0;
 var true_option = 0;
 var my_option = 0;
+var count = 0;
 var problem = {};
 var options = [];
 var letters = [];
-var count = 0;
 var startPoint = 0;
-var oldLeft = [25, 100, 175, 250];
 var oldTop = [500, 500, 500, 500];
+var oldLeft = [25, 100, 175, 250];
 
 Page({
     data: {
-        gameType: 0,
+        gameType: 1,
         problem: {},
         options: [],
-        // 要用到的动画参数的开始
         animation: [],
         nextPageAnimation: {},
         hover_class: ['', '', '', ''],
         selected: false,
         correct: false,
-        // tips只用于demo版的
         tips: "",
         problemTop: [35, 35, 35, 35],
         problemLeft: [25, 100, 175, 250],
@@ -34,12 +32,14 @@ Page({
         curLeft: [25, 100, 175, 250],
         letter: ['e', 'p', 'n', 'a']
     },
+
     moveStart: function (e) {
         // console.log(e.touches);
         var index = e.currentTarget.dataset.id;
         // console.log(index);
         startPoint = e.touches[0];
     },
+
     moving: function (e) {
         var index = e.currentTarget.dataset.index;
         var endPoint = e.touches[e.touches.length - 1];
@@ -52,57 +52,52 @@ Page({
         // console.log(curTop);
         var curTop = this.data.curTop[index] + translateY;
         var curLeft = this.data.curLeft[index] + translateX;
-        let tmpTop = this.data.curTop;
+        var tmpTop = this.data.curTop;
         tmpTop[index] = curTop;
-        let tmpLeft = this.data.curLeft;
+        var tmpLeft = this.data.curLeft;
         tmpLeft[index] = curLeft;
         this.setData({
             curTop: tmpTop,
             curLeft: tmpLeft
         });
     },
+
     moveEnd: function (e) {//最终定位
-        // console.log(actPts);
         var suc = false;
         var index = e.currentTarget.dataset.index;
-        // console.log(e.currentTarget);
-        // console.log(oldTop);
         var endLeft = e.currentTarget.offsetLeft;
         var endTop = e.currentTarget.offsetTop;
         var proLeft = this.data.problemLeft;
         var proTop = this.data.problemTop;
         var boxIndex;
-        // let tmpLeft = oldLeft;
-        // let tmpTop = oldTop;
-        // var curLeft = this.data.curLeft;
-        // var curTop = this.data.curTop;
-        // console.log(oldLeft.length);
-        // console.log(oldLeft);
         for (var i = 0; i < oldLeft.length; i++) {
             if (endLeft >= proLeft[i] - 25 && endLeft <= proLeft[i] + 25 && endTop >= proTop[i] - 50 && endTop <= proTop[i] + 50) {
                 this.data.curLeft[index] = proLeft[i];
                 this.data.curTop[index] = proTop[i];
                 this.setData({
                     curTop: this.data.curTop,
-                    curLeft: this.data.curLeft,
+                    curLeft: this.data.curLeft
                 });
                 boxIndex = i;
                 suc = true;
                 break;
             }
         }
-        if (!suc) {
+        if (!suc) {//没有放在正确的位置
             this.data.curLeft[index] = oldLeft[index];
             this.data.curTop[index] = oldTop[index];
+            // console.log(oldLeft, oldTop);
+            // console.log(this.data.curLeft, this.data.curTop);
             this.setData({
                 curTop: this.data.curTop,
                 curLeft: this.data.curLeft
             });
+            console.log(oldLeft);
         }
-        else {
-            console.log("判断对错");
-        }
+        else {//放在了正确的位置
+            // console.log("判断对错");
 
+        }
     },
     onLoad: function () {
         var that = this;
@@ -110,29 +105,37 @@ Page({
             word_list = res.data;
             // console.log(word_list);
             if (word_list.length < 4) {//缓存中单词数量不足
-                return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
+                wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
                     //console.log(res.result.data);
                     word_list = res.result.data;//DEBUG ONLY
                     return wechat.setStorage("word_list", word_list);//同时写入缓存
                 }, err => { console.log("!callFunction:pull, ERROR: ", err) });
             }
             // console.log(word_list);
-        }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
+        }, err => {
+            // console.log("err");
+            wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
+                //console.log(res.result.data);
+                word_list = res.result.data;//DEBUG ONLY
+                resetPage(that);
+                // console.log(word_list);
+                return wechat.setStorage("word_list", word_list);//同时写入缓存
+            }, err => { console.log("!callFunction:pull, ERROR: ", err) });
+        }).then(empty => {
             resetPage(that);
             return wechat.getStorage("user_info");
         }).then(res => {//获取用户信息
             user_info = res.data;
-            // console.log(getWord());
-            getLeters(3);
         }, err => { });
     },
+
     selectHandle: function (event) {
         // 动画效果的开始
         var animation = wx.createAnimation({
-            duration: 200,
+            duration: 100,
             timingFunction: 'linear',
         });
-        animation.translateY(-100).step(1);
+        animation.translateY(-20).step(1);
         animation.translateY(0).step(2);
         // 动画效果的结束
         my_option = event.currentTarget.dataset.id;
@@ -212,9 +215,9 @@ Page({
                 duration: 50,
                 timingFunction: 'linear'
             })
-            animation2.translateX(-10).step(1);
+            animation2.translateX(-15).step(1);
             animation2.translateX(0).step(2);
-            animation2.translateX(10).step(3);
+            animation2.translateX(15).step(3);
             animation2.translateX(0).step(4);
             if (my_option == 0) {
                 this.setData({
@@ -265,6 +268,21 @@ Page({
         }, err => { });
     },
 
+
+    // test的开始
+    containerTap: function (res) {
+        var that = this
+        var x = res.touches[0].pageX;
+        var y = res.touches[0].pageY + 85;
+        this.setData({
+            rippleStyle: ''
+        });
+        setTimeout(function () {
+            that.setData({
+                rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+            });
+        }, 200)
+    },
     showDetailsHandle: function (event) {
         // console.log("showDetailesHandle");
         let that = this;
@@ -290,16 +308,23 @@ Page({
             });
         }
         else {
-            console.log(1);
-            getLeters(2);
-            // console.log(letters);
+            getLeters(2);//获取单词
+            //定位
+            for (var i = 4; i < letters.length; i++) {//前四位已确定
+                oldLeft[i] = oldLeft[i % 4];
+                oldTop[i] = oldTop[i % 4] + Math.floor(i / 4) * 150;
+            }
+            console.log(oldLeft);
             this.setData({
                 letter: letters,
+                curLeft: oldLeft,
+                curTop: oldTop,
                 gameType: 0
             });
-            console.log(this.data.letter);
+            // console.log(oldLeft);
+            // console.log(this.data.letter, oldTop, oldLeft);
         }
-
+        resetPage(this);
     },
     backToMenuHandle: function () {
 
@@ -315,9 +340,9 @@ function allDifferent(item, array) {
 }
 
 function resetPage(this_pointer) {
+    // console.log(word_list);
     var temp = {};
     for (let i = 0; i < 30; i++) {
-
         //获取随机数下标,保证随机数范围在[0, word_list.length)内
         var random_index = Math.floor(Math.random() * word_list.length);
         //console.log(random);
@@ -329,7 +354,6 @@ function resetPage(this_pointer) {
     }
     listId = random_index;
     problem = temp;//全局同步
-
     //更新选项
     temp = [];
     let right = word_list[listId];
@@ -352,7 +376,6 @@ function resetPage(this_pointer) {
     }
     //随机插入正确答案
     let random = Math.random();
-
     if (random >= 0 && random < 0.25) {
         temp.insert(0, right);
         true_option = 0;
@@ -389,55 +412,34 @@ function drawItem() {
     return item[randomIndex];
 }
 
-
 function getLeters(n) {
     var words = [];
     var tmp = {};
     for (var i = 0; i < n;) {
         tmp = getWord();
-        // console.log(tmp);
-        // console.log(1);
-        if (tmp && words.includes(tmp.en)) {
+        if (tmp && !words.includes(tmp.en)) {
             words[i++] = tmp.en;
         }
-
     }
-    // console.log(words);
-    // console.log(words);
     letters = split(words);
-    // console.log(letters);
 }
 
 function split(words) {
     var tmp = [];
     var k = 0;
     for (var i = 0; i < words.length; i++) {
-        // console.log(i);
-        // console.log(words);
         for (var j = 0; j < words[i].length; j++) {
-            // console.log(j);
             if (!tmp.includes(words[i][j]) && words[i][j]) {
                 tmp[k++] = words[i][j];
-                // console.log(tmp);
             }
         }
     }
     return tmp;
 }
+
 function getWord() {
-    var temp = {};
-    for (let i = 0; i < 30; i++) {
-        //获取随机数下标,保证随机数范围在[0, word_list.length)内
-        var random_index = Math.floor(Math.random() * word_list.length);
-        //console.log(random);
-        temp = word_list[random_index];
-        //优先挑选10分钟内未遇到过的,且已经错过一次以上的单词
-        if (temp.last_view_time >= 10 * 60 && temp.power >= 3) {
-            break;
-        }
-    }
-    // console.log(word_list);
-    return temp;
+    var random_index = Math.floor(Math.random() * word_list.length)
+    return word_list[random_index];
 }
 
 

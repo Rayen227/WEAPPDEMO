@@ -20,9 +20,6 @@ Array.prototype.remove = function (index) {
 Array.prototype.add = function (item) {
   this.splice(this.length, 0, item);
 };
-
 function random(lower, upper) {
   return Math.floor(Math.random() * (upper - lower)) + lower;
 }
-
-

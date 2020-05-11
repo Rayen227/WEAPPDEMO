@@ -13,7 +13,7 @@
 </button> -->
 <!-- pages/game1/game1.wxml -->
 <!-- 问题 -->
-<view wx:if="{{!gameType}}">
+<view wx:if="{{gameType}}">
     <view class="question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
     <!-- 选项 -->
     <view class="answer">
@@ -54,4 +54,4 @@
         n
     </view> -->
 </view>
-<button bindtap="resetHandle">test</button>
+<!-- <button bindtap="resetHandle">test</button> -->

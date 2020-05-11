@@ -13,6 +13,7 @@ Page({
     },
 
     bindGetUserInfo: function (e) {
+        var that = this;
         if (e.detail.userInfo) {
             var tmp = e.detail.userInfo;
             wechat.callFunction("getOpenId").then(res => {
@@ -55,7 +56,6 @@ Page({
                                         wx.redirectTo({
                                             url: '../index/index'
                                         });
-
                                     }
                                 })
                             }
@@ -63,7 +63,19 @@ Page({
                     }
                 })
             })
-
+            // db.collection("word_list").get({
+            //     success: function (res) {
+            //         var word_list = res.result.data;
+            //         console.log(word_list);
+            //         that.setData({
+            //             key: "word_list",
+            //             data: word_list
+            //         });
+            //         wx.redirectTo({
+            //             url: '../index/index'
+            //         });
+            //     }
+            // })
 
 
 
