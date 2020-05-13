@@ -101,32 +101,27 @@ Page({
     },
     onLoad: function () {
         var that = this;
-        wechat.getStorage("word_list").then(res => {
+        wechat.getStorage("user_info").then(res => {
+            user_info = res.data;
+            return wechat.getStorage("word_list");
+        }, err => { }).then(res => {
             word_list = res.data;
-            // console.log(word_list);
             if (word_list.length < 4) {//缓存中单词数量不足
-                wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
-                    //console.log(res.result.data);
-                    word_list = res.result.data;//DEBUG ONLY
+                wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
+                    word_list = res.result.data.words;
                     return wechat.setStorage("word_list", word_list);//同时写入缓存
                 }, err => { console.log("!callFunction:pull, ERROR: ", err) });
             }
-            // console.log(word_list);
         }, err => {
-            // console.log("err");
-            wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
-                //console.log(res.result.data);
-                word_list = res.result.data;//DEBUG ONLY
+            wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
+                word_list = res.result.data.words;
+                console.log(word_list);
                 resetPage(that);
-                // console.log(word_list);
                 return wechat.setStorage("word_list", word_list);//同时写入缓存
             }, err => { console.log("!callFunction:pull, ERROR: ", err) });
-        }).then(empty => {
+        }).then(res => {
             resetPage(that);
-            return wechat.getStorage("user_info");
-        }).then(res => {//获取用户信息
-            user_info = res.data;
-        }, err => { });
+        }, err => { console.log(err); })
     },
 
     selectHandle: function (event) {
@@ -478,4 +473,11 @@ function getWord() {
 //     { "_id": "cloud-word-strawberry", "power": 2.0, "last_view_time": 3600.0, "en": "strawberry", "ch": "n.草莓;", "audio": "audioSrc", "image": "imageSrc" },
 //     { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
 //   ]
+// })
+
+
+// wechat.callFunction("getWordDB", { level: 0 }).then(res => {
+//     console.log(res.result.data);
+// }, err => {
+//     console.log("!!!");
 // })
