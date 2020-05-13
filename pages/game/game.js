@@ -121,14 +121,14 @@ Page({
             }, err => { console.log("!callFunction:pull, ERROR: ", err) });
         }).then(res => {
             resetPage(that);
-        }, err => { console.log(err); })
+        }, err => { console.log(err); });
     },
 
     selectHandle: function (event) {
         // 动画效果的开始
         var animation = wx.createAnimation({
             duration: 100,
-            timingFunction: 'linear',
+            timingFunction: 'linear'
         });
         animation.translateY(-20).step(1);
         animation.translateY(0).step(2);
@@ -398,14 +398,14 @@ function resetPage(this_pointer) {
 
 
 //抽取碎片
-// function drawItem() {
-//     var tmp = [];
-//     for (var i = 0; ; i++) {
+function drawItem() {
+    var tmp = [];
+    for (var i = 0; ; i++) {
 
-//     }
-//     var randomIndex = random(0, item.length);
-//     return item[randomIndex];
-// }
+    }
+    var randomIndex = random(0, item.length);
+    return item[randomIndex];
+}
 
 function getLeters(n) {
     var words = [];
