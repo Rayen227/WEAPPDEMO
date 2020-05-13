@@ -1,3 +1,8 @@
+<!--涟漪特效的开始 -->
+<view class="ripple" style="{{rippleStyle}}"></view>
+<view class="container" bindtouchstart='containerTap'>
+
+
 <!-- 音量设置 -->
 <view class="musicSetup" hover-class="select">
     <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
@@ -5,7 +10,11 @@
 <!-- 模式一 -->
 <view wx:if="{{!gameType}}">
     <!-- 问题 -->
-    <view class="font question">{{problem.power % 2 ? problem.en : problem.ch}}</view>
+    <image class="position_up" src="../../images/question_up.png/" />
+    <view class="font question">
+        <image class="position" src="../../images/question_down.png" />
+        {{problem.power % 2 ? problem.en : problem.ch}}
+    </view>
     <!-- 选项 -->
     <view class="font answer">
         <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{animation[0]}}" class="options {{hover_class[0]}}">
@@ -46,3 +55,4 @@
     </view> -->
 </view>
 <!-- <button bindtap="resetHandle">test</button> -->
+</view>

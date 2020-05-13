@@ -4,7 +4,9 @@ const db = wx.cloud.database();
 var user_info = {};
 Page({
     data: {
-        avatarUrl: ''
+        avatarUrl: '',
+        animation1:{},
+        animation2:{}
     },
     onLoad: function () {
         var that = this;
@@ -61,11 +63,30 @@ Page({
         });
     },
     startGameHandle: function () {
+        var animation = wx.createAnimation({
+            duration:200,
+            timingFunction: 'linear'
+            })
+            animation.scale(1.1,1.1).step(1);
+            animation.scale(1,1).step(2);
+            this.setData({
+            animation1:animation
+            })
         wx.redirectTo({
             url: '../game/game'
         });
-    },
+    }, 
+   
     toMiniSpaceHandle: function () {
+        var animation = wx.createAnimation({
+            duration:200,
+            timingFunction: 'linear'
+            })
+            animation.scale(1.1,1.1).step(1);
+            animation.scale(1,1).step(2);
+            this.setData({
+            animation2:animation
+            })
         wx.redirectTo({
             url: '../miniSpace/miniSpace'
         });

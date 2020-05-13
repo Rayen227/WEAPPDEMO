@@ -16,6 +16,7 @@ Page({
     data: {
         problem: {},
         options: [],
+        aniamtion:[],
         hover_class: ['', '', '', ''],
         selected: false,
         correct: false
@@ -56,6 +57,21 @@ Page({
             });
         }
     },
+
+    containerTap: function (res) {
+        var that = this
+        var x = res.touches[0].pageX;
+        var y = res.touches[0].pageY + 85;
+        this.setData({
+        rippleStyle: ''
+        });
+        setTimeout(function () {
+        that.setData({
+        rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+        });
+        }, 200)
+        },
+
     showDetailsHandle: function (event) {
         // console.log("showDetailesHandle");
         let that = this;
@@ -130,6 +146,8 @@ wx.setStorage({
 //         { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
 //     ]
 // })
+
+// 涟漪特效
 
 
 function allDifferent(item, array) {
