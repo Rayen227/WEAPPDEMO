@@ -398,14 +398,14 @@ function resetPage(this_pointer) {
 
 
 //抽取碎片
-function drawItem() {
-    var tmp = [];
-    for (var i = 0; ; i++) {
+// function drawItem() {
+//     var tmp = [];
+//     for (var i = 0; ; i++) {
 
-    }
-    var randomIndex = random(0, item.length);
-    return item[randomIndex];
-}
+//     }
+//     var randomIndex = random(0, item.length);
+//     return item[randomIndex];
+// }
 
 function getLeters(n) {
     var words = [];
