@@ -5,49 +5,166 @@ let user = require('../../utils/User.js');
 var word_list = [];
 var true_option = 0;
 var my_option = 0;
-var page = {
-    problem: {},
-    options: []
-};
-
-
+var count = 0;
+var problem = {};
+var options = [];
+var letters = [];
+var startPoint = 0;
+var oldTop = [500, 500, 500, 500];
+var oldLeft = [25, 100, 175, 250];
 
 Page({
     data: {
+        gameType: 1,
         problem: {},
         options: [],
-        aniamtion:[],
+        animation: [],
+        nextPageAnimation: {},
         hover_class: ['', '', '', ''],
         selected: false,
-        correct: false
+        correct: false,
+        tips: "",
+        problemTop: [35, 35, 35, 35],
+        problemLeft: [25, 100, 175, 250],
+        curTop: [500, 500, 500, 500],
+        curLeft: [25, 100, 175, 250],
+        letter: ['e', 'p', 'n', 'a']
+    },
+
+    moveStart: function (e) {
+        // console.log(e.touches);
+        var index = e.currentTarget.dataset.id;
+        // console.log(index);
+        startPoint = e.touches[0];
+    },
+
+    moving: function (e) {
+        var index = e.currentTarget.dataset.index;
+        var endPoint = e.touches[e.touches.length - 1];
+        // console.log(startPoint.undefined);
+        // console.log(startPoint[index]);
+        var translateX = endPoint.clientX - startPoint.clientX;
+        var translateY = endPoint.clientY - startPoint.clientY;
+        startPoint = endPoint;
+        // console.log(startPoint[index]);
+        // console.log(curTop);
+        var curTop = this.data.curTop[index] + translateY;
+        var curLeft = this.data.curLeft[index] + translateX;
+        var tmpTop = this.data.curTop;
+        tmpTop[index] = curTop;
+        var tmpLeft = this.data.curLeft;
+        tmpLeft[index] = curLeft;
+        this.setData({
+            curTop: tmpTop,
+            curLeft: tmpLeft
+        });
+    },
+
+    moveEnd: function (e) {//最终定位
+        var suc = false;
+        var index = e.currentTarget.dataset.index;
+        var endLeft = e.currentTarget.offsetLeft;
+        var endTop = e.currentTarget.offsetTop;
+        var proLeft = this.data.problemLeft;
+        var proTop = this.data.problemTop;
+        var boxIndex;
+        for (var i = 0; i < oldLeft.length; i++) {
+            if (endLeft >= proLeft[i] - 25 && endLeft <= proLeft[i] + 25 && endTop >= proTop[i] - 50 && endTop <= proTop[i] + 50) {
+                this.data.curLeft[index] = proLeft[i];
+                this.data.curTop[index] = proTop[i];
+                this.setData({
+                    curTop: this.data.curTop,
+                    curLeft: this.data.curLeft
+                });
+                boxIndex = i;
+                suc = true;
+                break;
+            }
+        }
+        if (!suc) {//没有放在正确的位置
+            this.data.curLeft[index] = oldLeft[index];
+            this.data.curTop[index] = oldTop[index];
+            // console.log(oldLeft, oldTop);
+            // console.log(this.data.curLeft, this.data.curTop);
+            this.setData({
+                curTop: this.data.curTop,
+                curLeft: this.data.curLeft
+            });
+            console.log(oldLeft);
+        }
+        else {//放在了正确的位置
+            // console.log("判断对错");
+
+        }
     },
     onLoad: function () {
         var that = this;
-        wechat.getStorage("word_list").then(res => {
+        wechat.getStorage("user_info").then(res => {
+            user_info = res.data;
+            return wechat.getStorage("word_list");
+        }, err => { }).then(res => {
             word_list = res.data;
-            // console.log(word_list);
             if (word_list.length < 4) {//缓存中单词数量不足
-                return wechat.callFunction("pull", { key: "word_list" }).then(res => {//云调用数据库更新
-                    //console.log(res.result.data);
-                    word_list = res.result.data;//DEBUG ONLY
+                wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
+                    word_list = res.result.data.words;
                     return wechat.setStorage("word_list", word_list);//同时写入缓存
                 }, err => { console.log("!callFunction:pull, ERROR: ", err) });
             }
-            // console.log(word_list);
-        }, err => { console.log("!getStorage:word_list, ERROR: ", err) }).then(empty => {
+        }, err => {
+            wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
+                word_list = res.result.data.words;
+                console.log(word_list);
+                resetPage(that);
+                return wechat.setStorage("word_list", word_list);//同时写入缓存
+            }, err => { console.log("!callFunction:pull, ERROR: ", err) });
+        }).then(res => {
             resetPage(that);
-        })
+        }, err => { console.log(err); })
     },
+
     selectHandle: function (event) {
-        my_option = event.currentTarget.dataset.id;
-        // console.log("selectHandle");
-        if (my_option == true_option) {
-            //选对啦
-            console.log(true);
+        //选对啦
+        console.log(true);
+        this.setData({
+            correct: true,
+            selected: true
+        });
+        // 选对了的跳动样式的开始
+        if (my_option == 0) {
             this.setData({
-                correct: true,
-                selected: true
-            });
+                animation: [animation, null, null, null]
+            })
+        }
+        else if (my_option == 1) {
+            this.setData({
+                animation: [null, animation, null, null]
+            })
+        }
+        else if (my_option == 2) {
+            this.setData({
+                animation: [null, null, animation, null]
+            })
+        }
+        else if (my_option == 3) {
+            this.setData({
+                animation: [null, null, null, animation]
+            })
+
+            // 选对了的跳动样式的结束
+
+            // 选对了的旁边提示栏部分动画的开始
+            var nextPageAnimation = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
+            nextPageAnimation.translateY(-60).step(1),
+                nextPageAnimation.translateY(5).step(2),
+                this.setData({
+                    nextPageAnimation: nextPageAnimation,
+                    word: "选对了"
+                })
+
+            // 选对了的旁边提示栏部分的结束
         } else {
             // ... 
             console.log(false);
@@ -55,23 +172,84 @@ Page({
                 correct: false,
                 selected: true
             });
+            // 选错了的跳动样式的开始
+            var animation2 = wx.createAnimation({
+                duration: 50,
+                timingFunction: 'linear'
+            })
+            animation2.translateX(-15).step(1);
+            animation2.translateX(0).step(2);
+            animation2.translateX(15).step(3);
+            animation2.translateX(0).step(4);
+            if (my_option == 0) {
+                this.setData({
+                    animation: [animation2, null, null, null]
+                })
+            }
+            else if (my_option == 1) {
+                this.setData({
+                    animation: [null, animation2, null, null]
+                })
+            }
+            else if (my_option == 2) {
+                this.setData({
+                    animation: [null, null, animation2, null]
+                })
+            }
+            else if (my_option == 3) {
+                this.setData({
+                    animation: [null, null, null, animation2]
+                })
+            }
+            // 选错了的跳动样式的结束
+
+            // 选错了的提示部分的开始
+            var nextPageAnimation = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
+
+            nextPageAnimation.translateY(-60).step(1),
+                nextPageAnimation.translateY(5).step(2),
+                this.setData({
+                    nextPageAnimation: nextPageAnimation,
+                    word: "选错了"
+                })
+
         }
     },
+    // 选错了的提示部分的结束
 
+// 涟漪特效
     containerTap: function (res) {
         var that = this
         var x = res.touches[0].pageX;
         var y = res.touches[0].pageY + 85;
         this.setData({
-        rippleStyle: ''
+            rippleStyle: ''
         });
         setTimeout(function () {
-        that.setData({
-        rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
-        });
+            that.setData({
+                rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+            });
         }, 200)
-        },
+    },
 
+
+    // test的开始
+    containerTap: function (res) {
+        var that = this
+        var x = res.touches[0].pageX;
+        var y = res.touches[0].pageY + 85;
+        this.setData({
+            rippleStyle: ''
+        });
+        setTimeout(function () {
+            that.setData({
+                rippleStyle: 'top:' + y + 'px;left:' + x + 'px;-webkit-animation: ripple 0.4s linear;animation:ripple 0.4s linear;'
+            });
+        }, 200)
+    },
     showDetailsHandle: function (event) {
         // console.log("showDetailesHandle");
         let that = this;
@@ -90,14 +268,33 @@ Page({
 
     },
     resetHandle: function () {
+        if (!this.data.gameType) {
+            resetPage(this);
+            this.setData({
+                gameType: 1
+            });
+        }
+        else {
+            getLeters(2);//获取单词
+            //定位
+            for (var i = 4; i < letters.length; i++) {//前四位已确定
+                oldLeft[i] = oldLeft[i % 4];
+                oldTop[i] = oldTop[i % 4] + Math.floor(i / 4) * 150;
+            }
+            console.log(oldLeft);
+            this.setData({
+                letter: letters,
+                curLeft: oldLeft,
+                curTop: oldTop,
+                gameType: 0
+            });
+            // console.log(oldLeft);
+            // console.log(this.data.letter, oldTop, oldLeft);
+        }
         resetPage(this);
     }
-});
-
-// let sha = require('../../utils/HASH_SHA1');
-
-
-
+})
+// backToMenuHandle: function () {
 
 
 //演示代码
@@ -119,14 +316,14 @@ Page({
 
 
 // 测试代码
-wx.setStorage({
-    key: "user_info",
-    data: {
-        basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
-        data: { level: "0", exp: "12", items: [0, 0, 0, 0, 1] },
-        update_time: {}
-    }
-})
+// wx.setStorage({
+//     key: "user_info",
+//     data: {
+//         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
+//         data: { level: "0", exp: "12", items: [0, 0, 0, 0, 1] },
+//         update_time: {}
+//     }
+// })
 
 // wx.setStorage({
 //     key: "word_list",
@@ -147,7 +344,7 @@ wx.setStorage({
 //     ]
 // })
 
-// 涟漪特效
+
 
 
 function allDifferent(item, array) {
@@ -176,9 +373,9 @@ function allDifferent(item, array) {
 // }
 
 function resetPage(this_pointer) {
+    // console.log(word_list);
     var temp = {};
     for (let i = 0; i < 30; i++) {
-
         //获取随机数下标,保证随机数范围在[0, word_list.length)内
         var random_index = Math.floor(Math.random() * word_list.length);
         //console.log(random);
@@ -188,9 +385,8 @@ function resetPage(this_pointer) {
             break;
         }
     }
-    let word_index = random_index;
-    page.problem = temp;//全局同步
-
+    listId = random_index;
+    problem = temp;//全局同步
     //更新选项
     temp = [];
     let right = word_list[word_index];
@@ -213,7 +409,6 @@ function resetPage(this_pointer) {
     }
     //随机插入正确答案
     let random = Math.random();
-
     if (random >= 0 && random < 0.25) {
         temp.insert(0, right);
         true_option = 0;
@@ -238,3 +433,89 @@ function resetPage(this_pointer) {
         hover_class: ['', '', '', '']
     });
 }
+
+
+//抽取碎片
+function drawItem() {
+    var tmp = [];
+    for (var i = 0; ; i++) {
+
+    }
+    var randomIndex = random(0, item.length);
+    return item[randomIndex];
+}
+
+function getLeters(n) {
+    var words = [];
+    var tmp = {};
+    for (var i = 0; i < n;) {
+        tmp = getWord();
+        if (tmp && !words.includes(tmp.en)) {
+            words[i++] = tmp.en;
+        }
+    }
+    letters = split(words);
+}
+
+function split(words) {
+    var tmp = [];
+    var k = 0;
+    for (var i = 0; i < words.length; i++) {
+        for (var j = 0; j < words[i].length; j++) {
+            if (!tmp.includes(words[i][j]) && words[i][j]) {
+                tmp[k++] = words[i][j];
+            }
+        }
+    }
+    return tmp;
+}
+
+function getWord() {
+    var random_index = Math.floor(Math.random() * word_list.length)
+    return word_list[random_index];
+}
+
+
+
+
+
+// 测试代码
+// wx.setStorage({
+//     key: "user_info",
+//     data: {
+//         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
+//         data: { level: 0, exp: 12, items: [0, 0, 0, 0, 1] },
+//         update_time: {},
+//         word_tag: {
+//             completed: [{ field: 0, wordId: "" }],
+//             mistaken: [{ field: 0, wordId: "" }],
+//             collected: [{ field: 0, wordId: "" }]
+//         }
+//     }
+// })
+
+// wx.setStorage({
+//   key: "word_list",
+//   data: [
+//     { "_id": "cloud-word-apple", "power": 1.0, "last_view_time": 3600.0, "en": "apple", "ch": "n.苹果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-banana", "power": 2.0, "last_view_time": 3600.0, "en": "banana", "ch": "n.香蕉;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-carambola", "power": 2.0, "last_view_time": 3600.0, "en": "carambola", "ch": "n.杨桃;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-durian", "power": 2.0, "last_view_time": 3600.0, "en": "durian", "ch": "n.榴莲;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-grape", "power": 2.0, "last_view_time": 3600.0, "en": "grape", "ch": "n.葡萄;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-mango", "power": 2.0, "last_view_time": 3600.0, "en": "mango", "ch": "n.芒果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-mangosteen", "power": 2.0, "last_view_time": 3600.0, "en": "mangosteen", "ch": "n.山竹;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-orange", "power": 2.0, "last_view_time": 3600.0, "en": "orange", "ch": "n.橙子;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pear", "power": 2.0, "last_view_time": 3600.0, "en": "pear", "ch": "n.梨;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pineapple", "power": 2.0, "last_view_time": 3600.0, "en": "pineapple", "ch": "n.菠萝;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-pitaya", "power": 2.0, "last_view_time": 3600.0, "en": "pitaya", "ch": "n.火龙果;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-strawberry", "power": 2.0, "last_view_time": 3600.0, "en": "strawberry", "ch": "n.草莓;", "audio": "audioSrc", "image": "imageSrc" },
+//     { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
+//   ]
+// })
+
+
+// wechat.callFunction("getWordDB", { level: 0 }).then(res => {
+//     console.log(res.result.data);
+// }, err => {
+//     console.log("!!!");
+// })

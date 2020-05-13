@@ -26,8 +26,11 @@ Page({
             // console.log(user_info);
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存
-            flag = 0;
-            return wechat.callFunction("getUser", { _id: user_info._id });
+            wx.navigateTo({
+                url: '../login/login'
+            });
+            // flag = 0;
+            // return wechat.callFunction("getUser", { _id: user_info._id });
         }).then(res => {
             var cloud = res.result.data;
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
