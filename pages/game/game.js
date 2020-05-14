@@ -263,7 +263,6 @@ Page({
         }, err => { });
     },
 
-
     // test的开始
     containerTap: function (res) {
         var that = this
