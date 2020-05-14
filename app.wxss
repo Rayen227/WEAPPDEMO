@@ -1,3 +1,50 @@
-/**app.wxss**/
+@import "weui.wxss";
 
-/* @import "weui.wxss" */
+/* 字体图标 */
+@import "iconfont.wxss";
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 24px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 字体样式 */
+.font {
+  font-family: 'FZSJ-MUJHXYJX';
+  font-size: 62rpx;
+}
+
+/* 音量按键设置 */
+.musicSetup{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 90rpx;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  /* color: #681752;  暗玉紫 */
+  background-color: lightcoral;
+}
+/* 选中后 */
+    /* 权值问题 */
+.select {
+  color: rgb(94, 255, 0);
+  background-color: lightcyan;
+}
+
+.position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+@font-face {
+  font-family: 'iconfont';
+  src: url("font/iconfont.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
