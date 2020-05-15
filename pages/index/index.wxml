@@ -1,8 +1,16 @@
+<!-- 音量设置 -->
+<view class="musicSetup" hover-class="select">
+    <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
+</view>
+<!-- 头像 --> 
 <view class="head">
     <image src="{{avatarUrl}}" />
 </view>
-<view class="setup">2</view>
-<view class="rank">排名</view>
-<view class="game" bind:tap="startGameHandle">开始</view>
-<view class="room" bind:tap="toMiniSpaceHandle">空间</view>
+<!-- 排名 -->
+<view class="font rank">排名</view>
+<!-- 开始 -->
+<view class="font game" bind:tap="startGameHandle" animation="{{ animation1 }}">开始</view>
+<!-- 空间 -->
+<view class="font room" bind:tap="toMiniSpaceHandle" animation="{{ animation2 }}">空间</view>
+<!-- 错题本 -->
 <view class="mistake"></view>

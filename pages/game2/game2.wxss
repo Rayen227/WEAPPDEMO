@@ -4,9 +4,21 @@ page {
     padding: 0;
 }
 
+.font {
+    font-family: 'FZSJ-MUJHXYJX';
+    font-size: 62rpx;
+    font-weight: 900;
+}
+
+.setup{
+    position: fixed;
+    right: 22rpx;
+    top: 10rpx;
+}
+
 .question {
     box-sizing: border-box;
-    margin: 40rpx 40rpx;
+    margin: 110rpx 40rpx 40rpx;
     padding-top: 1rpx;
     height: 300rpx;
     background-color: darkgoldenrod;
@@ -30,9 +42,9 @@ page {
 .letter {
     display: inline-block;
     /* float: left; */
-    margin: 10rpx;
-    font-size: 42rpx;
-    font-weight: 700;
+    margin: 5rpx;
+    font-size: 90rpx;
+    /* font-weight: bolder; */
     line-height: 300rpx;
 }
 

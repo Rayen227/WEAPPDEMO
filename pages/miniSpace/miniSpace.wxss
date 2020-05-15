@@ -2,40 +2,33 @@ page {
   margin: 0;
   padding: 0;
 }
-.background { 
-  z-index: -1;
-  background-color: lawngreen;
-}
-.background image {
-  display: inline-block;
-  margin-bottom: 130rpx;
-  width: 1680px;
-  height: 1024px;
-  overflow-y: scroll;
-  white-space: nowrap;  
-  z-index: -1;
-}
 
+/* 操作菜单 */
 .menu {
   position: fixed;
+  z-index: 1;
   top: 150rpx;
-  /* background-color: cornflowerblue; */
+  background-color: cornflowerblue;
 }
-.setup {
-  margin: 20rpx;
-  width: 80rpx;
-  height: 80rpx;
-  background-color: cyan;
+  /* 音量设置 */
+.musicSetup-1{
+  width: 90rpx;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  background-color: lightcoral;
 }
-
+  /* 截图 */
 .screenshot {
-  margin: 20rpx;
-  width: 80rpx;
-  height: 80rpx;
-  background-color: cyan;
+  width: 90rpx;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
 }
 
+/* 背包 */
 .list{
+    z-index: 1;
     overflow-y: scroll;
     white-space: nowrap;  
     position: fixed;
@@ -44,7 +37,7 @@ page {
     height: 150rpx;
     background-color: coral;
   }
-
+  /* 背包格 */
 .classify{
     display: inline-block;
     margin:25rpx 25rpx 25rpx 0;
@@ -52,14 +45,29 @@ page {
     height: 100rpx;
     background-color: cornflowerblue;
   }
-
+    /* 第一格背包 */
 .classify:nth-child(1){
   margin:25rpx 25rpx 25rpx 25rpx;
 }
-
-/* 隐藏滚动条 */
+  /* 隐藏滚动条 */
 ::-webkit-scrollbar {
     width: 0;
     height: 0;
     color: transparent;
-  }
+}
+
+/* 背景 */
+.background { 
+  z-index: -1;
+  background-color: lawngreen;
+}
+  /* 背景图片 */
+.background image {
+  display: inline-block;
+  margin-bottom: 130rpx;
+  width: 1680px;
+  height: 1024px;
+  /* overflow-x: scroll; */
+  white-space: nowrap;  
+  z-index: -1;
+}

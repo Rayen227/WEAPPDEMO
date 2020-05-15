@@ -3,17 +3,15 @@ page {
   padding: 0;
   background-color: cornflowerblue;
 }
-
+/* 头像 */
 .head {
   box-sizing: border-box;
-  margin: 80rpx auto -40rpx;
-  /* margin-left: 295rpx; */
+  margin: 90rpx auto -40rpx;
   width: 160rpx;
   height: 160rpx;
   border-radius: 80rpx;
   background-color: coral;
 }
-
 .head image {
   box-sizing: border-box;
   width: 160rpx;
@@ -21,16 +19,7 @@ page {
   border-radius: 80rpx;
 }
 
-.setup {
-  position: absolute;
-  box-sizing: border-box;
-  right: 10rpx;
-  top: 10rpx;
-  width: 90rpx;
-  height: 90rpx;
-  background-color: crimson;
-}
-
+/* 排名 */
 .rank {
   margin: 70rpx auto;
   width: 80%;
@@ -38,28 +27,27 @@ page {
   background-color: darkgoldenrod;
 }
 
+/* 开始 */
 .game {
   margin: 80rpx auto;
   width: 400rpx;
   height: 130rpx;
   background-color: darkgoldenrod;
   text-align: center;
-  font-size: 62rpx;
-  font-weight: 900;
   line-height: 130rpx;
 }
 
+/* 空间 */
 .room {
   margin: 80rpx auto;
   width: 400rpx;
   height: 130rpx;
   background-color: darkgoldenrod;
   text-align: center;
-  font-size: 62rpx;
-  font-weight: 900;
   line-height: 130rpx;
 }
 
+/* 错题本 */
 .mistake {
   position: absolute;
   left: 20rpx;

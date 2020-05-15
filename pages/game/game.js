@@ -84,15 +84,17 @@ Page({
             }
         }
         if (!suc) {//没有放在正确的位置
-            this.data.curLeft[index] = oldLeft[index];
-            this.data.curTop[index] = oldTop[index];
-            // console.log(oldLeft, oldTop);
-            // console.log(this.data.curLeft, this.data.curTop);
+            // var oldTop = [500, 500, 500, 500];
+            // var oldLeft = [25, 100, 175, 250];
+            var tmpLeft = 25 + (index % 4) * 75;
+            var tmpTop = 500 + Math.floor(index / 4) * 150;
+            console.log(tmpLeft, tmpTop);
+            this.data.curLeft[index] = tmpLeft;
+            this.data.curTop[index] = tmpTop;
             this.setData({
                 curTop: this.data.curTop,
                 curLeft: this.data.curLeft
             });
-            console.log(oldLeft);
         }
         else {//放在了正确的位置
             // console.log("判断对错");
@@ -308,7 +310,7 @@ Page({
                 oldLeft[i] = oldLeft[i % 4];
                 oldTop[i] = oldTop[i % 4] + Math.floor(i / 4) * 150;
             }
-            console.log(oldLeft);
+            console.log(oldLeft, oldTop);
             this.setData({
                 letter: letters,
                 curLeft: oldLeft,
@@ -428,7 +430,7 @@ function split(words) {
             }
         }
     }
-    return tmp;
+    return randomUpset(tmp);
 }
 
 function getWord() {
@@ -436,6 +438,16 @@ function getWord() {
     return word_list[random_index];
 }
 
+function randomUpset(arr) {
+    var len = arr.length
+    for (var i = len - 1; i >= 0; i--) {
+        var randomIndex = Math.floor(Math.random() * (i + 1));
+        var itemIndex = arr[randomIndex];
+        arr[randomIndex] = arr[i];
+        arr[i] = itemIndex;
+    }
+    return arr;
+}
 
 
 

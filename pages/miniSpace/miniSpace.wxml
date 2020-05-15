@@ -1,7 +1,13 @@
+<!-- 菜单 -->
 <view class="menu">
-    <view class="setup">1</view>
-    <view class="screenshot">2</view>
+    <!-- 音量设置 -->
+    <view class="musicSetup-1" hover-class="select">
+        <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
+    </view>
+    <!-- 截图 -->
+    <view class="screenshot iconfont .icon-jiandaoxuanzhong" hover-class="select"></view>
 </view>
+<!-- 背包 -->
 <view class="list">
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
@@ -15,3 +21,9 @@
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
 </view>
+<!-- 背景图片 -->
+<scroll-view scroll-x class="background">
+    <view>
+        <image src="../../images/minibackground.png" />
+    </view>
+</scroll-view>
