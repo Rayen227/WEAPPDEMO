@@ -6,11 +6,11 @@
         <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
     </view>
     <!-- 模式一 -->
-    <view wx:if="{{!gameType}}">
+    <view wx:if="{{gameType}}">
         <!-- 问题 -->
-        <image class="position_up" src="../../images/question_up.png/" />
+        <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
         <view class="font question">
-            <image class="position" src="../../images/question_down.png" />
+            <image class="position" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_down.png?sign=2c5388f729a98ab24a7cc450e8e4bd87&t=1589638761" />
             {{problem.power % 2 ? problem.en : problem.ch}}
         </view>
         <!-- 选项 -->
@@ -32,25 +32,13 @@
         <view class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
             {{ tips }}
         </view>
-        <!-- 一个提示下一题的小盒子的结束 -->
-        <!-- <view class="next" hover-class="next-hover" wx:if="{{selected}}" bindtap="resetHandle">下一题</view> -->
-        <!-- </view>
-<view wx:else>
-    <view class="" style="width: 750rpx;height: 200rpx;border: 1px #00f dashed">
-        <view class="problem-block" wx:for="{{letter}}" wx:for-index="index" style="position: absolute;top:{{problemTop[index]}}px;left:{{problemLeft[index]}}px"></view>
     </view>
-    <view class="letter" data-index="{{index}}" wx:for="{{letter}}" wx:key="item" wx:for-index="index" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[index]}}px;left:{{curLeft[index]}}px;width: 70rpx;height: 50rpx">
-        <view>{{item}}</view>
-    </view> -->
-        <!-- <view data-id="0" class="letter" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[0]}}px;left:{{curLeft[0]}}px;width: 100rpx;height: 40rpx">
-        e
+    <view wx:else>
+        <view class="" style="width: 750rpx;height: 200rpx;border: 1px #00f dashed">
+            <view class="problem-block" wx:for="{{letter}}" wx:for-index="index" style="position: absolute;top:{{problemTop[index]}}px;left:{{problemLeft[index]}}px"></view>
+        </view>
+        <view class="letter" data-index="{{index}}" wx:for="{{letter}}" wx:key="item" wx:for-index="index" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[index]}}px;left:{{curLeft[index]}}px;width: 70rpx;height: 50rpx">
+            <view>{{item}}</view>
+        </view>
     </view>
-    <view data-id="1" class="letter" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[1]}}px;left:{{curLeft[1]}}px;width: 100rpx;height: 40rpx">
-        p
-    </view>
-    <view data-id="2" class="letter" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[2]}}px;left:{{curLeft[2]}}px;width: 100rpx;height: 40rpx">
-        n
-    </view> -->
-    </view>
-    <!-- <button bindtap="resetHandle">test</button> -->
 </view>

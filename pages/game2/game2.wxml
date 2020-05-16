@@ -1,14 +1,29 @@
-<view class="setup iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-<view class="font question">
-    <view class="font letter">S</view>
-    <view class="font letter">t</view>
-    <view class="font letter">r</view>
-    <view class="font letter">a</view>
-    <view class="font letter">w</view>
-    <view class="font letter">b</view>
-    <view class="font letter">e</view>
-    <view class="font letter">r</view>
-    <view class="font letter">r</view>
-    <view class="font letter">y</view>
+<!-- 音量设置 -->
+<view class="musicSetup" hover-class="select">
+    <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
 </view>
-<view class="font prompt">提示</view>
+<!-- 拼单词 -->
+<view class="spell"></view>
+<!-- 字母 -->
+<view class="letter">
+    <view>a</view>
+    <view>2</view>
+    <view>h</view>
+    <view>4</view>
+    <view>5</view>
+    <view>6</view>
+    <view>7</view>
+    <view>8</view>
+    <view>9</view>
+    <view>10</view>
+    <view>11</view>
+    <view>12</view>
+    <view>13</view>
+    <view>14</view>
+    <view>15</view>
+    <view>16</view>
+    <view>17</view>
+    <view>18</view>
+    <view>19</view>
+    <view>20</view>
+</view>
