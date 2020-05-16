@@ -1,14 +1,2 @@
-<view class="setup iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-<view class="font question">
-    <view class="font letter">S</view>
-    <view class="font letter">t</view>
-    <view class="font letter">r</view>
-    <view class="font letter">a</view>
-    <view class="font letter">w</view>
-    <view class="font letter">b</view>
-    <view class="font letter">e</view>
-    <view class="font letter">r</view>
-    <view class="font letter">r</view>
-    <view class="font letter">y</view>
-</view>
-<view class="font prompt">提示</view>
+<audio src="{{src}}" id="myAudio"></audio>
+<button bindtap="test"></button>

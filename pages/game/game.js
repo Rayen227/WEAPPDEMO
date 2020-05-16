@@ -30,7 +30,8 @@ Page({
         problemLeft: [25, 100, 175, 250],
         curTop: [500, 500, 500, 500],
         curLeft: [25, 100, 175, 250],
-        letter: ['e', 'p', 'n', 'a']
+        letter: ['e', 'p', 'n', 'a'],
+        src: ''
     },
 
     moveStart: function (e) {
@@ -128,6 +129,7 @@ Page({
 
     selectHandle: function (event) {
         // 动画效果的开始
+        var that = this;
         var animation = wx.createAnimation({
             duration: 100,
             timingFunction: 'linear'
@@ -139,8 +141,41 @@ Page({
         let word = word_list[listId];
         // console.log("selectHandle");
         var tmp = ['', '', '', ''];
-        if (my_option == true_option) {
-            //选对啦
+        if (my_option == true_option) {//选对啦
+            wx.createAudioContext("trueAudio").play();
+            if (my_option == 0) {
+                that.setData({
+                    animation: [animation, null, null, null]
+                })
+            }
+            else if (my_option == 1) {
+                that.setData({
+                    animation: [null, animation, null, null]
+                })
+            }
+            else if (my_option == 2) {
+                that.setData({
+                    animation: [null, null, animation, null]
+                })
+            }
+            else if (my_option == 3) {
+                that.setData({
+                    animation: [null, null, null, animation]
+                })
+            }
+            // 选对了的跳动样式的结束
+
+            // 选对了的旁边提示栏部分动画的开始
+            var nextPageAnimation = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
+            nextPageAnimation.translateY(-60).step(1);
+            nextPageAnimation.translateY(5).step(2);
+            that.setData({
+                nextPageAnimation: nextPageAnimation,
+                word: "选对了"
+            })
             word.power--;
             count += Math.floor(Math.random() * 2);
             if (count >= 10) {
@@ -152,50 +187,15 @@ Page({
             }
             console.log(true);
             tmp[my_option] = 'answer-hover-true';
-            this.setData({
+            that.setData({
                 correct: true,
                 selected: true,
                 hover_class: tmp
             });
-            // 选对了的跳动样式的开始
-            if (my_option == 0) {
-                this.setData({
-                    animation: [animation, null, null, null]
-                })
-            }
-            else if (my_option == 1) {
-                this.setData({
-                    animation: [null, animation, null, null]
-                })
-            }
-            else if (my_option == 2) {
-                this.setData({
-                    animation: [null, null, animation, null]
-                })
-            }
-            else if (my_option == 3) {
-                this.setData({
-                    animation: [null, null, null, animation]
-                })
-            }
-            // 选对了的跳动样式的结束
-
-            // 选对了的旁边提示栏部分动画的开始
-            var nextPageAnimation = wx.createAnimation({
-                duration: 20,
-                timingFunction: 'linear'
-            })
-            nextPageAnimation.translateY(-60).step(1),
-                nextPageAnimation.translateY(5).step(2),
-                this.setData({
-                    nextPageAnimation: nextPageAnimation,
-                    word: "选对了"
-                })
-
-            // 选对了的旁边提示栏部分的结束
-        } else {
+        }
+        else {
             // 选错了
-
+            wx.createAudioContext("falseAudio").play();
             word.power += word.power < 3 ? 1 : 0;//权上限为3
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
@@ -249,12 +249,8 @@ Page({
                 this.setData({
                     nextPageAnimation: nextPageAnimation,
                     word: "选错了"
-                })
-
-
+                });
             // 选错了的提示部分的结束
-
-
         }
         // 重新把animation清空
         this.setData({
@@ -397,7 +393,6 @@ function resetPage(this_pointer) {
     });
 }
 
-
 //抽取碎片
 function drawItem() {
     var tmp = [];
@@ -448,8 +443,6 @@ function randomUpset(arr) {
     }
     return arr;
 }
-
-
 
 
 // 测试代码

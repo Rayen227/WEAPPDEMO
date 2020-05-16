@@ -42,3 +42,5 @@
         </view>
     </view>
 </view>
+<audio src="audio/correct.mp3" id="trueAudio"></audio>
+<audio src="audio/false.mp3" id="falseAudio"></audio>
