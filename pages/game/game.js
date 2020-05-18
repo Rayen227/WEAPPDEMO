@@ -12,8 +12,8 @@ var problem = {};
 var options = [];
 var letters = [];
 var startPoint = 0;
-var oldTop = [500, 500, 500, 500];
-var oldLeft = [25, 100, 175, 250];
+var oldTop = [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500];
+var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200];
 
 Page({
     data: {
@@ -28,8 +28,8 @@ Page({
         tips: "",
         problemTop: [35, 35, 35, 35],
         problemLeft: [25, 100, 175, 250],
-        curTop: [500, 500, 500, 500],
-        curLeft: [25, 100, 175, 250],
+        curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500],
+        curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
         letter: ['e', 'p', 'n', 'a'],
         src: ''
     },
@@ -44,15 +44,12 @@ Page({
     moving: function (e) {
         var index = e.currentTarget.dataset.index;
         var endPoint = e.touches[e.touches.length - 1];
-        // console.log(startPoint.undefined);
-        // console.log(startPoint[index]);
+        var prop = getRpx();//获取rpx转化比例
         var translateX = endPoint.clientX - startPoint.clientX;
         var translateY = endPoint.clientY - startPoint.clientY;
         startPoint = endPoint;
-        // console.log(startPoint[index]);
-        // console.log(curTop);
-        var curTop = this.data.curTop[index] + translateY;
-        var curLeft = this.data.curLeft[index] + translateX;
+        var curTop = this.data.curTop[index] + translateY * prop;
+        var curLeft = this.data.curLeft[index] + translateX * prop;
         var tmpTop = this.data.curTop;
         tmpTop[index] = curTop;
         var tmpLeft = this.data.curLeft;
@@ -85,11 +82,9 @@ Page({
             }
         }
         if (!suc) {//没有放在正确的位置
-            // var oldTop = [500, 500, 500, 500];
-            // var oldLeft = [25, 100, 175, 250];
-            var tmpLeft = 25 + (index % 4) * 75;
-            var tmpTop = 500 + Math.floor(index / 4) * 150;
-            console.log(tmpLeft, tmpTop);
+            var tmpLeft = oldLeft[index];
+            var tmpTop = oldTop[index];
+            // console.log(tmpLeft, tmpTop);
             this.data.curLeft[index] = tmpLeft;
             this.data.curTop[index] = tmpTop;
             this.setData({
@@ -98,7 +93,7 @@ Page({
             });
         }
         else {//放在了正确的位置
-            // console.log("判断对错");
+
 
         }
     },
@@ -164,7 +159,6 @@ Page({
                 })
             }
             // 选对了的跳动样式的结束
-
             // 选对了的旁边提示栏部分动画的开始
             var nextPageAnimation = wx.createAnimation({
                 duration: 20,
@@ -209,13 +203,11 @@ Page({
             });
             // 选错了的跳动样式的开始
             var animation2 = wx.createAnimation({
-                duration: 50,
+                duration: 100,
                 timingFunction: 'linear'
             })
-            animation2.translateX(-15).step(1);
-            animation2.translateX(0).step(2);
-            animation2.translateX(15).step(3);
-            animation2.translateX(0).step(4);
+            animation2.scale(1.1, 1.1).step(1);
+            animation2.scale(1, 1).step(2);
             if (my_option == 0) {
                 this.setData({
                     animation: [animation2, null, null, null]
@@ -302,19 +294,18 @@ Page({
         else {
             getLeters(2);//获取单词
             //定位
-            for (var i = 4; i < letters.length; i++) {//前四位已确定
-                oldLeft[i] = oldLeft[i % 4];
-                oldTop[i] = oldTop[i % 4] + Math.floor(i / 4) * 150;
+            var tmpLeft = [];
+            var tmpTop = [];
+            for (var i = 0; i < letters.length; i++) {
+                tmpLeft[i] = oldLeft[i];
+                tmpTop[i] = oldTop[i];
             }
-            console.log(oldLeft, oldTop);
             this.setData({
                 letter: letters,
-                curLeft: oldLeft,
-                curTop: oldTop,
+                curLeft: tmpLeft,
+                curTop: tmpTop,
                 gameType: 0
             });
-            // console.log(oldLeft);
-            // console.log(this.data.letter, oldTop, oldLeft);
         }
         resetPage(this);
     },
@@ -443,7 +434,10 @@ function randomUpset(arr) {
     }
     return arr;
 }
-
+function getRpx() {
+    var winWidth = wx.getSystemInfoSync().windowWidth;
+    return 750 / winWidth;
+}
 
 // 测试代码
 // wx.setStorage({
