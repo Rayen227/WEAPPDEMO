@@ -132,8 +132,8 @@ Page({
         });
         // animation.translateY(-20).step(1);
         // animation.translateY(0).step(2);
-        animation.scale(1.1,1.1).step(1);
-        animation.scale(1,1).step(2);
+        animation.scale(1.1, 1.1).step(1);
+        animation.scale(1, 1).step(2);
         // 动画效果的结束
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
@@ -141,6 +141,7 @@ Page({
         var tmp = ['', '', '', ''];
         if (my_option == true_option) {
             //选对啦
+            wx.createAudioContext("trueAudio").play();
             word.power--;
             count += Math.floor(Math.random() * 2);
             if (count >= 10) {
@@ -195,7 +196,7 @@ Page({
             // 选对了的旁边提示栏部分的结束
         } else {
             // 选错了
-
+            wx.createAudioContext("falseAudio").play();
             word.power += word.power < 3 ? 1 : 0;//权上限为3
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
@@ -216,8 +217,8 @@ Page({
             // animation2.translateX(0).step(2);
             // animation2.translateX(15).step(3);
             // animation2.translateX(0).step(4);
-            animation2.scale(1.1,1.1).step(1);
-            animation2.scale(1,1).step(2);
+            animation2.scale(1.1, 1.1).step(1);
+            animation2.scale(1, 1).step(2);
             if (my_option == 0) {
                 this.setData({
                     animation: [animation2, null, null, null]
