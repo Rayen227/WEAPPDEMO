@@ -12,8 +12,8 @@ var problem = {};
 var options = [];
 var letters = [];
 var startPoint = 0;
-var oldTop = [500, 500, 500, 500];
-var oldLeft = [25, 100, 175, 250];
+var oldTop = [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500];
+var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200];
 
 Page({
     data: {
@@ -28,9 +28,10 @@ Page({
         tips: "",
         problemTop: [35, 35, 35, 35],
         problemLeft: [25, 100, 175, 250],
-        curTop: [500, 500, 500, 500],
-        curLeft: [25, 100, 175, 250],
-        letter: ['e', 'p', 'n', 'a']
+        curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500],
+        curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
+        letter: ['e', 'p', 'n', 'a'],
+        src: ''
     },
 
     moveStart: function (e) {
@@ -43,15 +44,12 @@ Page({
     moving: function (e) {
         var index = e.currentTarget.dataset.index;
         var endPoint = e.touches[e.touches.length - 1];
-        // console.log(startPoint.undefined);
-        // console.log(startPoint[index]);
+        var prop = getRpx();//获取rpx转化比例
         var translateX = endPoint.clientX - startPoint.clientX;
         var translateY = endPoint.clientY - startPoint.clientY;
         startPoint = endPoint;
-        // console.log(startPoint[index]);
-        // console.log(curTop);
-        var curTop = this.data.curTop[index] + translateY;
-        var curLeft = this.data.curLeft[index] + translateX;
+        var curTop = this.data.curTop[index] + translateY * prop;
+        var curLeft = this.data.curLeft[index] + translateX * prop;
         var tmpTop = this.data.curTop;
         tmpTop[index] = curTop;
         var tmpLeft = this.data.curLeft;
@@ -84,18 +82,18 @@ Page({
             }
         }
         if (!suc) {//没有放在正确的位置
-            this.data.curLeft[index] = oldLeft[index];
-            this.data.curTop[index] = oldTop[index];
-            // console.log(oldLeft, oldTop);
-            // console.log(this.data.curLeft, this.data.curTop);
+            var tmpLeft = oldLeft[index];
+            var tmpTop = oldTop[index];
+            // console.log(tmpLeft, tmpTop);
+            this.data.curLeft[index] = tmpLeft;
+            this.data.curTop[index] = tmpTop;
             this.setData({
                 curTop: this.data.curTop,
                 curLeft: this.data.curLeft
             });
-            console.log(oldLeft);
         }
         else {//放在了正确的位置
-            // console.log("判断对错");
+
 
         }
     },
@@ -126,22 +124,52 @@ Page({
 
     selectHandle: function (event) {
         // 动画效果的开始
+        var that = this;
         var animation = wx.createAnimation({
             duration: 100,
             timingFunction: 'linear'
         });
-        // animation.translateY(-20).step(1);
-        // animation.translateY(0).step(2);
-        animation.scale(1.1, 1.1).step(1);
-        animation.scale(1, 1).step(2);
+        animation.translateY(-20).step(1);
+        animation.translateY(0).step(2);
         // 动画效果的结束
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
         // console.log("selectHandle");
         var tmp = ['', '', '', ''];
-        if (my_option == true_option) {
-            //选对啦
+        if (my_option == true_option) {//选对啦
             wx.createAudioContext("trueAudio").play();
+            if (my_option == 0) {
+                that.setData({
+                    animation: [animation, null, null, null]
+                })
+            }
+            else if (my_option == 1) {
+                that.setData({
+                    animation: [null, animation, null, null]
+                })
+            }
+            else if (my_option == 2) {
+                that.setData({
+                    animation: [null, null, animation, null]
+                })
+            }
+            else if (my_option == 3) {
+                that.setData({
+                    animation: [null, null, null, animation]
+                })
+            }
+            // 选对了的跳动样式的结束
+            // 选对了的旁边提示栏部分动画的开始
+            var nextPageAnimation = wx.createAnimation({
+                duration: 20,
+                timingFunction: 'linear'
+            })
+            nextPageAnimation.translateY(-60).step(1);
+            nextPageAnimation.translateY(5).step(2);
+            that.setData({
+                nextPageAnimation: nextPageAnimation,
+                word: "选对了"
+            })
             word.power--;
             count += Math.floor(Math.random() * 2);
             if (count >= 10) {
@@ -153,48 +181,13 @@ Page({
             }
             console.log(true);
             tmp[my_option] = 'answer-hover-true';
-            this.setData({
+            that.setData({
                 correct: true,
                 selected: true,
                 hover_class: tmp
             });
-            // 选对了的跳动样式的开始
-            if (my_option == 0) {
-                this.setData({
-                    animation: [animation, null, null, null]
-                })
-            }
-            else if (my_option == 1) {
-                this.setData({
-                    animation: [null, animation, null, null]
-                })
-            }
-            else if (my_option == 2) {
-                this.setData({
-                    animation: [null, null, animation, null]
-                })
-            }
-            else if (my_option == 3) {
-                this.setData({
-                    animation: [null, null, null, animation]
-                })
-            }
-            // 选对了的跳动样式的结束
-
-            // 选对了的旁边提示栏部分动画的开始
-            var nextPageAnimation = wx.createAnimation({
-                duration: 20,
-                timingFunction: 'linear'
-            })
-            nextPageAnimation.translateY(-60).step(1),
-                nextPageAnimation.translateY(5).step(2),
-                this.setData({
-                    nextPageAnimation: nextPageAnimation,
-                    word: "选对了"
-                })
-
-            // 选对了的旁边提示栏部分的结束
-        } else {
+        }
+        else {
             // 选错了
             wx.createAudioContext("falseAudio").play();
             word.power += word.power < 3 ? 1 : 0;//权上限为3
@@ -213,10 +206,6 @@ Page({
                 duration: 100,
                 timingFunction: 'linear'
             })
-            // animation2.translateX(-15).step(1);
-            // animation2.translateX(0).step(2);
-            // animation2.translateX(15).step(3);
-            // animation2.translateX(0).step(4);
             animation2.scale(1.1, 1.1).step(1);
             animation2.scale(1, 1).step(2);
             if (my_option == 0) {
@@ -252,12 +241,8 @@ Page({
                 this.setData({
                     nextPageAnimation: nextPageAnimation,
                     word: "选错了"
-                })
-
-
+                });
             // 选错了的提示部分的结束
-
-
         }
         // 重新把animation清空
         this.setData({
@@ -267,7 +252,6 @@ Page({
             return wechat.setStorage("user_info", user_info);
         }, err => { });
     },
-
 
     // test的开始
     containerTap: function (res) {
@@ -310,19 +294,18 @@ Page({
         else {
             getLeters(2);//获取单词
             //定位
-            for (var i = 4; i < letters.length; i++) {//前四位已确定
-                oldLeft[i] = oldLeft[i % 4];
-                oldTop[i] = oldTop[i % 4] + Math.floor(i / 4) * 150;
+            var tmpLeft = [];
+            var tmpTop = [];
+            for (var i = 0; i < letters.length; i++) {
+                tmpLeft[i] = oldLeft[i];
+                tmpTop[i] = oldTop[i];
             }
-            console.log(oldLeft);
             this.setData({
                 letter: letters,
-                curLeft: oldLeft,
-                curTop: oldTop,
+                curLeft: tmpLeft,
+                curTop: tmpTop,
                 gameType: 0
             });
-            // console.log(oldLeft);
-            // console.log(this.data.letter, oldTop, oldLeft);
         }
         resetPage(this);
     },
@@ -401,7 +384,6 @@ function resetPage(this_pointer) {
     });
 }
 
-
 //抽取碎片
 function drawItem() {
     var tmp = [];
@@ -434,7 +416,7 @@ function split(words) {
             }
         }
     }
-    return tmp;
+    return randomUpset(tmp);
 }
 
 function getWord() {
@@ -442,9 +424,20 @@ function getWord() {
     return word_list[random_index];
 }
 
-
-
-
+function randomUpset(arr) {
+    var len = arr.length
+    for (var i = len - 1; i >= 0; i--) {
+        var randomIndex = Math.floor(Math.random() * (i + 1));
+        var itemIndex = arr[randomIndex];
+        arr[randomIndex] = arr[i];
+        arr[i] = itemIndex;
+    }
+    return arr;
+}
+function getRpx() {
+    var winWidth = wx.getSystemInfoSync().windowWidth;
+    return 750 / winWidth;
+}
 
 // 测试代码
 // wx.setStorage({

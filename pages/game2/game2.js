@@ -1,3 +1,5 @@
+var audio;
+
 // pages/game2/game2.js
 Page({
 
@@ -5,13 +7,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    src: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // this.audioCtx = wx.createAudioContext('myAudio')
+    // this.audioCtx.setSrc('../../audio/correct.mp3')
+    // this.audioCtx.play()
+
+
+
+  },
+  test: function () {
+
 
   },
 

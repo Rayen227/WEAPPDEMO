@@ -1,6 +1,8 @@
 page {
     margin: 0;
     padding: 0;
+    background-size: 750rpx 100%;
+    background-repeat: no-repeat;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/gamebg.png?sign=c99069ff5ffb40fa4ffffa586c4065f0&t=1589641708);
 }
 /* 拼单词 */
@@ -9,7 +11,7 @@ page {
     width: 100%;
     height: 300rpx;
     background-size: 800rpx 400rpx;
-    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/meibranch.png?sign=d5e3b3437505e712e230fb550e6bb3dc&t=1589641506);
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/meibranch2.png?sign=c6c35927ca2b82321a99614fed37e5cb&t=1589903610);
 }
 /* 字母 */
 .letter view{
@@ -113,7 +115,7 @@ left: 440rpx;
 }
 .letter view:nth-child(17) {
     top: 1004rpx;
-left: 300rpx;
+left: 300rpx; 
 
 }
 .letter view:nth-child(18) {
@@ -131,3 +133,4 @@ left: 480rpx;
 left: 200rpx;
 
 }
+

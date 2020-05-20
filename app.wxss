@@ -13,9 +13,8 @@
 /* 字体样式 */
 /* @import "FZSJ-MUJHXYJX.wxss"; */
 .font {
-  src: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/font/FZSJ-MUJHXYJX.TTF?sign=202e13e6a20c5fc7029cbf3909d1f128&t=1589643098);
-  font-family: 'FZSJ-MUJHXYJX';
-  font-size: 62rpx;
+  font-family: 'LiSu','YouYuan','SimHei';
+  font-size: 82rpx;
 }
 
 /* 音量按键设置 */

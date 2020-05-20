@@ -21,7 +21,7 @@ Page({
           word: res.data.options[options.item]
         });
       }
-    })
+    });
   },
 
   /**
