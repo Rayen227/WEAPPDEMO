@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/ranking/ranking",
     "pages/index/index",
+    "pages/ranking/ranking",
     "pages/game/game",
     "pages/miniSpace/miniSpace",
     "pages/login/login",
