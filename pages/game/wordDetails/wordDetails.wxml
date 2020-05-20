@@ -4,8 +4,8 @@
 </view>
 <!-- 单词 -->
 <view class="font word">
-    <view>Strawberry :</view>
-    <view>草莓</view>
+    <view>{{word.en}}</view>
+    <view>{{word.ch}}</view>
     <view class="iconfont icon-laba play"></view>
 </view>
 <!-- 例句 -->

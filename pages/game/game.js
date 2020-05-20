@@ -129,10 +129,8 @@ Page({
             duration: 100,
             timingFunction: 'linear'
         });
-        // animation.translateY(-20).step(1);
-        // animation.translateY(0).step(2);
-        animation.scale(1.1, 1.1).step(1);
-        animation.scale(1, 1).step(2);
+        animation.translateY(-20).step(1);
+        animation.translateY(0).step(2);
         // 动画效果的结束
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
