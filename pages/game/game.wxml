@@ -39,22 +39,13 @@
         <view class="spell">
             <!-- <view class="problem-block" wx:for="{{letter}}" wx:for-index="index" style="top:{{problemTop[index]}}px;left:{{problemLeft[index]}}px"></view> -->
         </view>
+        <!-- 拼词字母摆放 -->
+        <view class="spellLetter">
+            <view wx:for="{{maxLength-0}}" wx:for-index="index"></view>
+        </view>
         <!-- 字母 -->
         <view class="letter" data-index="{{index}}" wx:for="{{letter}}" wx:key="item" wx:for-index="index" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[index]}}rpx;left:{{curLeft[index]}}rpx;width: 70rpx;height: 50rpx">
             <view>{{item}}</view>
-        </view>
-        <!-- 拼词字母摆放 -->
-        <view class="spellLetter">
-            <view>1</view>
-            <view>2</view>
-            <view>3</view>
-            <view>4</view>
-            <view>5</view>
-            <view>6</view>
-            <view>7</view>
-            <view>8</view>
-            <view>9</view>
-            <view>10</view>
         </view>
         <!-- <view class="" style="width: 750rpx;height: 200rpx;border: 1px #00f dashed">
             <view class="problem-block" wx:for="{{letter}}" wx:for-index="index" style="position: absolute;top:{{problemTop[index]}}px;left:{{problemLeft[index]}}px"></view>
