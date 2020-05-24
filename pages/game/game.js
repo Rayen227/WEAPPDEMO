@@ -14,6 +14,9 @@ var letters = [];
 var startPoint = 0;
 var oldTop = [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500];
 var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200];
+var proLeft = [0, 70, 148, 233, 304, 379, 440, 514, 594, 672];
+var proTop = [100, 121, 150, 185, 187, 214, 170, 159, 177, 198];
+// var positionList = [4, 4, 4, 3, 3, 3, 2, 2, 1, 1];
 
 Page({
     data: {
@@ -30,8 +33,10 @@ Page({
         problemLeft: [0, 70, 148, 233, 304, 379, 440, 514, 594, 672],
         curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500],
         curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
-        letter: ['e', 'p', 'n', 'a'],
-        src: ''
+        letter: [],
+        src: '',
+        // startIndex: 0,
+        maxLength: 0
     },
 
     moveStart: function (e) {
@@ -65,17 +70,17 @@ Page({
         var index = e.currentTarget.dataset.index;
         var endLeft = e.currentTarget.offsetLeft;
         var endTop = e.currentTarget.offsetTop;
-        var proLeft = this.data.problemLeft;
-        var proTop = this.data.problemTop;
         var boxIndex;
-        for (var i = 0; i < oldLeft.length; i++) {
-            if (endLeft >= proLeft[i] - 25 && endLeft <= proLeft[i] + 25 && endTop >= proTop[i] - 50 && endTop <= proTop[i] + 50) {
+        var flagList = []
+        for (var i = 0; i < this.data.maxLength; i++) {
+            if (!flagList[i] && endLeft >= proLeft[i] + 10 && endLeft <= proLeft[i] + 70) {
                 this.data.curLeft[index] = proLeft[i];
                 this.data.curTop[index] = proTop[i];
                 this.setData({
                     curTop: this.data.curTop,
                     curLeft: this.data.curLeft
                 });
+                flagList[i] = true;
                 boxIndex = i;
                 suc = true;
                 break;
@@ -292,7 +297,8 @@ Page({
             });
         }
         else {
-            getLeters(2);//获取单词
+            var maxLength = getLeters(2);//获取单词
+            // console.log(maxLength);
             //定位
             var tmpLeft = [];
             var tmpTop = [];
@@ -300,11 +306,13 @@ Page({
                 tmpLeft[i] = oldLeft[i];
                 tmpTop[i] = oldTop[i];
             }
+            // var startPoint = positionList[maxLength];
             this.setData({
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
-                gameType: 0
+                gameType: 0,
+                maxLength: maxLength
             });
         }
         resetPage(this);
@@ -385,25 +393,32 @@ function resetPage(this_pointer) {
 }
 
 //抽取碎片
-function drawItem() {
-    var tmp = [];
-    for (var i = 0; ; i++) {
+// function drawItem() {
+//     var tmp = [];
+//     for (var i = 0; ; i++) {
 
-    }
-    var randomIndex = random(0, item.length);
-    return item[randomIndex];
-}
+//     }
+//     var randomIndex = random(0, item.length);
+//     return item[randomIndex];
+// }
 
 function getLeters(n) {
     var words = [];
     var tmp = {};
+    var maxLength = 0;
     for (var i = 0; i < n;) {
         tmp = getWord();
         if (tmp && !words.includes(tmp.en)) {
             words[i++] = tmp.en;
         }
     }
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].length > maxLength)
+            maxLength = words[i].length;
+    }
     letters = split(words);
+    // console.log(words);
+    return maxLength;
 }
 
 function split(words) {

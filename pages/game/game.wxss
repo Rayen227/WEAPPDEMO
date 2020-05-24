@@ -221,6 +221,7 @@ page {
     text-align: center;
     background-size: 80rpx 80rpx;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
+    border: 1px solid #000;
 }
 .spellLetter view:nth-child(1) {
     top: 100rpx;
