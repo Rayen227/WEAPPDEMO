@@ -12,7 +12,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // wx.request({
+    //   url: 'http://ealy.club/game1.json',
+    //   data: {},
+    //   header: { 'content-type': 'application/json' },
+    //   method: 'GET',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: (result) => {
+    //     console.log(result.data.imgListData);
+    //   },
+    //   fail: () => {
+    //     console.log(err);
+    //   },
+    //   complete: () => { }
+    // });
   },
 
   /**

@@ -1,3 +1,17 @@
 {
-  "usingComponents": {}
+  "topic_id": 10798,
+  "word_level_id": 1,
+  "tag_id": 0,
+  "word": "artificial leg",
+  "word_audio": "artificial leg.mp3",
+  "image_file": "i_1_10798_0_2_20150808131718.jpg",
+  "accent": "/ˌɑrtɪˈfɪʃ(ə)l leɡ/",
+  "mean_cn": "phr. 假腿",
+  "mean_en": "leg prosthesis",
+  "sentence_phrase": "",
+  "deformation_img": "",
+  "sentence": "He was still able to walk normally with an artificial leg.",
+  "sentence_trans": "靠着假腿他还是能正常走路。",
+  "sentence_audio": "sa_1_10798_0_2_20150808131718.aac",
+  "word_etyma": ""
 }
