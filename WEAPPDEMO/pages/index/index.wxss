@@ -1,0 +1,107 @@
+/**index.wxss**/
+
+page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #f6f6f6;
+}
+ 
+/* 头部区域的开始 */
+/* 头部整体布局 */
+.header {
+  flex: 2;
+  width: 750rpx;
+  height: 500rpx;
+  background-color: hotpink; 
+  border-bottom: 10rpx solid black;
+}
+
+/* 顶部logo的开始 */
+.logo {
+  margin-top: 40rpx;
+  margin-left: 170rpx; 
+  width: 400rpx;
+  height: 200rpx;
+  background-color: red;
+  border: 1rpx solid black;
+}
+/* 顶部logo的结束 */
+/* 以下是头像的样式 */
+.avatar {
+  margin-top: 20rpx; 
+  padding-left: 320rpx; 
+  width: 750rpx;
+  height: 150rpx;
+  background-color: pink;
+}
+
+.userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  /* margin: 10rpx; */
+  border-radius: 50%;
+  background-size: cover;
+  background-color: white;
+}
+
+.userinfo-avatar[size] {
+  width: 100rpx;
+}
+
+.userinfo-avatar:after {
+  border: none;
+}
+/* 头像样式的结束 */
+.ranking {
+  margin-left: 12rpx;
+}
+/* 头部区域的结束 */
+/* 游戏区域的开始 */
+.core {
+  flex: 3;
+  width: 750rpx;
+  /* height: 594rpx; */
+  background-color: blue;
+}
+
+.core-navigator {
+  margin-top: 130rpx;
+  margin-left: 130rpx; 
+  width: 500rpx;
+  height: 400rpx;
+  border: 1rpx solid black;
+  background-color: white;
+  border-radius: 50rpx; 
+}
+
+.navigator1 {
+  margin-top: 90rpx;
+  margin-left: 80rpx; 
+  border-radius: 30rpx; 
+  width: 350rpx;
+  height: 100rpx;
+  background-color: yellow;
+  box-shadow: 5rpx 10rpx 5rpx rgba(0 , 0 , 0, .3);
+  text-align: center;
+  line-height: 100rpx;
+  font-weight: 700;
+}
+
+.navigator2 {
+  margin-top: 50rpx;
+  margin-left: 80rpx; 
+  width: 350rpx;
+  height: 100rpx;
+  background-color: yellow;
+  border-radius: 30rpx; 
+  box-shadow: 5rpx 10rpx 5rpx rgba(0 , 0 , 0, .3);
+  text-align: center;
+  line-height: 100rpx;
+  font-weight: 700;
+}
+/* 游戏区域的结束 */
+
+/* index页面css结束 */
+
