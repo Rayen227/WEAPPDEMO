@@ -1,0 +1,6 @@
+<!-- pages/ranking/ranking.wxml -->
+<view wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
+    <view>{{userList[index].nickname}}</view>
+    <view>{{userList[index].exp}}</view>
+    <image src="{{userList[index].avatarUrl}}" alt=""></image>
+</view>

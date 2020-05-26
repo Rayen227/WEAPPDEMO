@@ -1,9 +1,20 @@
 page {
   margin: 0;
   padding: 0;
-  background-color: cornflowerblue;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/indexbg.png?sign=3711b2fa913c74e8a9e18c5046efde75&t=1590416542);
+  background-size: 750rpx 100%;
 }
 /* 头像 */
+.headimg {
+  position: absolute;
+  top: 20rpx;
+  left:212rpx;
+  width: 250rpx;
+  height: 241rpx;
+  z-index: 2;
+  background-size: 250rpx 240rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/head.png?sign=e9f81cad6e95ee9c7b865a5781cfb66d&t=1590416763);
+}
 .head {
   box-sizing: border-box;
   margin: 90rpx auto -40rpx;
@@ -32,9 +43,12 @@ page {
   margin: 80rpx auto;
   width: 400rpx;
   height: 130rpx;
-  background-color: darkgoldenrod;
-  text-align: center;
-  line-height: 130rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/start.png?sign=16b441e6b44d51e8ad9244f4c6de0027&t=1590074316);
+  background-size: 400rpx 130rpx;
+  /* 阴影 */
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)) drop-shadow(0 0 15px rgba(96, 96, 96, 0.8)) drop-shadow(0 0 5px rgba(96, 96, 96, 0.9));
+  color: rgb(83, 156, 93);
+  /* -webkit-filter: drop-shadow(0 0 2px #2b002b) drop-shadow(0 0 15px #c0c) drop-shadow(0 0 5px #f0f); */
 }
 
 /* 空间 */
@@ -52,7 +66,16 @@ page {
   position: absolute;
   left: 20rpx;
   bottom: 20rpx;
-  width: 150rpx;
+  width: 180rpx;
   height: 150rpx;
-  background-color: bisque;
+  background-repeat: no-repeat;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/mistakeclose.png?sign=bc5ef82a977eec87647777b28f19bc3f&t=1590418104);
+  background-size: 180rpx 150rpx;
+}
+.mistake-hover {
+  width: 170rpx;
+  height: 160rpx;
+  background-repeat: no-repeat ;
+  background-size: 170rpx 160rpx ;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/mistakeopen.png?sign=1cca9d3c71f52ea6aeec63bfd4544b85&t=1590418124) ;
 }

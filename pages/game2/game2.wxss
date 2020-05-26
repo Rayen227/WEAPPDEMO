@@ -75,12 +75,12 @@ page {
 }
 .letter view:nth-child(9) {
     top: 885rpx;
-left: 349rpx;
+    left: 349rpx;
 
 }
 .letter view:nth-child(10) {
     top: 907rpx;
-left: 556rpx;
+    left: 556rpx;
 
 }
 .letter view:nth-child(11) {
@@ -90,7 +90,7 @@ left: 556rpx;
 }
 .letter view:nth-child(12) {
     top: 497rpx;
-left: 332rpx;
+    left: 332rpx;
 
 }
 .letter view:nth-child(13) {
@@ -99,18 +99,17 @@ left: 332rpx;
 }
 .letter view:nth-child(14) {
     top: 700rpx;
-left: 591rpx;
+    left: 591rpx;
 
 }
 .letter view:nth-child(15) {
     top: 992rpx;
-left: 100rpx;
+    left: 100rpx;
 
 }
 .letter view:nth-child(16) {
     top: 579rpx;
-left: 440rpx;
-
+    left: 440rpx;
 
 }
 .letter view:nth-child(17) {
@@ -125,12 +124,12 @@ left: 300rpx;
 }
 .letter view:nth-child(19) {
     top: 982rpx;
-left: 480rpx;
+    left: 480rpx;
 
 }
 .letter view:nth-child(20) {
     top: 500rpx;
-left: 200rpx;
+    left: 200rpx;
 
 }
 

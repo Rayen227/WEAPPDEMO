@@ -11,7 +11,13 @@
         <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
         <view class="font question">
             <image class="position" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_down.png?sign=2c5388f729a98ab24a7cc450e8e4bd87&t=1589638761" />
-            {{problem.power % 2 ? problem.en : problem.ch}}
+            <!-- {{problem.power % 2 ? problem.en : problem.ch}} -->
+            <view>
+            <!-- 爱国 -->
+            <!-- 我爱中国共产党 -->
+            <!-- 我爱中国共产党，爱中国 -->
+            </view>
+            
         </view>
         <!-- 选项 -->
         <view class="font answer">

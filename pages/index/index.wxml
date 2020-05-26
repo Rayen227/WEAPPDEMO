@@ -2,15 +2,16 @@
 <view class="musicSetup" hover-class="select">
     <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
 </view>
-<!-- 头像 --> 
+<!-- 头像 -->
+<view class="headimg"></view>
 <view class="head">
     <image src="{{avatarUrl}}" />
 </view>
 <!-- 排名 -->
 <view class="font rank">排名</view>
 <!-- 开始 -->
-<view class="font game" bind:tap="startGameHandle" animation="{{ animation1 }}">开始</view>
+<view class="game" bind:tap="startGameHandle" animation="{{ animation1 }}"></view>
 <!-- 空间 -->
 <view class="font room" bind:tap="toMiniSpaceHandle" animation="{{ animation2 }}">空间</view>
 <!-- 错题本 -->
-<view class="mistake"></view>
+<view class="mistake" hover-class="mistake-hover"></view>
