@@ -6,6 +6,7 @@
 <view class="font word">
     <view>{{word.en}}</view>
     <view>{{word.ch}}</view>
+    <view>{{word.accent}}</view>
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
 <!-- 例句 -->

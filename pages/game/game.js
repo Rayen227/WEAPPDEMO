@@ -37,7 +37,8 @@ Page({
         curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
         letter: [],
         src: '',
-        maxLength: 0
+        maxLength: 0,
+        audioSrc: []
     },
 
     moveStart: function (e) {
@@ -115,6 +116,10 @@ Page({
     onLoad: function () {
         var that = this;
         var needUpdate = false;
+        wx.showToast({
+            icon: 'loading',
+            duration: 500
+        });
         wechat.getStorage("user_info").then(res => {
             user_info = res.data;
             return wechat.getStorage("word_list");
@@ -140,7 +145,27 @@ Page({
             }
         }, err => { console.log(err); }).then(res => {
             resetPage(that);
-        }, err => { })
+        }, err => { }).then(empty => {
+            var audio = [];
+            wx.cloud.getTempFileURL({
+                fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/correct.mp3"],
+                success: res => {
+                    audio[0] = res.fileList[0].tempFileURL;
+                    wx.cloud.getTempFileURL({
+                        fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/false.mp3"],
+                        success: res => {
+                            audio[1] = res.fileList[0].tempFileURL;
+                            that.setData({
+                                audioSrc: audio
+                            });
+                        },
+                        fail: console.error
+                    });
+                },
+                fail: console.error
+            });
+
+        });
     },
 
     selectHandle: function (event) {
@@ -200,7 +225,6 @@ Page({
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
             }
-            console.log(true);
             tmp[my_option] = 'answer-hover-true';
             that.setData({
                 correct: true,

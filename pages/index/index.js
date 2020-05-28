@@ -11,6 +11,10 @@ Page({
     onLoad: function () {
         var that = this;
         var flag = 1;
+        wx.showToast({
+            icon: 'loading',
+            duration: 1000
+        });
         wechat.getSetting().then(res => {
             if (!res.authSetting['scope.userInfo']) {
                 wx.navigateTo({

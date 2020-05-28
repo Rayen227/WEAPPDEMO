@@ -12,14 +12,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
     let that = this;
     var word;
+    wx.showToast({
+      icon: 'loading',
+      duration: 1500
+    });
     wx.getStorage({
       key: "gamePage",
       success: function (res) {
         word = res.data.options[options.item];
-        console.log(word);
         wx.cloud.getTempFileURL({
           fileList: [word.mp3],
           success: res => {
@@ -29,7 +31,7 @@ Page({
             });
           },
           fail: console.error
-        })
+        });
       }
     });
   },
