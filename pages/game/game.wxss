@@ -6,29 +6,7 @@ page {
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/gamebg.png?sign=c99069ff5ffb40fa4ffffa586c4065f0&t=1589641708);
 }
 
-/* 提问区的小盒子的样式的开始 by cjq */
-.box {
-  position: absolute;
-  left: 225rpx;
-  right: 150rpx;
-  bottom: 35rpx;
-  height: 120rpx;
-  width: 300rpx;
-  background-color: yellow;
-}
-
-.box2 {
-  position: absolute;
-  left: 225rpx;
-  right: 150rpx;
-  bottom: 35rpx;
-  height: 120rpx;
-  width: 300rpx;
-  background-color: transparent;
-}
-
 /* 提问区的小盒子的样式的结束 by cjq */
-
 .question {
     position: relative;
     box-sizing:border-box;
@@ -36,24 +14,13 @@ page {
     padding: 30rpx;
     width: 550rpx;
     height: 300rpx;
-    /* background-color: lightcoral; */
-    /* font-size: 90rpx;
-    font-weight: bolder;
-    color: black;
-    text-shadow: 1rpx 1rpx gray;
-    vertical-align:middle;  */
-     /*把此元素放置在父元素的中部。*/
-    /* line-height:.9em;   */
-     /*行间距（行高）*/
-    /* align-items: center; */
-    /* text-align: center; */
 }
 .question view {
     display: flex;
     width: 100%;
     height: 100%;
     align-items: center;  /* 上下居中 */
-    /* justify-content: center;   */
+    justify-content: center;   /* 单行时居中 */
     text-align: center;/* 左右居中 */
     font-size: 90rpx;
     font-weight: bolder;
@@ -80,10 +47,10 @@ page {
     box-sizing: border-box;
     margin: 0 auto;
     width: 680rpx;
-    font-size: 48rpx;
+    /* font-size: 48rpx;
     text-shadow: 3rpx 3rpx grey;
     line-height: 200rpx;
-    text-align: center;
+    text-align: center; */
 }
 
 /* 清除浮动 */
@@ -103,20 +70,26 @@ page {
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose.png?sign=196ae54f34fb385cf98bfbb0b103dfcc&t=1589639279);
 }
 
+.answer view view {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;  /* 上下居中 */   
+    justify-content: center;  /* 单行时居中 */
+    text-align: center;  /* 左右居中 */
+    font-weight: bolder;
+    color: black;
+    line-height:.9em;  /*行间距（行高）*/
+    font-size: 48rpx;
+    text-shadow: 3rpx 3rpx rgb(179, 179, 179);
+}
+
 .answer view:nth-child(odd) {
     float: left;
-    /* margin-bottom: 40rpx;
-    width: 320rpx;
-    height: 200rpx;
-    background-color: pink; */
 }
 
 .answer view:nth-child(even) {
     float: right;
-    /* margin-bottom: 40rpx;
-    width: 320rpx;
-    height: 200rpx;
-    background-color: pink; */
 }
 
 /* 注意权值 */
@@ -124,7 +97,6 @@ page {
     font-weight: bolder;
     text-shadow: 3rpx 3rpx grey;
     color: rgb(1, 109, 1);
-    /* background-color: #000; */
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose_t.png?sign=8ac9c6c1e402450c5d5a02ed9e978ebb&t=1589639203);
 }
 
@@ -281,3 +253,25 @@ page {
     top: 198rpx;
     left: 672rpx;
 }
+
+
+/* 提问区的小盒子的样式的开始 by cjq */
+.box {
+    position: absolute;
+    left: 225rpx;
+    right: 150rpx;
+    bottom: 35rpx;
+    height: 120rpx;
+    width: 300rpx;
+    background-color: yellow;
+  }
+  
+  .box2 {
+    position: absolute;
+    left: 225rpx;
+    right: 150rpx;
+    bottom: 35rpx;
+    height: 120rpx;
+    width: 300rpx;
+    background-color: transparent;
+  }
