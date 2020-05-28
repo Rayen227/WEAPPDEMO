@@ -41,7 +41,7 @@
         </view>
         <!-- 拼词字母摆放 -->
         <view class="spellLetter">
-            <view wx:for="{{maxLength-0}}" wx:for-index="index"></view>
+            <view wx:for="{{maxLength-0}}" wx:for-index="index" style="position: absolute;top:{{problemTop[index]}}rpx;left:{{problemLeft[index]}}rpx;"></view>
         </view>
         <!-- 字母 -->
         <view class="letter" data-index="{{index}}" wx:for="{{letter}}" wx:key="item" wx:for-index="index" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[index]}}rpx;left:{{curLeft[index]}}rpx;width: 70rpx;height: 50rpx">

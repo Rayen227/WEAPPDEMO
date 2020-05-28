@@ -14,14 +14,27 @@ Page({
   onLoad: function (options) {
     console.log(options);
     let that = this;
+    var word;
     wx.getStorage({
       key: "gamePage",
       success: function (res) {
-        that.setData({
-          word: res.data.options[options.item]
-        });
+        word = res.data.options[options.item];
+        console.log(word);
+        wx.cloud.getTempFileURL({
+          fileList: [word.mp3],
+          success: res => {
+            word.mp3 = res.fileList[0].tempFileURL;
+            that.setData({
+              word: word
+            });
+          },
+          fail: console.error
+        })
       }
     });
+  },
+  playMp3: function () {
+    wx.createAudioContext("mp3").play();
   },
 
   /**

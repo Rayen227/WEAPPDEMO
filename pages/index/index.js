@@ -24,6 +24,7 @@ Page({
                 avatarUrl: user_info.avatarUrl
             });
             // console.log(user_info);
+
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存, 重新授权
             wx.navigateTo({
@@ -31,7 +32,9 @@ Page({
             });
 
         }).then(res => {
-            var cloud = res.result.data;
+            // console.log(user_info);
+            var cloud = res.result.data[0];
+            // console.log(cloud);
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
                 user_info.update_time = time.getTime();

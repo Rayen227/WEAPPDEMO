@@ -3,4 +3,4 @@
     <view>{{userList[index].nickname}}</view>
     <view>{{userList[index].exp}}</view>
     <image src="{{userList[index].avatarUrl}}" alt=""></image>
-</view>
+</view> 

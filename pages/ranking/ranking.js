@@ -5,7 +5,7 @@ const wechat = require('../../utils/promise.js');
 
 Page({
 
-  /**
+  /** 
    * 页面的初始数据
    */
   data: {
@@ -35,7 +35,6 @@ Page({
       console.log("!");
     });
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -85,6 +84,7 @@ Page({
 
   }
 });
+  
 
 var cmp = function (obj1, obj2) {
   var val1 = obj1.exp;
