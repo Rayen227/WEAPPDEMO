@@ -496,6 +496,15 @@ function getRpx() {
     return 750 / winWidth;
 }
 
+function isAWord(letters) {
+    // console.log(letters.join(''), words);
+    for (var i = 0; i < words.length; i++) {
+        if (letters.join('') == words[i]) {
+            return true;
+        }
+    }
+    return false;
+}
 // 测试代码
 // wx.setStorage({
 //     key: "user_info",
