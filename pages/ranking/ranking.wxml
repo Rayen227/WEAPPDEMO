@@ -1,6 +1,25 @@
 <!-- pages/ranking/ranking.wxml -->
-<view wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
+<!-- <view wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
     <view>{{userList[index].nickname}}</view>
     <view>{{userList[index].exp}}</view>
     <image src="{{userList[index].avatarUrl}}" alt=""></image>
+</view> -->
+<!-- 标题 -->
+<view class="title">皇榜</view>
+<!-- 内容 -->
+<view class="rank">
+    <image src="../../images/01.jpg" />
+    <view class="name">dai10_.da</view>
+    <view class="ranking">1</view>
+</view>
+<view class="rank">
+    <image src="../../images/01.jpg" />
+    <view class="name">dai10_.da</view>
+    <view class="ranking">1</view>
+</view>
+<!-- 玩家排行 -->
+<view class="m_rank">
+    <image src="../../images/01.jpg" />
+    <view class="m_name">dai10_.da</view>
+    <view class="m_ranking">1</view>
 </view>

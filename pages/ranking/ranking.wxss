@@ -1,1 +1,77 @@
-/* pages/ranking/ranking.wxss */
+page {
+    margin: 0;
+    padding: 0;
+    background-color: darkcyan;
+}
+
+/* 标题 */
+.title {
+    width: 300rpx;
+    height: 100rpx;
+    margin: 20rpx auto;
+    background-color: darkgreen;
+}
+
+/* 内容 */
+.rank {
+    margin: 20rpx 0;
+    width: 100%;
+    height: 120rpx;
+    background-color: darkmagenta;
+}
+/* 头像 */
+.rank image {
+    float: left;
+    width: 120rpx;
+    height: 120rpx;
+}
+/* 昵称 */
+.name {
+    display: inline-block;
+    padding-left: 10rpx;
+    height: 120rpx;
+    background-color: darkred;
+    color: white;
+    line-height: 120rpx;
+}
+/* 排名 */
+.ranking {
+    float: right;
+    width: 120rpx;
+    height: 120rpx;
+    line-height: 120rpx;
+    background-color: violet;
+}
+
+/* 内容 */
+.m_rank {
+    position: absolute;
+    bottom: 0;
+    /* margin: 20rpx 0; */
+    width: 100%;
+    height: 120rpx;
+    background-color: darkmagenta;
+}
+/* 头像 */
+.m_rank image {
+    float: left;
+    width: 120rpx;
+    height: 120rpx;
+}
+/* 昵称 */
+.m_name {
+    display: inline-block;
+    padding-left: 10rpx;
+    height: 120rpx;
+    background-color: darkred;
+    color: white;
+    line-height: 120rpx;
+}
+/* 排名 */
+.m_ranking {
+    float: right;
+    width: 120rpx;
+    height: 120rpx;
+    line-height: 120rpx;
+    background-color: violet;
+}
