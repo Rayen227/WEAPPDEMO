@@ -14,11 +14,9 @@ var letters = [];
 var startPoint = 0;
 var oldTop = [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500];
 var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200];
-var proTop = [100, 121, 150, 185, 187, 214, 170, 159, 177, 198];
-var proLeft = [0, 70, 148, 233, 304, 379, 440, 514, 594, 672];
-var endLeftList = [-1.81, 68.84, 146.74, 231.88, 302.54, 378.62, 438.41, 512.68, 592.39, 670.29];
-var endTopList = [99.64, 119.57, 148.55, 184.78, 186.59, 213.77, 168.48, 157.61, 175.72, 192.46];
-var flagList = [];
+var answer = [];
+var visible = [];
+var words = [];
 
 Page({
     data: {
@@ -38,13 +36,12 @@ Page({
         letter: [],
         src: '',
         maxLength: 0,
-        audioSrc: []
+        audioSrc: [],
+        answer: [],
+        visible: []
     },
 
     moveStart: function (e) {
-        // console.log(e.touches);
-        var index = e.currentTarget.dataset.id;
-        // console.log(index);
         startPoint = e.touches[0];
     },
 
@@ -68,50 +65,23 @@ Page({
     },
 
     moveEnd: function (e) {//最终定位
-        // var prop = getRpx();
-        var suc = false;
         var index = e.currentTarget.dataset.index;
-        var endLeft = e.currentTarget.offsetLeft;
-        var endTop = e.currentTarget.offsetTop;
-        var boxIndex;
-        // this.data.curLeft[index] = endLeftList[0];
-        // this.data.curTop[index] = endTopList[0];
-        // this.setData({
-        //     curLeft: this.data.curLeft,
-        //     curTop: this.data.curTop
-        // });
-        for (var i = 0; i < this.data.maxLength; i++) {
-            if (!flagList[i] && endLeft >= endLeftList[i] && endLeft <= endLeftList[i] + 70) {
-                this.data.curLeft[index] = endLeftList[i];
-                this.data.curTop[index] = endTopList[i];
-                this.setData({
-                    curTop: this.data.curTop,
-                    curLeft: this.data.curLeft
-                });
-                flagList[i] = true;
-                boxIndex = i;
-                suc = true;
-                break;
-            }
-            // console.log(endLeft, endTop);
-            // suc = true;
+        var right = answer.length;
+        if (right < this.data.maxLength) {
+            answer[right] = letters[index];
+        }
+        visible[index] = false;
+        // console.log(answer);
+        this.setData({
+            answer: answer,
+            visible: visible
+        });
+        //判断是否成词
+        // console.log(words);
+        if (isAWord(answer)) {
+            console.log("成功了!");
         }
 
-        if (!suc) {//没有放在正确的位置
-            var tmpLeft = oldLeft[index];
-            var tmpTop = oldTop[index];
-            // console.log(tmpLeft, tmpTop);
-            this.data.curLeft[index] = tmpLeft;
-            this.data.curTop[index] = tmpTop;
-            this.setData({
-                curTop: this.data.curTop,
-                curLeft: this.data.curLeft
-            });
-        }
-        else {//放在了正确的位置
-
-
-        }
     },
     onLoad: function () {
         var that = this;
@@ -164,7 +134,11 @@ Page({
                 },
                 fail: console.error
             });
-
+        });
+        answer = [];
+        visible.memset(20, true);
+        this.setData({
+            visible: visible
         });
     },
 
@@ -337,8 +311,7 @@ Page({
             });
         }
         else {
-            flagList.memset(10, false);
-            var maxLength = getLeters(2);//获取单词
+            var maxLength = getLeters(3);//获取单词
             // console.log(maxLength);
             //定位
             var tmpLeft = [];
@@ -445,7 +418,7 @@ function resetPage(this_pointer) {
 // }
 
 function getLeters(n) {
-    var words = [];
+    words = [];
     var tmp = {};
     var maxLength = 0;
     for (var i = 0; i < n;) {
@@ -459,6 +432,7 @@ function getLeters(n) {
             maxLength = words[i].length;
     }
     letters = split(words);
+    console.log(words);
     // console.log(words);
     return maxLength;
 }
