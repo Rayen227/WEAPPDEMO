@@ -25,6 +25,4 @@ Array.prototype.memset = function (cnt, value) {
     this[i] = value;
   }
 };
-function random(lower, upper) {
-  return Math.floor(Math.random() * (upper - lower)) + lower;
-}
+

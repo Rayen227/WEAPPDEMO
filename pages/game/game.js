@@ -38,7 +38,8 @@ Page({
         maxLength: 0,
         audioSrc: [],
         answer: [],
-        visible: []
+        visible: [],
+        joint: false
     },
 
     moveStart: function (e) {
@@ -65,6 +66,7 @@ Page({
     },
 
     moveEnd: function (e) {//最终定位
+        var that = this;
         var index = e.currentTarget.dataset.index;
         var right = answer.length;
         if (right < this.data.maxLength) {
@@ -74,12 +76,37 @@ Page({
         // console.log(answer);
         this.setData({
             answer: answer,
-            visible: visible
+            visible: visible,
+            joint: true
         });
         //判断是否成词
         // console.log(words);
         if (isAWord(answer)) {
             console.log("成功了!");
+            //下一题
+            //
+            //return;
+        }
+        if (answer.length == this.data.maxLength) {
+            console.log("失败了 ...");
+            //展示单词
+            wx.showModal({
+                title: '',
+                content: "'" + words[0] + "'" + ' 或者 ' + "'" + words[1] + "'",
+                showCancel: true,
+                cancelText: '下一题',
+                cancelColor: '#3CC51F',
+                confirmText: '确定',
+                confirmColor: '#000000',
+                success: (result) => {
+                    if (!result.confirm) {
+                        console.log(111);
+                        that.resetHandle();
+                    }
+                },
+                fail: () => { },
+                complete: () => { }
+            });
         }
 
     },
@@ -135,11 +162,7 @@ Page({
                 fail: console.error
             });
         });
-        answer = [];
-        visible.memset(20, true);
-        this.setData({
-            visible: visible
-        });
+
     },
 
     selectHandle: function (event) {
@@ -304,14 +327,21 @@ Page({
 
     },
     resetHandle: function () {
-        if (!this.data.gameType) {
+        if (random(0, 5) > 1) {
             resetPage(this);
             this.setData({
                 gameType: 1
             });
         }
         else {
-            var maxLength = getLeters(3);//获取单词
+            answer = [];
+            visible.memset(20, true);
+            // console.log(answer, visible);
+            this.setData({
+                answer: answer,
+                visible: visible
+            });
+            var maxLength = getLeters(2);//获取单词
             // console.log(maxLength);
             //定位
             var tmpLeft = [];
@@ -321,19 +351,28 @@ Page({
                 tmpTop[i] = oldTop[i];
             }
             // var startPoint = positionList[maxLength];
-            console.log(maxLength);
+            // console.log(maxLength);
             this.setData({
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
                 gameType: 0,
-                maxLength: maxLength
+                maxLength: maxLength,
+                joint: false
             });
         }
-        resetPage(this);
+        // resetPage(this);
     },
     backToMenuHandle: function () {
 
+    },
+    resetLetters: function () {
+        answer = [];
+        visible.memset(20, true);
+        this.setData({
+            answer: answer,
+            visible: visible
+        });
     }
 });
 
@@ -442,7 +481,7 @@ function split(words) {
     var k = 0;
     for (var i = 0; i < words.length; i++) {
         for (var j = 0; j < words[i].length; j++) {
-            if (!tmp.includes(words[i][j]) && words[i][j]) {
+            if (words[i][j]) {
                 tmp[k++] = words[i][j];
             }
         }
@@ -478,6 +517,9 @@ function isAWord(letters) {
         }
     }
     return false;
+}
+function random(lower, upper) {
+    return Math.floor(Math.random() * (upper - lower)) + lower;
 }
 // 测试代码
 // wx.setStorage({
