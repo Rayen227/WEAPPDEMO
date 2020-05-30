@@ -14,6 +14,9 @@ var letters = [];
 var startPoint = 0;
 var oldTop = [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500];
 var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200];
+var answer = [];
+var visible = [];
+var words = [];
 
 Page({
     data: {
@@ -26,18 +29,19 @@ Page({
         selected: false,
         correct: false,
         tips: "",
-        problemTop: [35, 35, 35, 35],
-        problemLeft: [25, 100, 175, 250],
+        problemTop: [100, 121, 150, 185, 187, 214, 170, 159, 177, 198],
+        problemLeft: [0, 70, 148, 233, 304, 379, 440, 514, 594, 672],
         curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500],
         curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
-        letter: ['e', 'p', 'n', 'a'],
-        src: ''
+        letter: [],
+        src: '',
+        maxLength: 0,
+        audioSrc: [],
+        answer: [],
+        visible: []
     },
 
     moveStart: function (e) {
-        // console.log(e.touches);
-        var index = e.currentTarget.dataset.id;
-        // console.log(index);
         startPoint = e.touches[0];
     },
 
@@ -61,65 +65,81 @@ Page({
     },
 
     moveEnd: function (e) {//最终定位
-        var suc = false;
         var index = e.currentTarget.dataset.index;
-        var endLeft = e.currentTarget.offsetLeft;
-        var endTop = e.currentTarget.offsetTop;
-        var proLeft = this.data.problemLeft;
-        var proTop = this.data.problemTop;
-        var boxIndex;
-        for (var i = 0; i < oldLeft.length; i++) {
-            if (endLeft >= proLeft[i] - 25 && endLeft <= proLeft[i] + 25 && endTop >= proTop[i] - 50 && endTop <= proTop[i] + 50) {
-                this.data.curLeft[index] = proLeft[i];
-                this.data.curTop[index] = proTop[i];
-                this.setData({
-                    curTop: this.data.curTop,
-                    curLeft: this.data.curLeft
-                });
-                boxIndex = i;
-                suc = true;
-                break;
-            }
+        var right = answer.length;
+        if (right < this.data.maxLength) {
+            answer[right] = letters[index];
         }
-        if (!suc) {//没有放在正确的位置
-            var tmpLeft = oldLeft[index];
-            var tmpTop = oldTop[index];
-            // console.log(tmpLeft, tmpTop);
-            this.data.curLeft[index] = tmpLeft;
-            this.data.curTop[index] = tmpTop;
-            this.setData({
-                curTop: this.data.curTop,
-                curLeft: this.data.curLeft
-            });
+        visible[index] = false;
+        // console.log(answer);
+        this.setData({
+            answer: answer,
+            visible: visible
+        });
+        //判断是否成词
+        // console.log(words);
+        if (isAWord(answer)) {
+            console.log("成功了!");
         }
-        else {//放在了正确的位置
 
-
-        }
     },
     onLoad: function () {
         var that = this;
+        var needUpdate = false;
+        wx.showToast({
+            icon: 'loading',
+            duration: 500
+        });
         wechat.getStorage("user_info").then(res => {
             user_info = res.data;
             return wechat.getStorage("word_list");
         }, err => { }).then(res => {
             word_list = res.data;
             if (word_list.length < 4) {//缓存中单词数量不足
-                wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
-                    word_list = res.result.data.words;
-                    return wechat.setStorage("word_list", word_list);//同时写入缓存
-                }, err => { console.log("!callFunction:pull, ERROR: ", err) });
+                console.log("缓存单词不足");
+                needUpdate = true;
+                return wechat.callFunction("getWordDB", { level: user_info.data.level });
             }
         }, err => {
-            wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {//云调用数据库更新
+            needUpdate = true;
+            console.log("单词缓存读取错误")
+            return wechat.callFunction("getWordDB", { level: user_info.data.level });
+        }
+        ).then(res => {
+            // console.log(needUpdate);
+            if (needUpdate) {
+                console.log(res);
                 word_list = res.result.data.words;
-                console.log(word_list);
-                resetPage(that);
+                console.log("缓存单词更新成功");
                 return wechat.setStorage("word_list", word_list);//同时写入缓存
-            }, err => { console.log("!callFunction:pull, ERROR: ", err) });
-        }).then(res => {
+            }
+        }, err => { console.log(err); }).then(res => {
             resetPage(that);
-        }, err => { console.log(err); });
+        }, err => { }).then(empty => {
+            var audio = [];
+            wx.cloud.getTempFileURL({
+                fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/correct.mp3"],
+                success: res => {
+                    audio[0] = res.fileList[0].tempFileURL;
+                    wx.cloud.getTempFileURL({
+                        fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/false.mp3"],
+                        success: res => {
+                            audio[1] = res.fileList[0].tempFileURL;
+                            that.setData({
+                                audioSrc: audio
+                            });
+                        },
+                        fail: console.error
+                    });
+                },
+                fail: console.error
+            });
+        });
+        answer = [];
+        visible.memset(20, true);
+        this.setData({
+            visible: visible
+        });
     },
 
     selectHandle: function (event) {
@@ -179,7 +199,6 @@ Page({
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
             }
-            console.log(true);
             tmp[my_option] = 'answer-hover-true';
             that.setData({
                 correct: true,
@@ -292,7 +311,8 @@ Page({
             });
         }
         else {
-            getLeters(2);//获取单词
+            var maxLength = getLeters(3);//获取单词
+            // console.log(maxLength);
             //定位
             var tmpLeft = [];
             var tmpTop = [];
@@ -300,11 +320,14 @@ Page({
                 tmpLeft[i] = oldLeft[i];
                 tmpTop[i] = oldTop[i];
             }
+            // var startPoint = positionList[maxLength];
+            console.log(maxLength);
             this.setData({
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
-                gameType: 0
+                gameType: 0,
+                maxLength: maxLength
             });
         }
         resetPage(this);
@@ -385,25 +408,33 @@ function resetPage(this_pointer) {
 }
 
 //抽取碎片
-function drawItem() {
-    var tmp = [];
-    for (var i = 0; ; i++) {
+// function drawItem() {
+//     var tmp = [];
+//     for (var i = 0; ; i++) {
 
-    }
-    var randomIndex = random(0, item.length);
-    return item[randomIndex];
-}
+//     }
+//     var randomIndex = random(0, item.length);
+//     return item[randomIndex];
+// }
 
 function getLeters(n) {
-    var words = [];
+    words = [];
     var tmp = {};
+    var maxLength = 0;
     for (var i = 0; i < n;) {
         tmp = getWord();
         if (tmp && !words.includes(tmp.en)) {
             words[i++] = tmp.en;
         }
     }
+    for (var i = 0; i < words.length; i++) {
+        if (words[i].length > maxLength)
+            maxLength = words[i].length;
+    }
     letters = split(words);
+    console.log(words);
+    // console.log(words);
+    return maxLength;
 }
 
 function split(words) {
@@ -439,6 +470,15 @@ function getRpx() {
     return 750 / winWidth;
 }
 
+function isAWord(letters) {
+    // console.log(letters.join(''), words);
+    for (var i = 0; i < words.length; i++) {
+        if (letters.join('') == words[i]) {
+            return true;
+        }
+    }
+    return false;
+}
 // 测试代码
 // wx.setStorage({
 //     key: "user_info",

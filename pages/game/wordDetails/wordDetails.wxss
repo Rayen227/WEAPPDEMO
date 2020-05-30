@@ -115,3 +115,8 @@ page {
   background-size: 60rpx 87rpx;
   background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei3.png?sign=d5aeed68d6067681c7d28cb3a3896b4a&t=1589641119);
 }
+
+.jpg{
+  width: 100px;
+  height: 100px;
+}

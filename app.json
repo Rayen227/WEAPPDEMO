@@ -1,12 +1,11 @@
 {
-  "pages": [
-    "pages/ranking/ranking",
-    "pages/index/index",
+  "pages": ["pages/index/index",
     "pages/game/game",
-    "pages/game2/game2",
+    "pages/gameTest/gameTest",
+    "pages/ranking/ranking",
+    
     "pages/miniSpace/miniSpace",
     "pages/login/login",
-    "pages/definition/definition",
     "pages/game/wordDetails/wordDetails"
   ],
   "window": {

@@ -5,12 +5,16 @@ var user_info = {};
 Page({
     data: {
         avatarUrl: '',
-        animation1:{},
-        animation2:{}
+        animation1: {},
+        animation2: {}
     },
     onLoad: function () {
         var that = this;
         var flag = 1;
+        wx.showToast({
+            icon: 'loading',
+            duration: 1000
+        });
         wechat.getSetting().then(res => {
             if (!res.authSetting['scope.userInfo']) {
                 wx.navigateTo({
@@ -24,6 +28,7 @@ Page({
                 avatarUrl: user_info.avatarUrl
             });
             // console.log(user_info);
+
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存, 重新授权
             wx.navigateTo({
@@ -31,7 +36,9 @@ Page({
             });
 
         }).then(res => {
-            var cloud = res.result.data;
+            // console.log(user_info);
+            var cloud = res.result.data[0];
+            // console.log(cloud);
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
                 user_info.update_time = time.getTime();
@@ -66,29 +73,28 @@ Page({
     },
     startGameHandle: function () {
         var animation = wx.createAnimation({
-            duration:200,
+            duration: 200,
             timingFunction: 'linear'
-            })
-            animation.scale(1.1,1.1).step(1);
-            animation.scale(1,1).step(2);
-            this.setData({
-            animation1:animation
-            })
+        })
+        animation.scale(1.1, 1.1).step(1);
+        animation.scale(1, 1).step(2);
+        this.setData({
+            animation1: animation
+        })
         wx.redirectTo({
             url: '../game/game'
         });
-    }, 
-   
+    },
     toMiniSpaceHandle: function () {
         var animation = wx.createAnimation({
-            duration:200,
+            duration: 200,
             timingFunction: 'linear'
-            })
-            animation.scale(1.1,1.1).step(1);
-            animation.scale(1,1).step(2);
-            this.setData({
-            animation2:animation
-            })
+        })
+        animation.scale(1.1, 1.1).step(1);
+        animation.scale(1, 1).step(2);
+        this.setData({
+            animation2: animation
+        })
         wx.redirectTo({
             url: '../miniSpace/miniSpace'
         });

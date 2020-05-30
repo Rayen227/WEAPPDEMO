@@ -6,16 +6,13 @@
 <view class="font word">
     <view>{{word.en}}</view>
     <view>{{word.ch}}</view>
-    <view class="iconfont icon-laba play"></view>
+    <view>{{word.accent}}</view>
+    <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
 <!-- 例句 -->
 <view class="font example">
-    <view>草莓应该种在向阳的场地。</view>
-    <view>Strawberries should have a sunny place</view>
-    <view>草莓应该种在向阳的场地。</view>
-    <view>Strawberries should have a sunny place</view>
-    <view>草莓应该种在向阳的场地。</view>
-    <view>Strawberries should have a sunny place</view>
+    <view>{{word.sentenceCh}}</view>
+    <view>{{word.sentenceEn}}</view>
+    <image class="jpg" src="{{word.jpg}}"></image>
 </view>
-<!-- 返回 -->
-<view class="font back">返回</view>
+<audio src="{{word.mp3}}" id="mp3"></audio>

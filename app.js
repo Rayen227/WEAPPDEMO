@@ -19,6 +19,12 @@ Array.prototype.remove = function (index) {
 Array.prototype.add = function (item) {
   this.splice(this.length, 0, item);
 };
+
+Array.prototype.memset = function (cnt, value) {
+  for (var i = 0; i < cnt; i++) {
+    this[i] = value;
+  }
+};
 function random(lower, upper) {
   return Math.floor(Math.random() * (upper - lower)) + lower;
 }
