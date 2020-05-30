@@ -1,4 +1,4 @@
-<!-- 涟漪特效的开始 -->
+<!-- 涟漪特效 -->
 <view class="ripple" style="{{rippleStyle}}"></view>
 <view class="container" bindtouchstart='containerTap'>
     <!-- 音量设置 -->
@@ -28,6 +28,11 @@
                 <view>{{problem.power % 2 ? options[3].ch : options[3].en}}</view>
             </view>
         </view>
+        <!-- 一个提示下一题的小盒子的开始 -->
+        <view class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
+            {{ tips }}
+            <view class="spell"></view>
+        </view>
     </view>
     <!-- 模式二 -->
     <view wx:else>
@@ -43,11 +48,10 @@
                 {{answer[index]}}
             </view>
         </view>
-    </view>
-    <!-- 一个提示下一题的小盒子的开始 -->
-    <view class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
-        {{ tips }}
-        <view class="spell"></view>
+        <!-- 重置按钮 -->
+        <view class="reset" hover-class="reset_hover">重置</view>
+        <!-- 确定按钮 -->
+        <view class="determine"></view>
     </view>
 </view>
 <!-- 音效 -->
