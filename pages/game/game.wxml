@@ -51,7 +51,7 @@
         <!-- 重置按钮 -->
         <view class="reset" hover-class="reset_hover" bind:tap="resetLetters">重置</view>
         <!-- 确定按钮 -->
-        <view wx:if="{{joint}}" class="determine">~~~</view>
+        <view wx:if="{{joint}}" class="determine" bind:tap="confirmLetters">确认</view>
     </view>
 </view>
 <!-- 音效 -->

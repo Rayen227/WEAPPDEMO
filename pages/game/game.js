@@ -39,7 +39,8 @@ Page({
         audioSrc: [],
         answer: [],
         visible: [],
-        joint: false
+        joint: false,
+        words: []
     },
 
     moveStart: function (e) {
@@ -79,37 +80,9 @@ Page({
             visible: visible,
             joint: true
         });
-        //判断是否成词
-        // console.log(words);
-        if (isAWord(answer)) {
-            console.log("成功了!");
-            //下一题
-            //
-            //return;
-        }
-        if (answer.length == this.data.maxLength) {
-            console.log("失败了 ...");
-            //展示单词
-            wx.showModal({
-                title: '',
-                content: "'" + words[0] + "'" + ' 或者 ' + "'" + words[1] + "'",
-                showCancel: true,
-                cancelText: '下一题',
-                cancelColor: '#3CC51F',
-                confirmText: '确定',
-                confirmColor: '#000000',
-                success: (result) => {
-                    if (!result.confirm) {
-                        console.log(111);
-                        that.resetHandle();
-                    }
-                },
-                fail: () => { },
-                complete: () => { }
-            });
-        }
 
     },
+
     onLoad: function () {
         var that = this;
         var needUpdate = false;
@@ -221,6 +194,7 @@ Page({
             word.last_view_time = time.getTime().timestamp;
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
+                //判断是否更新缓存
             }
             tmp[my_option] = 'answer-hover-true';
             that.setData({
@@ -295,7 +269,6 @@ Page({
         }, err => { });
     },
 
-    // test的开始
     containerTap: function (res) {
         var that = this
         var x = res.touches[0].pageX;
@@ -309,6 +282,7 @@ Page({
             });
         }, 200)
     },
+
     showDetailsHandle: function (event) {
         // console.log("showDetailesHandle");
         let that = this;
@@ -320,12 +294,13 @@ Page({
             },
             success: function () {
                 wx.navigateTo({
-                    url: 'wordDetails/wordDetails?item=' + event.currentTarget.dataset.id
+                    url: 'wordDetails/wordDetails?item=' + event.currentTarget.dataset.id + '&flag=0'
                 });
             }
-        })
+        });
 
     },
+
     resetHandle: function () {
         if (random(0, 5) > 1) {
             resetPage(this);
@@ -334,6 +309,10 @@ Page({
             });
         }
         else {
+            wx.showToast({
+                icon: 'loading',
+                duration: 500
+            });
             answer = [];
             visible.memset(20, true);
             // console.log(answer, visible);
@@ -352,20 +331,27 @@ Page({
             }
             // var startPoint = positionList[maxLength];
             // console.log(maxLength);
+            var tmp = [];
+            tmp[0] = words[0].en;
+            tmp[1] = words[1].en;
             this.setData({
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
                 gameType: 0,
                 maxLength: maxLength,
-                joint: false
+                joint: false,
+                words: tmp
             });
+            // console.log("coji!", words);
         }
         // resetPage(this);
     },
+
     backToMenuHandle: function () {
 
     },
+
     resetLetters: function () {
         answer = [];
         visible.memset(20, true);
@@ -373,6 +359,79 @@ Page({
             answer: answer,
             visible: visible
         });
+    },
+
+    confirmLetters: function () {
+        var that = this;
+        if (isAWord(answer)) {
+            wx.showModal({
+                title: '你成功了~',
+                content: "你拼出的是" + "'" + words[0].en + "'" + "\n刚才的字母还可以拼成" + "'" + words[1].en + "'~",
+                showCancel: true,
+                cancelText: '下一题',
+                cancelColor: '#3CC51F',
+                confirmText: '查看单词',
+                confirmColor: '#000000',
+                success: (result) => {
+                    if (!result.confirm) {
+                        that.resetHandle();
+                    } else {
+                        wx.showActionSheet({
+                            itemList: [words[0].en, words[1].en],
+                            success: function (res) {
+                                if (res.tapIndex == 2) {
+                                    that.resetHandle()
+                                } else {
+                                    wx.navigateTo({
+                                        url: 'wordDetails/wordDetails?en=' + words[res.tapIndex].en + '&ch=' + words[res.tapIndex].ch + '&accent=' + words[res.tapIndex].accent + '&mp3=' + words[res.tapIndex].mp3 + '&jpg=' + words[res.tapIndex].jpg + '&sentenceEn=' + words[res.tapIndex].sentenceEn + '&sentenceCh=' + words[res.tapIndex].sententCh
+                                    });
+                                }
+                            },
+                            fail: function (res) {
+                                that.resetHandle();
+                            }
+
+                        });
+                    }
+                },
+                fail: () => { },
+                complete: () => { }
+            });
+        } else {
+            wx.showModal({
+                title: '你失败了...',
+                content: "正确的单词是" + "'" + words[0].en + "'" + " 或者 " + "'" + words[1].en + "'~",
+                showCancel: true,
+                cancelText: '下一题',
+                cancelColor: '#3CC51F',
+                confirmText: '查看单词',
+                confirmColor: '#000000',
+                success: (result) => {
+                    if (!result.confirm) {
+                        that.resetHandle();
+                    } else {
+                        wx.showActionSheet({
+                            itemList: [words[0].en, words[1].en],
+                            success: function (res) {
+                                if (res.tapIndex == 2) {
+                                    that.resetHandle()
+                                } else {
+                                    wx.navigateTo({
+                                        url: 'wordDetails/wordDetails?en=' + words[res.tapIndex].en + '&ch=' + words[res.tapIndex].ch + '&accent=' + words[res.tapIndex].accent + '&mp3=' + words[res.tapIndex].mp3 + '&jpg=' + words[res.tapIndex].jpg + '&sentenceEn=' + words[res.tapIndex].sentenceEn + '&sentenceCh=' + words[res.tapIndex].sententCh
+                                    });
+                                }
+                            },
+                            fail: function (res) {
+                                that.resetHandle();
+                            }
+
+                        });
+                    }
+                },
+                fail: () => { },
+                complete: () => { }
+            });
+        }
     }
 });
 
@@ -462,16 +521,18 @@ function getLeters(n) {
     var maxLength = 0;
     for (var i = 0; i < n;) {
         tmp = getWord();
-        if (tmp && !words.includes(tmp.en)) {
-            words[i++] = tmp.en;
+        if (tmp && !words.includes(tmp)) {
+            words[i++] = tmp;
         }
     }
     for (var i = 0; i < words.length; i++) {
-        if (words[i].length > maxLength)
-            maxLength = words[i].length;
+        if ((words[i].en).length > maxLength) {
+            maxLength = (words[i].en).length;
+        }
     }
-    letters = split(words);
-    console.log(words);
+    letters = split([words[0].en, words[1].en]);
+    console.log(words[0].en, words[1].en);
+    // console.log(words);
     // console.log(words);
     return maxLength;
 }
@@ -512,7 +573,7 @@ function getRpx() {
 function isAWord(letters) {
     // console.log(letters.join(''), words);
     for (var i = 0; i < words.length; i++) {
-        if (letters.join('') == words[i]) {
+        if (letters.join('') == words[i].en) {
             return true;
         }
     }
