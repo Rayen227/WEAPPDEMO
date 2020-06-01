@@ -26,3 +26,11 @@ Array.prototype.memset = function (cnt, value) {
   }
 };
 
+String.prototype.intercept = function (l, r) {
+  let tmp = [];
+  var k = 0;
+  for (var i = l; i < r; i++) {
+    tmp[k++] = this[i];
+  }
+  return tmp.join('');
+};

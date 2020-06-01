@@ -52,6 +52,11 @@
         <view class="reset" hover-class="reset_hover" bind:tap="resetLetters">重置</view>
         <!-- 确定按钮 -->
         <view wx:if="{{joint}}" class="determine" bind:tap="confirmLetters">确认</view>
+        <!-- 拼单词长度提示 -->
+        <view>
+            可能的单词长度为
+            <view wx:for="{{words}}" wx:for-index="index">{{words[index].length}};</view>
+        </view>
     </view>
 </view>
 <!-- 音效 -->

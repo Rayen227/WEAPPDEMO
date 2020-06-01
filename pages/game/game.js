@@ -114,6 +114,10 @@ Page({
                 return wechat.setStorage("word_list", word_list);//同时写入缓存
             }
         }, err => { console.log(err); }).then(res => {
+            //word_list中单词中文重构
+            for (var i = 0; i < word_list.length; i++) {
+                word_list[i].ch = getCh(word_list[i].ch)
+            }
             resetPage(that);
         }, err => { }).then(empty => {
             var audio = [];
@@ -332,8 +336,11 @@ Page({
             // var startPoint = positionList[maxLength];
             // console.log(maxLength);
             var tmp = [];
-            tmp[0] = words[0].en;
-            tmp[1] = words[1].en;
+            for (var i = 0; i < words.length; i++) {
+                if (!tmp.includes(words[i].en)) {
+                    tmp[i] = words[i].en;
+                }
+            }
             this.setData({
                 letter: letters,
                 curLeft: tmpLeft,
@@ -581,6 +588,10 @@ function isAWord(letters) {
 }
 function random(lower, upper) {
     return Math.floor(Math.random() * (upper - lower)) + lower;
+}
+function getCh(string) {
+    var index = string.indexOf('；');
+    return index != -1 ? string.intercept(0, index) : string;
 }
 // 测试代码
 // wx.setStorage({
