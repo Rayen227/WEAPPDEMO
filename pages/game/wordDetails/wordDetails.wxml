@@ -9,6 +9,7 @@
     <view>{{word.accent}}</view>
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
+<view bind:tap="starWord">收藏</view>
 <!-- 例句 -->
 <view class="font example">
     <view>{{word.sentenceCh}}</view>

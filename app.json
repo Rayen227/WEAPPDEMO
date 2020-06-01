@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/game/game",
-    "pages/gameTest/gameTest",
-    "pages/ranking/ranking",
     "pages/index/index",
+    "pages/ranking/ranking",
+    "pages/gameTest/gameTest",
     "pages/miniSpace/miniSpace",
     "pages/login/login",
     "pages/game/wordDetails/wordDetails"

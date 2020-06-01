@@ -1,4 +1,5 @@
 // pages/wordDetails/wordDetails.js
+let wechat = require('../../../utils/promise.js');
 Page({
 
   /**
@@ -54,6 +55,18 @@ Page({
   playMp3: function () {
     wx.createAudioContext("mp3").play();
   },
+  starWord: function () {
+    var user_info;
+    var that = this;
+    var collected;
+    wechat.getStorage("user_info").then(res => {
+      user_info = res.data;
+      collected = user_info.word_tag.collected;
+      collected[collected.length] = that.data.word;
+      user_info.word_tag.collected = collected;
+      return wechat.setStorage("user_info", user_info);
+    }, err => { })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -80,7 +93,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.removeStorage({
+      key: "gamePage"
+    });
   },
 
   /**

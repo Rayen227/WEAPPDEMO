@@ -1,5 +1,5 @@
 const wechat = require('../../utils/promise.js');
-
+var user_info = {};
 
 // console.log(arr.sort(compare));
 
@@ -10,30 +10,49 @@ Page({
    */
   data: {
     userList: [],
-    rank: 0
+    rank: '0'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wechat.callFunction("getUsers").then(res => {
+    wechat.getStorage("user_info").then(res => {
+      user_info = res.data;
+      return wechat.callFunction("getUsers");
+    }, err => { }).then(res => {
       // console.log(res.result.data);
       var users = res.result.data;
+      console.log(users);
+      // console.log(users);
       var tmp = {};
       var userTmp = [];
+      var rank;
       for (var i = 0; i < users.length; i++) {
         tmp.nickname = users[i].nickname;
         tmp.avatarUrl = users[i].avatarUrl;
         tmp.exp = users[i].data.exp;
+        tmp._id = users[i]._id
         // this.data.userList.add(tmp);
         userTmp.add(tmp);
       }
       userTmp.sort(cmp);
-      this.setData({ userList: userTmp });
+      // console.log(userTmp);
+      for (var i = 0; i < userTmp.length; i++) {
+        if (user_info._id == userTmp[i]._id) {
+          rank = i;
+          break;
+        }
+      }
+      // console.log(user_info);
+      this.setData({
+        userList: userTmp,
+        rank: rank ? rank : "∞"
+      });
     }, err => {
       console.log("!");
     });
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -84,7 +103,7 @@ Page({
 
   }
 });
-  
+
 
 var cmp = function (obj1, obj2) {
   var val1 = obj1.exp;
