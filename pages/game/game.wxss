@@ -220,6 +220,12 @@ page {
 /* 确定按钮 */
 .determine {
     position: absolute;
+    left:300rpx;
+    top:1050rpx;
+    width: 180rpx;
+    height: 100rpx;
+    background-color: yellow;
+    border-radius: 10%;
 }
 
 
