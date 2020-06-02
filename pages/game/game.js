@@ -214,6 +214,7 @@ Page({
                         var tmp = word_list;
                         word_list = res.result.data.words;
                         word_list = word_list.concat(tmp);
+                        user_info.data.level++;
                         return wechat.setStorage("word_list", word_list);
                     }, err => { });
                 }
@@ -380,9 +381,13 @@ Page({
     resetLetters: function () {
         answer = [];
         visible.memset(20, true);
+        // this.data.curLeft = oldLeft;
+        // this.data.curTop = oldTop;
         this.setData({
             answer: answer,
-            visible: visible
+            visible: visible,
+            curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
+            curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500]
         });
     },
 
@@ -582,7 +587,7 @@ function getWord() {
     var random_index = Math.floor(Math.random() * word_list.length)
     return word_list[random_index];
 }
-
+//随机打乱数组顺序
 function randomUpset(arr) {
     var len = arr.length
     for (var i = len - 1; i >= 0; i--) {
@@ -617,6 +622,8 @@ function getCh(string) {
     var index = string.indexOf('；');
     return index != -1 ? string.intercept(0, index) : string;
 }
+
+
 // 测试代码
 // wx.setStorage({
 //     key: "user_info",
