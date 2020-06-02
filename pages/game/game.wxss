@@ -55,7 +55,7 @@ page {
 .question {
     position: relative;
     box-sizing:border-box;
-    margin:120rpx auto 100rpx;
+    margin:120rpx auto 80rpx;
     padding: 30rpx;
     width: 550rpx;
     height: 300rpx;
@@ -158,7 +158,13 @@ page {
     height: 60rpx;
     background-color: #fff;
 } */
-
+.next {
+    margin: 10rpx auto;
+    width: 280rpx;
+    height: 120rpx;
+    background-size: 280rpx 120rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/confirm.png?sign=e34294f82c1e9af1f7e0284e406d9d44&t=1591110586);
+}
 
 
 

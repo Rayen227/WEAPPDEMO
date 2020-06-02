@@ -29,10 +29,11 @@
             </view>
         </view>
         <!-- 一个提示下一题的小盒子的开始 -->
-        <view wx:if="{{selected}}" class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
+        <!-- <view wx:if="{{selected}}" class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
             {{ tips }}
             <view class="spell"></view>
-        </view>
+        </view> -->
+        <view wx:if="{{selected}}" bindtap="resetHandle" class="next"></view>
     </view>
     <!-- 模式二 -->
     <view wx:else>
