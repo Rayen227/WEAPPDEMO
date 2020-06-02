@@ -17,8 +17,8 @@
 <view class="font example">
     <view>她正在点蜡烛。</view>
     <view>She is lighting a candle.</view>
-    <image class="jpg" src="{{word.jpg}}" />
 </view>
+<image class="jpg" src="{{word.jpg}}" />
 <audio src="{{word.mp3}}" id="mp3"></audio>
 <!-- <view class="font example">
 <view>{{word.sentenceCh}}</view>

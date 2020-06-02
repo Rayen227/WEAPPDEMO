@@ -17,7 +17,7 @@ page {
 }
 .head {
   box-sizing: border-box;
-  margin: 90rpx auto -40rpx;
+  margin: 90rpx auto 0;
   width: 160rpx;
   height: 160rpx;
   border-radius: 80rpx;
@@ -32,33 +32,33 @@ page {
 
 /* 排名 */
 .rank {
-  margin: 70rpx auto;
-  width: 80%;
-  height: 300rpx;
-  background-color: darkgoldenrod;
+  margin: 0rpx auto;
+  width: 650rpx;
+  height: 350rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/rank.png?sign=fa20ed01bfecee67d73ff339cf78ccca&t=1591024592);
+  background-size: 650rpx 350rpx;
 }
 
 /* 开始 */
 .game {
-  margin: 80rpx auto;
+  margin: 40rpx auto;
   width: 400rpx;
-  height: 130rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/start.png?sign=16b441e6b44d51e8ad9244f4c6de0027&t=1590074316);
-  background-size: 400rpx 130rpx;
+  height: 165rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/start.png?sign=282094c0e3e08cbadd216f2ff35eb0a3&t=1591024328);
+  background-size: 400rpx 165rpx;
   /* 阴影 */
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)) drop-shadow(0 0 15px rgba(96, 96, 96, 0.8)) drop-shadow(0 0 5px rgba(96, 96, 96, 0.9));
-  color: rgb(83, 156, 93);
+  /* filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)) drop-shadow(0 0 15px rgba(96, 96, 96, 0.8)) drop-shadow(0 0 5px rgba(96, 96, 96, 0.9));
+  color: rgb(83, 156, 93); */
   /* -webkit-filter: drop-shadow(0 0 2px #2b002b) drop-shadow(0 0 15px #c0c) drop-shadow(0 0 5px #f0f); */
 }
 
 /* 空间 */
 .room {
-  margin: 80rpx auto;
+  margin: 40rpx auto;
   width: 400rpx;
-  height: 130rpx;
-  background-color: darkgoldenrod;
-  text-align: center;
-  line-height: 130rpx;
+  height: 165rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/room.png?sign=bfc23cee15bd40e838803ed399523935&t=1591024470);
+  background-size: 400rpx 165rpx;
 }
 
 /* 错题本 */

@@ -13,27 +13,43 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    var word;
+    var word = {};
     wx.showToast({
       icon: 'loading',
       duration: 1500
     });
-    wx.getStorage({
-      key: "gamePage",
-      success: function (res) {
-        word = res.data.options[options.item];
-        wx.cloud.getTempFileURL({
-          fileList: [word.mp3],
-          success: res => {
-            word.mp3 = res.fileList[0].tempFileURL;
-            that.setData({
-              word: word
-            });
-          },
-          fail: console.error
-        });
-      }
-    });
+    // console.log(options);
+    if (options.flag == "0") {
+      wx.getStorage({
+        key: "gamePage",
+        success: function (res) {
+          word = res.data.options[options.item];
+          wx.cloud.getTempFileURL({
+            fileList: [word.mp3],
+            success: res => {
+              word.mp3 = res.fileList[0].tempFileURL;
+              that.setData({
+                word: word
+              });
+            },
+            fail: console.error
+          });
+        }
+      });
+    } else {
+      word.en = options.en;
+      word.ch = options.ch;
+      word.accent = options.accent;
+      word.jpg = options.jpg;
+      word.mp3 = options.mp3;
+      word.sentenceEn = options.sentenceEn;
+      word.sentenceCh = options.sentenceCh;
+      console.log(word);
+      that.setData({
+        word: word
+      });
+    }
+
   },
   playMp3: function () {
     wx.createAudioContext("mp3").play();

@@ -210,26 +210,36 @@ page {
     position: absolute;
     top: 250rpx;
     left: 0;
-    width: 180rpx;
-    height: 100rpx;
-    background-color: lawngreen;
+    width: 80rpx;
+    height: 80rpx;
+    background-size: 80rpx 80rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/reset.png?sign=3dce3b1b5c8c30fc2a61c56564488b3c&t=1591023420);
 }
 .reset_hover {
-    background-color: lightpink;
+    /* background-color: lightpink; */
 }
 /* 确定按钮 */
 .determine {
     position: absolute;
-    left:300rpx;
-    top:1050rpx;
+    right: 0;
+    bottom: 0;
     width: 180rpx;
     height: 100rpx;
     background-color: yellow;
     border-radius: 10%;
 }
-
-
-
+/* 拼单词长度提示 */
+.length {
+    position: absolute;
+    top: 0;
+    left: 171rpx;
+    width: 500rpx;
+    font-size: 40rpx;
+    /* background-color: khaki; */
+}
+.length view {
+    display: inline-block;
+}
 /* .spellLetter view:nth-child(1) {
     top: 100rpx;
     left: 0;
