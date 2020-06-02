@@ -233,7 +233,7 @@ Page({
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
             mistaken.insert(mistaken.length, word);
-            console.log(false);
+            // console.log(false);
             tmp[my_option] = 'answer-hover-false';
             this.setData({
                 correct: false,
