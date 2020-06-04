@@ -5,7 +5,6 @@ Page({
   data: {
     wordList: []
   },
-
   onLoad: function (options) {
     var that = this;
     wechat.getStorage('user_info').then(res => {
