@@ -1,19 +1,28 @@
-<!-- 音量设置 -->
-<view class="musicSetup" hover-class="select">
-    <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-</view>
 <!-- 单词 -->
+<!-- <view class="font word">
+    <view>light</view>
+    <view>v. 点火，照亮； adj. 不严重的； n. 光亮； adv. 轻轻地</view>
+    <view>
+        /laɪt/
+        <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
+    </view>
+</view> -->
+<view bind:tap="starWord">收藏</view>
 <view class="font word">
     <view>{{word.en}}</view>
     <view>{{word.ch}}</view>
     <view>{{word.accent}}</view>
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
-<view bind:tap="starWord">收藏</view>
 <!-- 例句 -->
+<!-- <view class="font example">
+    <view>她正在点蜡烛。</view>
+    <view>She is lighting a candle.</view>
+</view>
+<image class="jpg" src="{{word.jpg}}" />
+<audio src="{{word.mp3}}" id="mp3"></audio> -->
 <view class="font example">
     <view>{{word.sentenceCh}}</view>
     <view>{{word.sentenceEn}}</view>
     <image class="jpg" src="{{word.jpg}}"></image>
 </view>
-<!-- <audio src="{{word.mp3}}" id="mp3"></audio> -->

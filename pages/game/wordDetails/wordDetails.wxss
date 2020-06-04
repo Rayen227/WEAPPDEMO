@@ -1,49 +1,52 @@
 page {
-  background-color: skyblue;
-  margin: 0;
-  padding: 0;
-}
-/* 静音后 */
-.select {
-  color: #1eff00;
-}
-/* 单词 */
-.word{
-  width: 100%;
-  height: 300rpx;
-  background-color: palegoldenrod;
-}
-/* 单词--英文 */
-.word view:nth-child(1){
-  padding-left: 40rpx;
-  font-size: 60rpx;
-  font-weight: 1000;
-  line-height: 110rpx;
-  background-color: honeydew;
-}
-/* 单词--中文 */
-.word view:nth-child(2) {
-  padding-left: 50rpx;
-  font-size: 40rpx;
-  font-weight: 700;
-  color: gray;
-  line-height: 100rpx;
-  background-color: khaki;
+background-color: skyblue;
+margin: 0;
+padding: 0;
 }
 
-.play {
-  margin-left: 50rpx;
-  line-height: 100rpx;
-  color: brown;
+/* 单词 */
+.word{
+  overflow: hidden;
+  margin-top: 20rpx;
+  padding: 20rpx 20rpx 20rpx 30rpx;
+  background-color: palegoldenrod; 
 }
+
+/* 单词--英文 */
+.word view:nth-child(1) {
+  font-size: 60rpx;
+  font-weight: bolder;
+}
+
+/* 单词--中文 */
+.word view:nth-child(2) {
+  font-size: 50rpx;
+  font-weight: 700;
+  color: gray;
+  line-height: .9em;
+}
+
+/* 单词--音标 */
+.word view:nth-child(3) {
+  font-size: 50rpx;
+  font-weight: 700;
+  color: gray;
+}
+
+/* 喇叭 */
+.play {
+  display: inline;
+  font-size: 50rpx;
+  color: #a52a2a;
+}
+
 /* .word view:nth-child(3) {
-  margin-left: 40rpx;
-  margin-top: 30rpx;
-  width: 30rpx;
-  height: 30rpx;
-  font-size: 20rpx;
-  
-  background-color: greenyellow;
+margin-left: 40rpx;
+margin-top: 30rpx;
+width: 30rpx;
+height: 30rpx;
+font-size: 20rpx;
+background-color: greenyellow;
 } */
 
 .example {
@@ -82,41 +85,8 @@ page {
   background-color: hotpink;
 }
 
-
-
-/* 模式二 */
-.spell {
-  margin-top: 110rpx;
-  width: 100%;
-  height: 300rpx;
-  background-size: 800rpx 400rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/meibranch2.png?sign=6610c5b88694f61e57a2c110625b4ad1&t=1589901595);
-}
-/* 字母 */
-.letter view{
-  position: absolute;
-  width: 100rpx;
-  height: 100rpx;
-  font-size: 56rpx;
-  line-height: 100rpx;
-  text-align: center;
-  background-size: 100rpx 100rpx;
-}
-  /* 背景图片设置 */
-.letter view:nth-child(3n-2) {
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
-}
-.letter view:nth-child(3n-1) {
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei2.png?sign=ff4a9f664c2c09d19595b1fa7bc33adb&t=1589556026);
-}
-.letter view:nth-child(3n) {
-  width: 60rpx;
-  height: 87rpx;
-  background-size: 60rpx 87rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei3.png?sign=d5aeed68d6067681c7d28cb3a3896b4a&t=1589641119);
-}
-
 .jpg{
   width: 100px;
   height: 100px;
 }
+

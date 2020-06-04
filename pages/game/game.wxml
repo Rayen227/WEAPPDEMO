@@ -2,9 +2,9 @@
 <view class="ripple" style="{{rippleStyle}}"></view>
 <view class="container" bindtouchstart='containerTap'>
     <!-- 音量设置 -->
-    <view class="musicSetup" hover-class="select">
+    <!-- <view class="musicSetup" hover-class="select">
         <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-    </view>
+    </view> -->
     <!-- 模式一 -->
     <view wx:if="{{gameType}}">
         <!-- 问题 -->
@@ -29,10 +29,11 @@
             </view>
         </view>
         <!-- 一个提示下一题的小盒子的开始 -->
-        <view wx:if="{{selected}}" class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
+        <!-- <view wx:if="{{selected}}" class="font {{ selected?'box':'box2' }}" animation="{{ nextPageAnimation }}" hover-class="next-hover" bindtap="resetHandle">
             {{ tips }}
             <view class="spell"></view>
-        </view>
+        </view> -->
+        <view wx:if="{{selected}}" bindtap="resetHandle" class="next"></view>
     </view>
     <!-- 模式二 -->
     <view wx:else>
@@ -49,13 +50,16 @@
             </view>
         </view>
         <!-- 重置按钮 -->
-        <view class="reset" hover-class="reset_hover" bind:tap="resetLetters">重置</view>
+        <view class="reset" hover-class="reset_hover" bind:tap="resetLetters"></view>
         <!-- 确定按钮 -->
         <view wx:if="{{joint}}" class="determine" bind:tap="confirmLetters">确认</view>
         <!-- 拼单词长度提示 -->
-        <view>
-            可能的单词长度为
-            <view wx:for="{{words}}" wx:for-index="index">{{words[index].length}};</view>
+        <view class="font length">
+            可能的单词长度为:
+            <view wx:for="{{words}}" wx:for-index="index">
+                {{words[index].length}}
+                <text decode="{{true}}">&nbsp;</text>
+            </view>
         </view>
     </view>
 </view>

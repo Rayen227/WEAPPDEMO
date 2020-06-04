@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/definition/definition",
     "pages/index/index",
+    "pages/mistake/mistake",
     "pages/miniSpace/miniSpace",
     "pages/game/game",
     "pages/gameTest/gameTest",
     "pages/ranking/ranking",
-    "pages/login/login",
-    "pages/game/wordDetails/wordDetails"
+    "pages/game/wordDetails/wordDetails",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -124,7 +124,7 @@ Page({
     },
     toDefinition: function () {
         wx.navigateTo({
-            url: '../definition/definition'
+            url: '../mistake/mistake'
         });
     },
     onUnload: function () {
