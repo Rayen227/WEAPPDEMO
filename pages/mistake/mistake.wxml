@@ -1,0 +1,33 @@
+<view class="pg">
+   <!-- 上方 -->
+   <view class="nav">
+      <view>历史错题</view>
+      <view>错题</view>
+      <view>收藏</view>
+   </view>
+   <!-- 中部 -->
+   <view class="problem">
+      <view>apple</view>
+      <view>pig</view>
+      <view>big</view>
+      <view>mistake</view>
+      <view>remember</view>
+      <view>love</view>
+      <view>music</view>
+      <view>lzy</view>
+      <view>wzq</view>
+      <view>cjq</view>
+      <view>apple</view>
+      <view>pig</view>
+      <view>big</view>
+      <view>mistake</view>
+      <view>remember</view>
+      <view>love</view>
+      <view>music</view>
+      <view>lzy</view>
+      <view>wzq</view>
+      <view>cjq</view>
+   </view>
+   <!-- 下面 -->
+   <view class="kong"></view>
+</view>

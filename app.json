@@ -1,5 +1,7 @@
-{ 
-  "pages": [   "pages/miniSpace/miniSpace",
+{
+  "pages": [
+    "pages/mistake/mistake",
+    "pages/miniSpace/miniSpace",
     "pages/game/game",
     "pages/gameTest/gameTest",
     "pages/ranking/ranking",
