@@ -3,6 +3,9 @@ let time = require('../../utils/time.js');
 const db = wx.cloud.database();
 var user_info = {};
 var bgm;
+var hardPaused = false;
+var gameBack = false;
+var loginBack = false;
 Page({
     data: {
         avatarUrl: '',
@@ -16,26 +19,22 @@ Page({
             icon: 'loading',
             duration: 1000
         });
-        wx.cloud.getTempFileURL({
-            fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/index_bgm.mp3'],
-            success: res => {
-                bgm = wx.createInnerAudioContext();
-                var url = res.fileList[0].tempFileURL;
-                bgm.loop = true;
-                bgm.src = url;
-                bgm.onError(err => {
-                    console.log(err);
-                });
-
-                if (bgm.paused) {
-                    bgm.play();
-                }
-
-            },
-            fail: console.error
-        });
         wechat.getSetting().then(res => {
+            wx.cloud.getTempFileURL({
+                fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/miniSpace_bgm.mp3'],
+                success: res => {
+                    bgm = wx.createInnerAudioContext();
+                    var url = res.fileList[0].tempFileURL;
+                    bgm.loop = true;
+                    bgm.src = url;
+                    bgm.onError(err => {
+                        console.log(err);
+                    });
+                },
+                fail: console.error
+            });
             if (!res.authSetting['scope.userInfo']) {
+                loginBack = true;
                 wx.navigateTo({
                     url: '../login/login'
                 });
@@ -50,14 +49,13 @@ Page({
 
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存, 重新授权
+            loginBack = true;
             wx.navigateTo({
                 url: '../login/login'
             });
 
         }).then(res => {
-            // console.log(user_info);
             var cloud = res.result.data[0];
-            // console.log(cloud);
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
                 user_info.update_time = time.getTime();
@@ -88,10 +86,15 @@ Page({
                 });
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
+            if (bgm.paused) {
+                bgm.play();
+            }
+
         });
     },
     startGameHandle: function () {
-        bgm.stop();
+        bgm.pause();
+        gameBack = true;
         var animation = wx.createAnimation({
             duration: 200,
             timingFunction: 'linear'
@@ -101,7 +104,7 @@ Page({
         this.setData({
             animation1: animation
         })
-        wx.redirectTo({
+        wx.navigateTo({
             url: '../game/game'
         });
     },
@@ -115,12 +118,31 @@ Page({
         this.setData({
             animation2: animation
         });
-
-        wx.redirectTo({
+        wx.navigateTo({
             url: '../miniSpace/miniSpace'
+        });
+    },
+    toDefinition: function () {
+        wx.navigateTo({
+            url: '../definition/definition'
         });
     },
     onUnload: function () {
 
+    },
+    onShow: function () {
+        if (bgm && !hardPaused && gameBack && !loginBack) {
+            bgm.play();
+        }
+    },
+    stopBgm: function () {
+        // hardPaused = hardPaused ? true : false;
+        hardPaused = true;
+        if (bgm.paused) {
+            bgm.play();
+            hardPaused = false;
+        } else {
+            bgm.stop();
+        }
     }
 });

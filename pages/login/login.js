@@ -14,6 +14,10 @@ Page({
 
     bindGetUserInfo: function (e) {
         var that = this;
+        wx.showToast({
+            icon: 'loading',
+            duration: 1500
+        });
         if (e.detail.userInfo) {
             var tmp = e.detail.userInfo;
             wechat.callFunction("getOpenId").then(res => {

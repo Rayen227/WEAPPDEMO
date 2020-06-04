@@ -1,8 +1,8 @@
 <!-- 音量设置 -->
-<view class="musicSetup" hover-class="select">
+<view class="musicSetup" hover-class="select" bind:tap="stopBgm">
     <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
 </view>
-<!-- 头像 --> 
+<!-- 头像 -->
 <view class="head">
     <image src="{{avatarUrl}}" />
 </view>
@@ -13,4 +13,4 @@
 <!-- 空间 -->
 <view class="font room" bind:tap="toMiniSpaceHandle" animation="{{ animation2 }}">空间</view>
 <!-- 错题本 -->
-<view class="mistake"></view>
+<view class="mistake" bind:tap="toDefinition"></view>
