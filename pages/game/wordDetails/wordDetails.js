@@ -1,17 +1,10 @@
-// pages/wordDetails/wordDetails.js
 let wechat = require('../../../utils/promise.js');
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     word: {}
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     let that = this;
     var word = {};
@@ -53,7 +46,7 @@ Page({
 
   },
   playMp3: function () {
-    wx.createAudioContext("mp3").play();
+    audio(this.data.word.mp3, false);
   },
   starWord: function () {
     var user_info;
@@ -67,55 +60,9 @@ Page({
       return wechat.setStorage("user_info", user_info);
     }, err => { })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
     wx.removeStorage({
       key: "gamePage"
     });
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
   }
-})
+});

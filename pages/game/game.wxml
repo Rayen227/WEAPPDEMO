@@ -60,5 +60,5 @@
     </view>
 </view>
 <!-- 音效 -->
-<audio src="{{audioSrc[0]}}" id="trueAudio"></audio>
-<audio src="{{audioSrc[1]}}" id="falseAudio"></audio>
+<!-- <audio src="{{audioSrc[0]}}" id="trueAudio"></audio>
+<audio src="{{audioSrc[1]}}" id="falseAudio"></audio> -->

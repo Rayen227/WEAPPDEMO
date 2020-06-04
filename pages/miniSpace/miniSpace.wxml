@@ -9,21 +9,13 @@
 </view>
 <!-- 背包 -->
 <view class="list">
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
-    <view class="classify">分类1</view>
+    <view class="classify" wx:for="{{itemList}}" wx:for-index="index" wx:for-item="item" wx:if="{{isOwned[index]}}">
+        {{itemList[index].name}}
+    </view>
 </view>
 <!-- 背景图片 -->
 <scroll-view scroll-x class="background">
     <view>
-        <image src="../../images/minibackground.png" />
+        <!-- <image src="../../images/minibackground.png" /> -->
     </view>
 </scroll-view>

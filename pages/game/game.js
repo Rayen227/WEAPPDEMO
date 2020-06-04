@@ -1,7 +1,6 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let item_list = require('../../utils/items.js');
-
+let itemList = require('../../utils/itemList.js');
 var user_info = {};
 var word_list = [];
 var listId = 0;
@@ -17,6 +16,7 @@ var oldLeft = [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 59
 var answer = [];
 var visible = [];
 var words = [];
+var audio = [];
 
 Page({
     data: {
@@ -36,7 +36,7 @@ Page({
         letter: [],
         src: '',
         maxLength: 0,
-        audioSrc: [],
+        // audioSrc: [],
         answer: [],
         visible: [],
         joint: false,
@@ -90,6 +90,22 @@ Page({
             icon: 'loading',
             duration: 500
         });
+        wx.cloud.getTempFileURL({
+            fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/correct.mp3', 'cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/false.mp3'],
+            success: res => {
+                audio[0] = wx.createInnerAudioContext();
+                audio[1] = wx.createInnerAudioContext();
+                audio[0].src = res.fileList[0].tempFileURL;
+                audio[0].onError(err => {
+                    console.log(err);
+                });
+                audio[1].src = res.fileList[1].tempFileURL;
+                audio[1].onError(err => {
+                    console.log(err);
+                });
+            },
+            fail: console.error
+        });
         wechat.getStorage("user_info").then(res => {
             user_info = res.data;
             return wechat.getStorage("word_list");
@@ -127,30 +143,15 @@ Page({
             }
             resetPage(that);
         }, err => { }).then(empty => {
-            var audio = [];
-            wx.cloud.getTempFileURL({
-                fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/correct.mp3"],
-                success: res => {
-                    audio[0] = res.fileList[0].tempFileURL;
-                    wx.cloud.getTempFileURL({
-                        fileList: ["cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/false.mp3"],
-                        success: res => {
-                            audio[1] = res.fileList[0].tempFileURL;
-                            that.setData({
-                                audioSrc: audio
-                            });
-                        },
-                        fail: console.error
-                    });
-                },
-                fail: console.error
-            });
             wx.setStorage({
                 key: "user_info",
                 data: user_info
             });
         });
 
+    },
+
+    onUploud: function () {
     },
 
     selectHandle: function (event) {
@@ -165,7 +166,7 @@ Page({
         let word = word_list[listId];
         var tmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
-            wx.createAudioContext("trueAudio").play();
+            audio[0].play();
             if (my_option == 0) {
                 that.setData({
                     animation: [animation, null, null, null]
@@ -228,7 +229,8 @@ Page({
         }
         else {
             // 选错了
-            wx.createAudioContext("falseAudio").play();
+            // wx.createAudioContext("falseAudio").play();
+            audio[1].play();
             word.power += word.power < 3 ? 1 : 0;//权上限为3
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
@@ -538,16 +540,20 @@ function resetPage(this_pointer) {
 //抽取碎片
 function drawItem() {
     var that = this;
-    wechat.callFunction("getItems").then(res => {
-        // console.log(res.result.data);
-        var items = res.result.data;
-        var item = items[random(0, items.length)];
-        // console.log(item);
-        user_info.data.item.add(item);
-        return setStorage("user_info", user_info);
-    });
+    var items = user_info.data.items;
+    if (items.length == itemList.length) {
+        return false;
+    }
+    while (true) {
+        var index = random(0, itemList.length);
+        if (!items.includes(index)) {
+            break;
+        }
+    }
+    user_info.data.items.add(index);
+    wechat.setStorage("user_info", user_info);
+    return itemList[index];
 }
-
 function getLeters(n) {
     words = [];
     var tmp = {};
@@ -629,12 +635,12 @@ function getCh(string) {
 //     key: "user_info",
 //     data: {
 //         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
-//         data: { level: 0, exp: 12, items: [0, 0, 0, 0, 1] },
+//         data: { level: 0, exp: 12, items: [] },
 //         update_time: {},
 //         word_tag: {
-//             completed: [{ field: 0, wordId: "" }],
-//             mistaken: [{ field: 0, wordId: "" }],
-//             collected: [{ field: 0, wordId: "" }]
+//             completed: [],
+//             mistaken: [],
+//             collected: []
 //         }
 //     }
 // })

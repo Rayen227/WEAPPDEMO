@@ -2,6 +2,7 @@ let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 const db = wx.cloud.database();
 var user_info = {};
+var bgm;
 Page({
     data: {
         avatarUrl: '',
@@ -14,6 +15,24 @@ Page({
         wx.showToast({
             icon: 'loading',
             duration: 1000
+        });
+        wx.cloud.getTempFileURL({
+            fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/index_bgm.mp3'],
+            success: res => {
+                bgm = wx.createInnerAudioContext();
+                var url = res.fileList[0].tempFileURL;
+                bgm.loop = true;
+                bgm.src = url;
+                bgm.onError(err => {
+                    console.log(err);
+                });
+
+                if (bgm.paused) {
+                    bgm.play();
+                }
+
+            },
+            fail: console.error
         });
         wechat.getSetting().then(res => {
             if (!res.authSetting['scope.userInfo']) {
@@ -72,6 +91,7 @@ Page({
         });
     },
     startGameHandle: function () {
+        bgm.stop();
         var animation = wx.createAnimation({
             duration: 200,
             timingFunction: 'linear'
@@ -94,9 +114,13 @@ Page({
         animation.scale(1, 1).step(2);
         this.setData({
             animation2: animation
-        })
+        });
+
         wx.redirectTo({
             url: '../miniSpace/miniSpace'
         });
+    },
+    onUnload: function () {
+
     }
 });

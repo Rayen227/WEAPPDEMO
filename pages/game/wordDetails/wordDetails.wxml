@@ -16,4 +16,4 @@
     <view>{{word.sentenceEn}}</view>
     <image class="jpg" src="{{word.jpg}}"></image>
 </view>
-<audio src="{{word.mp3}}" id="mp3"></audio>
+<!-- <audio src="{{word.mp3}}" id="mp3"></audio> -->

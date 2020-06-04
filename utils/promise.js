@@ -40,16 +40,6 @@ class Wechat {
     }))
   }
 
-  static showModel(content, mode) {
-    return new Promise((resolve, reject) => wx.showModel({
-      title: mode == "confirm" ? '请确认' : '警告',
-      content: content,
-      confirmColor: mode == "confirm" ? 'green' : '',
-      cancelColor: mode == "warn" ? 'red' : '',
-      success: resolve, fail: reject
-    }))
-  }
-
   static setTime(time) {
     return new Promise((resolve, reject) => setTimeout(resolve, time));
   }
@@ -79,7 +69,13 @@ class Wechat {
     }))
   }
 
-
+  static getTempFileUrl(list) {
+    return new Promise((resolve, reject) => wx.cloud.getTempFileURL({
+      fileList: list,
+      success: resolve,
+      fail: reject
+    }))
+  }
 
 };
 
