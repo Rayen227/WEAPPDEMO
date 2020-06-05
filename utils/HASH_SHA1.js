@@ -48,6 +48,4 @@ var SHA1 = function (s) {
 	return hex;
 }
 
-module.exports = {
-	SHA1: SHA1
-}
+module.exports = SHA1;

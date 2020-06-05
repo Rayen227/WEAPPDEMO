@@ -237,6 +237,8 @@ Page({
             mistaken.insert(mistaken.length, word);
             // console.log(false);
             tmp[my_option] = 'answer-hover-false';
+            tmp[true_option] = 'answer-hover-true';
+            console.log(tmp);
             this.setData({
                 correct: false,
                 selected: true,

@@ -38,5 +38,12 @@ Page({
     wx.navigateTo({
       url: '../game/wordDetails/wordDetails?en=' + words[index].en + '&ch=' + words[index].ch + '&accent=' + words[index].accent + '&mp3=' + words[index].mp3 + '&jpg=' + words[index].jpg + '&sentenceEn=' + words[index].sentenceEn + '&sentenceCh=' + words[index].sententCh + '&power=' + words[index].power + '&last_view_time=' + words[index].last_view_time
     });
+  },
+  setCompleted: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var words = user_info.word_tag[curTag];
+    words.remove(index);
+    user_info.word_tag.completed = words;
+    wechat.setStorage('user_info', user_info);
   }
 });

@@ -7,10 +7,10 @@
     <image src="{{avatarUrl}}" />
 </view>
 <!-- 排名 -->
-<view class="font rank"></view>
+<view class="font rank" bind:tap="showRanking">LV.{{level}} {{segment}}</view>
 <!-- 开始 -->
 <view class="game" bind:tap="startGameHandle" animation="{{ animation1 }}"></view>
 <!-- 空间 -->
 <view class="font room" bind:tap="toMiniSpaceHandle" animation="{{ animation2 }}"></view>
 <!-- 错题本 -->
-<view class="mistake" bind:tap="toDefinition" hover-class="mistake-hover"></view>
+<view class="mistake {{mistake}}" bind:tap="toDefinition"></view>

@@ -1,8 +1,11 @@
 let wechat = require('../../../utils/promise.js');
+var user_info;
+var words = [];
 Page({
 
   data: {
-    word: {}
+    word: {},
+    isStar: false
   },
 
   onLoad: function (options) {
@@ -12,53 +15,96 @@ Page({
       icon: 'loading',
       duration: 1500
     });
-    // console.log(options);
-    if (options.flag == "0") {
-      wx.getStorage({
-        key: "gamePage",
-        success: function (res) {
-          word = res.data.options[options.item];
-          wx.cloud.getTempFileURL({
-            fileList: [word.mp3],
-            success: res => {
-              word.mp3 = res.fileList[0].tempFileURL;
-              that.setData({
-                word: word
-              });
-            },
-            fail: console.error
-          });
-        }
-      });
-    } else {
-      word.en = options.en;
-      word.ch = options.ch;
-      word.accent = options.accent;
-      word.jpg = options.jpg;
-      word.mp3 = options.mp3;
-      word.sentenceEn = options.sentenceEn;
-      word.sentenceCh = options.sentenceCh;
-      console.log(word);
+    wechat.getStorage("user_info").then(res => {
+      user_info = res.data;
+      if (options.flag == "0") {
+        wx.getStorage({
+          key: "gamePage",
+          success: function (res) {
+            word = res.data.options[options.item];
+            wx.cloud.getTempFileURL({
+              fileList: [word.mp3],
+              success: res => {
+                word.mp3 = res.fileList[0].tempFileURL;
+                that.setData({
+                  word: word
+                });
+              },
+              fail: console.error
+            });
+          }
+        });
+      } else {
+        word.en = options.en;
+        word.ch = options.ch;
+        word.accent = options.accent;
+        word.jpg = options.jpg;
+        word.mp3 = options.mp3;
+        word.sentenceEn = options.sentenceEn;
+        word.sentenceCh = options.sentenceCh;
+        wx.cloud.getTempFileURL({
+          fileList: [word.mp3],
+          success: res => {
+            word.mp3 = res.fileList[0].tempFileURL;
+            that.setData({
+              word: word
+            });
+          },
+          fail: console.error
+        });
+      }
+    }, err => { }).then(empty => {
+      var tmp = user_info.word_tag.collected;
+      words = [];
+      for (var i = 0; i < tmp.length; i++) {
+        words.add(tmp[i].en);
+      }
       that.setData({
-        word: word
+        isStar: words.includes(word.en) ? true : false
       });
-    }
+    });
 
   },
   playMp3: function () {
-    audio(this.data.word.mp3, false);
+    var audio = wx.createInnerAudioContext();
+    audio.src = this.data.word.mp3;
+    audio.onError(err => {
+      console.log(err);
+    });
+    audio.play();
   },
   starWord: function () {
-    var user_info;
     var that = this;
-    var collected;
-    wechat.getStorage("user_info").then(res => {
-      user_info = res.data;
-      collected = user_info.word_tag.collected;
-      collected[collected.length] = that.data.word;
-      user_info.word_tag.collected = collected;
-      return wechat.setStorage("user_info", user_info);
-    }, err => { })
+    if (!this.data.isStar) {//未收藏
+      wx.showToast({
+        title: "已收藏",
+        icon: "success",
+        duration: 800
+      });
+      user_info.word_tag.collected.add(that.data.word);
+      that.setData({
+        isStar: true
+      });
+      words.add(that.data.word.en);
+    } else {//已收藏
+      that.setData({
+        isStar: false
+      });
+      wx.showToast({
+        title: "已取消",
+        icon: "success",
+        duration: 800
+      });
+      for (var i = 0; i < words.length; i++) {
+        if (that.data.word.en == words[i]) {
+          user_info.word_tag.collected.remove(i);
+          words.remove(i);
+          break;
+        }
+      }
+    }
+    wechat.setStorage("user_info", user_info);
+
   },
   onUnload: function () {
     wx.removeStorage({

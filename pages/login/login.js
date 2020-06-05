@@ -1,6 +1,6 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let sha = require('../../utils/HASH_SHA1.js');
+let sha1 = require('../../utils/HASH_SHA1.js');
 const db = wx.cloud.database();
 Page({
     data: {
@@ -16,7 +16,7 @@ Page({
         var that = this;
         wx.showToast({
             icon: 'loading',
-            duration: 1500
+            duration: 1800
         });
         if (e.detail.userInfo) {
             var tmp = e.detail.userInfo;
@@ -39,7 +39,7 @@ Page({
                     success: function () {
                         db.collection("users").where({ _openid: openid }).get({
                             success: function (res) {
-                                // console.log(res.data[0]);
+                                console.log(res.data[0]);
                                 user_info = {
                                     _id: res.data[0]._id,
                                     _openid: openid,

@@ -7,19 +7,14 @@
 <!-- 标题 -->
 <view class="title">皇榜</view>
 <!-- 内容 -->
-<view class="rank">
-    <image src="../../images/01.jpg" />
-    <view class="name">dai10_.da</view>
-    <view class="ranking">1</view>
-</view>
-<view class="rank">
-    <image src="../../images/01.jpg" />
-    <view class="name">dai10_.da</view>
-    <view class="ranking">1</view>
+<view class="rank" wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
+    <image src="{{item.avatarUrl}}" />
+    <view class="name">{{item.nickname}}</view>
+    <view class="ranking">{{index}}</view>
 </view>
 <!-- 玩家排行 -->
 <view class="m_rank">
-    <image src="../../images/01.jpg" />
-    <view class="m_name">dai10_.da</view>
-    <view class="m_ranking">1</view>
+    <image src="{{user_info.avatarUrl}}" />
+    <view class="m_name">{{user_info.nickname}}</view>
+    <view class="m_ranking">{{rank}}</view>
 </view>

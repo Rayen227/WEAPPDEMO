@@ -1,5 +1,6 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
+let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
 var bgm;
@@ -10,7 +11,10 @@ Page({
     data: {
         avatarUrl: '',
         animation1: {},
-        animation2: {}
+        animation2: {},
+        segment: "",
+        level: 0,
+        mistake: ''
     },
     onLoad: function () {
         var that = this;
@@ -43,16 +47,17 @@ Page({
         }, err => { }).then(res => {
             user_info = res.data;
             that.setData({
-                avatarUrl: user_info.avatarUrl
+                avatarUrl: user_info.avatarUrl,
+                level: user_info.data.level,
+                segment: getSegment(user_info.data.level)
             });
-            // console.log(user_info);
-
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存, 重新授权
             loginBack = true;
             wx.navigateTo({
                 url: '../login/login'
             });
+            return wechat.callFunction("getUser", { _id: user_info._id });
 
         }).then(res => {
             var cloud = res.result.data[0];
@@ -87,7 +92,7 @@ Page({
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
             if (bgm.paused) {
-                bgm.play();
+                // bgm.play();
             }
 
         });
@@ -123,8 +128,16 @@ Page({
         });
     },
     toDefinition: function () {
+        this.setData({
+            mistake: 'mistake-hover'
+        });
         wx.navigateTo({
             url: '../mistake/mistake'
+        });
+    },
+    showRanking: function () {
+        wx.navigateTo({
+            url: '../ranking/ranking'
         });
     },
     onUnload: function () {
@@ -134,6 +147,9 @@ Page({
         if (bgm && !hardPaused && gameBack && !loginBack) {
             bgm.play();
         }
+        this.setData({
+            mistake: ''
+        });
     },
     stopBgm: function () {
         // hardPaused = hardPaused ? true : false;

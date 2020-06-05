@@ -10,13 +10,18 @@ Page({
    */
   data: {
     userList: [],
-    rank: '0'
+    rank: null,
+    user_info: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showToast({
+      icon: 'loading',
+      duration: 800
+    });
     wechat.getStorage("user_info").then(res => {
       user_info = res.data;
       return wechat.callFunction("getUsers");
@@ -32,22 +37,21 @@ Page({
         tmp.nickname = users[i].nickname;
         tmp.avatarUrl = users[i].avatarUrl;
         tmp.exp = users[i].data.exp;
-        tmp._id = users[i]._id
-        // this.data.userList.add(tmp);
+        tmp._id = users[i]._id;
         userTmp.add(tmp);
       }
       userTmp.sort(cmp);
-      // console.log(userTmp);
-      for (var i = 0; i < userTmp.length; i++) {
+      for (var i = 0; i < userTmp.length && i < 100; i++) {
         if (user_info._id == userTmp[i]._id) {
-          rank = i;
+          rank = i + 1;
           break;
         }
       }
       // console.log(user_info);
       this.setData({
         userList: userTmp,
-        rank: rank ? rank : "∞"
+        rank: rank ? rank : "100+",
+        user_info: user_info
       });
     }, err => {
       console.log("!");
