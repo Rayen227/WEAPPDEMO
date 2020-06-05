@@ -1,7 +1,7 @@
 page {
   margin: 0;
   padding: 0;
-  
+  background-color:rgb(86, 12, 119) ;
 }
 
 /* 操作菜单 */
@@ -30,7 +30,7 @@ page {
 }
 
 /* 背包 */
-.list{
+/* .list{
     z-index: 1;
     overflow-y: scroll;
     white-space: nowrap;  
@@ -39,115 +39,148 @@ page {
     width: 100%;
     height: 150rpx;
     background-color: coral;
-  }
+  } */
   /* 背包格 */
-.classify{
+/* .classify{
     display: inline-block;
     margin:25rpx 25rpx 25rpx 0;
     width: 100rpx;
     height: 100rpx;
     background-color: cornflowerblue;
-  }
+  } */
     /* 第一格背包 */
-.classify:nth-child(1){
+/* .classify:nth-child(1){
   margin:25rpx 25rpx 25rpx 25rpx;
-}
+} */
   /* 隐藏滚动条 */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 0;
     height: 0;
     color: transparent;
-}
+} */
 
 /* 背景 */
-.background { 
+/* .background { 
   z-index: -1;
-}
+} */
 
   /* 背景图片 */
 .background .temp{
   display: inline-block;
-  margin-bottom: 130rpx;
+  z-index: -1;
   width: 2240rpx;
-  height: 1707rpx;
-  white-space: nowrap;
-  background-size: 2240rpx 1707rpx;
-  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/housebg.png?sign=b91549c5e54960406c065c2e016f40b3&t=1591112102); */
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/eg2.png?sign=8f35c7777d70e5d6fe5efdbfa159fdda&t=1591196266);
+  height: 1700rpx;
+  background-size: cover;
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/housebg.png?sign=c2f5a0ba236f5214c931d98259c231cb&t=1591369209); */
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/furniture1.png?sign=632c11de7bf4f9bed39d7b03c1e0addf&t=1591370847);
+
 }
 
-
-.temp view:nth-child(1) {
+.temp view {
   position: absolute;
-  top: 311rpx;
-  left: 320rpx;
-  width: 143rpx;
-  height: 149rpx;
-  background-color: rgba(58, 228, 81, 0.5);
+  background-size: cover;
+}
+.temp view:nth-child(1) {
+  top: 1246rpx;
+  left: 738rpx;
+  width: 217rpx;
+  height: 259rpx;  
+  /* background-size: 1000rpx 200rpx; */
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/screen.png?sign=49e88a9271a98927fe031b3684017d78&t=1591372783);
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/canister2.png?sign=c4191d00f82eef4bf2fc9b4b7af7b757&t=1591370421); */
 }
 .temp view:nth-child(2) {
-  position: absolute;
-  top: 311rpx;
-  left: 1803rpx;
-  width: 143rpx;
-  height: 149rpx;  
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 1345rpx;
+  left: 961rpx;
+  width: 319rpx;
+  height: 165rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/stool3.png?sign=94c00a902a7f6b89065bec6772bcbba5&t=1591372833);
+
 }
 .temp view:nth-child(3) {
-  position: absolute;
-  top: 778rpx;
-  left: 1048rpx;
-  width: 143rpx;
-  height: 141rpx;  
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 1331rpx;
+  left: 1085rpx;
+  width: 266rpx;
+  height: 178rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/fruitbasket.png?sign=80db6e28795cc0eb952a597dd5c4c15f&t=1591372653);
+
 }
 .temp view:nth-child(4) {
-  position: absolute;
-  top: 584rpx;
-  left: 353rpx;
-  width: 76rpx;
-  height: 80rpx;  
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 1206rpx;
+  left: 1020rpx;
+  width: 201rpx;
+  height: 190rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/window.png?sign=f29cd799e086783bc620a784ffa39d2d&t=1591372857);
+
 }
 .temp view:nth-child(5) {
-  position: absolute;
-  top: 594rpx;
-  left: 1827rpx;  
-  width: 76rpx;
-  height: 80rpx;  
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 971rpx;
+  left: 785rpx;
+  width: 204rpx;
+  height: 62rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/paper.png?sign=8815e48d6d69110d837c8779cbf8ad04&t=1591372753);
+
 }
 
 .temp view:nth-child(6) {
-  position: absolute;
   top: 312rpx;
-  left: 1079rpx;
-  width: 85rpx;
-  height: 167rpx;  
-  background-color: rgba(58, 228, 81, 0.5);
+  left: 1055rpx;
+  width: 132rpx;
+  height: 1026rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%825.png?sign=9677277e64dd3aebcc6ebee382ee3733&t=1591373326);
+
 }
 .temp view:nth-child(7) {
-  position: absolute;
-  top: 1181rpx;
-  left: 1076rpx;
-  width: 85rpx;
-  height: 157rpx;
-  
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 845rpx;
+  left: 1078rpx;
+  width: 206rpx;
+  height: 295rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/canister2.png?sign=03da35c6c66f70efc4f4c8db9b1e6769&t=1591372535);  
 }
 .temp view:nth-child(8) {
-  position: absolute;
-  top: 594rpx;
-  left: 1827rpx;  
-  width: 85rpx;
-  height: 157rpx; 
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 808rpx;
+  left: 796rpx;
+  width: 407rpx;
+  height: 276rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E7%89%8C%E5%8C%BE.png?sign=4040204978b711ee5a6751b827f50f6c&t=1591373276);
 }
 .temp view:nth-child(9) {
-  position: absolute;
-  top: 594rpx;
-  left: 1827rpx;  
-  width: 85rpx;
-  height: 157rpx;
-  background-color: rgba(58, 228, 81, 0.5);
+  top: 837rpx;
+  left: 1280rpx;
+  width: 289rpx;
+  height: 299rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E8%8A%B1%E7%93%B65.png?sign=cd026e78f7bab10c828bb38411809adf&t=1591373666);
 }
+.temp view:nth-child(10) {
+  top: 883rpx;
+  left: 686rpx;
+  width: 388rpx;
+  height: 257rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E4%B9%A6%E6%88%BF.png?sign=f1065d3a508bcdc8d9f19961316039e5&t=1591372903);
+}
+.temp view:nth-child(11) {
+  top: 303rpx;
+  left: 319rpx;
+  width: 1632rpx;
+  height: 157rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%823.png?sign=cb09eb1d18c75634870aece0e4f2ba86&t=1591372928);
+}
+.temp view:nth-child(12) {
+  top: 583rpx;
+  left: 352rpx;
+  width: 1554rpx;
+  height: 95rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%829.png?sign=fa9598722585894bbdac622ecde7c220&t=1591373207);
+}
+.temp view:nth-child(13) {
+  top: 1158rpx;
+  left: 113rpx;
+  width: 2051rpx;
+  height: 197rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%827.png?sign=b7f8bf692bbe3c5337ee5be7855fd44a&t=1591373109);
+}
+/*
+ background-image: url();
+ */
+
+

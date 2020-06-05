@@ -8,7 +8,7 @@
     <view class="screenshot iconfont .icon-jiandaoxuanzhong" hover-class="select"></view>
 </view>
 <!-- 背包 -->
-<view class="list">
+<!-- <view class="list">
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
@@ -20,7 +20,7 @@
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
     <view class="classify">分类1</view>
-</view>
+</view> -->
 <!-- 背景图片 -->
 <scroll-view scroll-x class="background">
     <view class="temp">
@@ -35,5 +35,12 @@
         <view>09</view>
         <view>10</view>
         <view>11</view>
+        <view>12</view>
+        <view>13</view>
+        <!-- <view>14</view>
+        <view>15</view>
+        <view>16</view>
+        <view>17</view>
+        <view>18</view> -->
     </view>
 </scroll-view>

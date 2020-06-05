@@ -1,11 +1,12 @@
 {
-  "pages": [
+  "pages": [    "pages/miniSpace/miniSpace",
+    "pages/index/index",
     "pages/mistake/mistake",
-    "pages/miniSpace/miniSpace",
+
     "pages/game/game",
     "pages/gameTest/gameTest",
     "pages/ranking/ranking",
-    "pages/index/index",
+    
     "pages/game/wordDetails/wordDetails",
     "pages/login/login"
   ],
