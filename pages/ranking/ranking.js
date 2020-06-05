@@ -1,4 +1,5 @@
 const wechat = require('../../utils/promise.js');
+let getSegment = require('../../utils/getSegment.js');
 var user_info = {};
 
 // console.log(arr.sort(compare));
@@ -10,14 +11,18 @@ Page({
    */
   data: {
     userList: [],
+    segmentList: [],
     rank: null,
-    user_info: {}
+    user_info: {},
+    segment: ""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    var segmentList = [];
     wx.showToast({
       icon: 'loading',
       duration: 800
@@ -38,20 +43,24 @@ Page({
         tmp.avatarUrl = users[i].avatarUrl;
         tmp.exp = users[i].data.exp;
         tmp._id = users[i]._id;
+        tmp.level = users[i].data.level;
         userTmp.add(tmp);
       }
       userTmp.sort(cmp);
+      console.log(userTmp);
       for (var i = 0; i < userTmp.length && i < 100; i++) {
         if (user_info._id == userTmp[i]._id) {
           rank = i + 1;
-          break;
         }
+        segmentList.add(getSegment(userTmp[i].level));
       }
       // console.log(user_info);
       this.setData({
         userList: userTmp,
         rank: rank ? rank : "100+",
-        user_info: user_info
+        user_info: user_info,
+        segmentList: segmentList,
+        segment: getSegment(user_info.data.level)
       });
     }, err => {
       console.log("!");

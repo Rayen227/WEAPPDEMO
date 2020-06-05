@@ -9,12 +9,12 @@
 <!-- 内容 -->
 <view class="rank" wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
     <image src="{{item.avatarUrl}}" />
-    <view class="name">{{item.nickname}}</view>
+    <view class="name">{{item.nickname}} LV.{{item.level}} {{segmentList[index]}}</view>
     <view class="ranking">{{index}}</view>
 </view>
 <!-- 玩家排行 -->
 <view class="m_rank">
     <image src="{{user_info.avatarUrl}}" />
-    <view class="m_name">{{user_info.nickname}}</view>
+    <view class="m_name">{{user_info.nickname}} LV.{{user_info.data.level}} {{segment}}</view>
     <view class="m_ranking">{{rank}}</view>
 </view>
