@@ -1,32 +1,15 @@
 <view class="pg">
    <!-- 上方 -->
    <view class="nav">
-      <view>历史错题</view>
-      <view>错题</view>
-      <view>收藏</view>
+      <view bind:tap="showCompleted">历史错题</view>
+      <view bind:tap="showMistaken">错题</view>
+      <view bind:tap="showCollected">收藏</view>
    </view>
    <!-- 中部 -->
    <view class="problem">
-      <view>apple</view>
-      <view>pig</view>
-      <view>big</view>
-      <view>mistake</view>
-      <view>remember</view>
-      <view>love</view>
-      <view>music</view>
-      <view>lzy</view>
-      <view>wzq</view>
-      <view>cjq</view>
-      <view>apple</view>
-      <view>pig</view>
-      <view>big</view>
-      <view>mistake</view>
-      <view>remember</view>
-      <view>love</view>
-      <view>music</view>
-      <view>lzy</view>
-      <view>wzq</view>
-      <view>cjq</view>
+      <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" bind:tap="showDetails">
+         {{item.en}}
+      </view>
    </view>
    <!-- 下面 -->
    <view class="kong"></view>

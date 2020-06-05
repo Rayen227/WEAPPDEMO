@@ -1,66 +1,42 @@
-// pages/mistake/mistake.js
+let wechat = require('../../utils/promise.js');
+var user_info;
+var curTag = 'mistaken';
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    wordList: []
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    var that = this;
+    wechat.getStorage('user_info').then(res => {
+      user_info = res.data;
+      that.setData({
+        wordList: user_info.word_tag.mistaken
+      });
+    }, err => { });
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  showCompleted: function () {
+    curTag = 'completed';
+    this.setData({
+      wordList: user_info.word_tag.completed
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  showMistaken: function () {
+    curTag = 'mistaken';
+    this.setData({
+      wordList: user_info.word_tag.mistaken
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  showCollected: function () {
+    curTag = 'collected';
+    this.setData({
+      wordList: user_info.word_tag.collected
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  showDetails: function (e) {
+    var index = e.currentTarget.dataset.index;
+    var words = user_info.word_tag[curTag];
+    wx.navigateTo({
+      url: '../game/wordDetails/wordDetails?en=' + words[index].en + '&ch=' + words[index].ch + '&accent=' + words[index].accent + '&mp3=' + words[index].mp3 + '&jpg=' + words[index].jpg + '&sentenceEn=' + words[index].sentenceEn + '&sentenceCh=' + words[index].sententCh + '&power=' + words[index].power + '&last_view_time=' + words[index].last_view_time
+    });
   }
-})
+});
