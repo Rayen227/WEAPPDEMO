@@ -24,19 +24,19 @@
 <!-- 背景图片 -->
 <scroll-view scroll-x class="background">
     <view class="temp">
-        <view>01</view>
-        <view>02</view>
-        <view>03</view>
-        <view>04</view>
-        <view>05</view>
-        <view>06</view>
-        <view>07</view>
-        <view>08</view>
-        <view>09</view>
-        <view>10</view>
-        <view>11</view>
-        <view>12</view>
-        <view>13</view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
         <!-- <view>14</view>
         <view>15</view>
         <view>16</view>
