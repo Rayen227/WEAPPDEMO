@@ -91,7 +91,7 @@ Page({
                 });
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
-            if (bgm.paused) {
+            if (bgm && bgm.paused) {
                 // bgm.play();
             }
 

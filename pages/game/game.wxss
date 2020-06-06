@@ -34,15 +34,6 @@ page {
     }
 }
 
-
-
-
-/* 音量设置 */
-/* app.wxss中 */
-
-
-
-
 /* 模式一 */
 /* 问题 */
 .position_up {
@@ -221,9 +212,9 @@ page {
     background-size: 80rpx 80rpx;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/reset.png?sign=3dce3b1b5c8c30fc2a61c56564488b3c&t=1591023420);
 }
-.reset_hover {
-    /* background-color: lightpink; */
-}
+/* .reset_hover {
+    background-color: lightpink;
+} */
 /* 确定按钮 */
 .determine {
     position: absolute;
@@ -239,7 +230,7 @@ page {
     position: absolute;
     top: 0;
     left: 171rpx;
-    width: 500rpx;
+    /* width: 500rpx; */
     font-size: 40rpx;
     /* background-color: khaki; */
 }

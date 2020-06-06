@@ -10,6 +10,10 @@ Page({
     },
     onLoad: function () {
         var that = this;
+        wx.showToast({
+            icon: 'loading',
+            duration: 1000
+        });
         wechat.getStorage('user_info').then(res => {
             user_info = res.data;
             items = user_info.data.items;

@@ -1,21 +1,53 @@
 <!-- 菜单 -->
 <view class="menu">
     <!-- 音量设置 -->
-    <view class="musicSetup-1" hover-class="select">
+    <!-- <view class="musicSetup-1" hover-class="select">
         <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-    </view>
+    </view> -->
     <!-- 截图 -->
     <view class="screenshot iconfont .icon-jiandaoxuanzhong" hover-class="select"></view>
 </view>
 <!-- 背包 -->
-<view class="list">
+<!-- <view class="list">
     <view class="classify" wx:for="{{itemList}}" wx:for-index="index" wx:for-item="item" wx:if="{{isOwned[index]}}">
         {{itemList[index].name}}
     </view>
-</view>
+</view> -->
+<!-- 背景图片 -->
+<!-- <image src="../../images/minibackground.png" /> -->
+<!-- <view class="list">
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+    <view class="classify">分类1</view>
+</view> -->
 <!-- 背景图片 -->
 <scroll-view scroll-x class="background">
-    <view>
-        <!-- <image src="../../images/minibackground.png" /> -->
+    <view class="temp">
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <view></view>
+        <!-- <view>14</view>
+        <view>15</view>
+        <view>16</view>
+        <view>17</view>
+        <view>18</view> -->
     </view>
 </scroll-view>

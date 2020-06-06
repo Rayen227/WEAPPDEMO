@@ -329,7 +329,7 @@ Page({
     },
 
     resetHandle: function () {
-        if (random(0, 6) >= 1) {
+        if (random(0, 10) >= 1) {
             resetPage(this);
             this.setData({
                 gameType: 1
@@ -342,22 +342,17 @@ Page({
             });
             answer = [];
             visible.memset(20, true);
-            // console.log(answer, visible);
             this.setData({
                 answer: answer,
                 visible: visible
             });
-            var maxLength = getLeters(2);//获取单词
-            // console.log(maxLength);
-            //定位
+            var maxLength = getLeters(2);
             var tmpLeft = [];
             var tmpTop = [];
             for (var i = 0; i < letters.length; i++) {
                 tmpLeft[i] = oldLeft[i];
                 tmpTop[i] = oldTop[i];
             }
-            // var startPoint = positionList[maxLength];
-            // console.log(maxLength);
             var tmp = [];
             for (var i = 0; i < words.length; i++) {
                 if (!tmp.includes(words[i].en)) {
@@ -373,9 +368,7 @@ Page({
                 joint: false,
                 words: tmp
             });
-            // console.log("coji!", words);
         }
-        // resetPage(this);
     },
 
     backToMenuHandle: function () {
@@ -417,7 +410,7 @@ Page({
                                     that.resetHandle()
                                 } else {
                                     wx.navigateTo({
-                                        url: 'wordDetails/wordDetails?en=' + words[res.tapIndex].en + '&ch=' + words[res.tapIndex].ch + '&accent=' + words[res.tapIndex].accent + '&mp3=' + words[res.tapIndex].mp3 + '&jpg=' + words[res.tapIndex].jpg + '&sentenceEn=' + words[res.tapIndex].sentenceEn + '&sentenceCh=' + words[res.tapIndex].sententCh + '&power=' + words[res.tapIndex].power + '&last_view_time=' + words[res.tapIndex].last_view_time
+                                        url: 'wordDetails/wordDetails?en=' + words[res.tapIndex].en + '&ch=' + words[res.tapIndex].ch + '&accent=' + words[res.tapIndex].accent + '&mp3=' + words[res.tapIndex].mp3 + '&jpg=' + words[res.tapIndex].jpg + '&sentenceEn=' + words[res.tapIndex].sentenceEn + '&sentenceCh=' + words[res.tapIndex].sentenceCh + '&power=' + words[res.tapIndex].power + '&last_view_time=' + words[res.tapIndex].last_view_time
                                     });
                                 }
                             },

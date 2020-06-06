@@ -1,6 +1,9 @@
 <!-- 单词 -->
 <!-- <view class="font word">
-    <view>light</view>
+    <view>
+        <text>></text>
+        light
+    </view>
     <view>v. 点火，照亮； adj. 不严重的； n. 光亮； adv. 轻轻地</view>
     <view>
         /laɪt/

@@ -11,11 +11,18 @@ padding: 0;
   padding: 20rpx 20rpx 20rpx 30rpx;
   background-color: palegoldenrod; 
 }
+text {
+  font-size: 40rpx;
+  font-weight: 900;
+  line-height: 100rpx;
+  color: rgb(111, 0, 255);
+}
 
 /* 单词--英文 */
 .word view:nth-child(1) {
   font-size: 60rpx;
   font-weight: bolder;
+  line-height: 100rpx;
 }
 
 /* 单词--中文 */
@@ -86,7 +93,9 @@ background-color: greenyellow;
 }
 
 .jpg{
-  width: 100px;
-  height: 100px;
+  margin: 40rpx auto;
+  width: 200px;
+  height: 200px;
+  /* background-color: lawngreen; */
 }
 
