@@ -3,7 +3,8 @@ var user_info;
 var curTag = 'mistaken';
 Page({
   data: {
-    wordList: []
+    wordList: [],
+    isCurrent: ['hovering', '', '']
   },
   onLoad: function (options) {
     wx.showToast({
@@ -21,19 +22,22 @@ Page({
   showCompleted: function () {
     curTag = 'completed';
     this.setData({
-      wordList: user_info.word_tag.completed
+      wordList: user_info.word_tag.completed,
+      isCurrent: ['', '', 'hovering']
     });
   },
   showMistaken: function () {
     curTag = 'mistaken';
     this.setData({
-      wordList: user_info.word_tag.mistaken
+      wordList: user_info.word_tag.mistaken,
+      isCurrent: ['hovering', '', '']
     });
   },
   showCollected: function () {
     curTag = 'collected';
     this.setData({
-      wordList: user_info.word_tag.collected
+      wordList: user_info.word_tag.collected,
+      isCurrent: ['', 'hovering', '']
     });
   },
   showDetails: function (e) {
