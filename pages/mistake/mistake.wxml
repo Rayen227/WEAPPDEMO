@@ -1,9 +1,9 @@
 <view class="pg">
    <!-- 上方 -->
    <view class="nav">
-      <view bind:tap="showCompleted">历史错题</view>
       <view bind:tap="showMistaken">错题</view>
       <view bind:tap="showCollected">收藏</view>
+      <view bind:tap="showCompleted">历史错题</view>
    </view>
    <!-- 中部 -->
    <view class="problem">
