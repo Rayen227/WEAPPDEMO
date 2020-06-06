@@ -1,6 +1,5 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let itemList = require('../../utils/itemList.js');
 var user_info = {};
 var word_list = [];
 var listId = 0;
@@ -167,6 +166,7 @@ Page({
         var tmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
             audio[0].play();
+            count++;
             if (my_option == 0) {
                 that.setData({
                     animation: [animation, null, null, null]
@@ -272,7 +272,6 @@ Page({
                 })
             }
             // 选错了的跳动样式的结束
-
             // 选错了的提示部分的开始
             var nextPageAnimation = wx.createAnimation({
                 duration: 20,
@@ -424,6 +423,12 @@ Page({
                 fail: () => { },
                 complete: () => { }
             });
+            if (count >= 5) {
+                drawItem();
+                count = 0;
+            } else {
+                cout += 3;
+            }
         } else {
             wx.showModal({
                 title: '你失败了...',
@@ -535,19 +540,19 @@ function resetPage(this_pointer) {
 //抽取碎片
 function drawItem() {
     var that = this;
+    var itemCount = 13;
     var items = user_info.data.items;
-    if (items.length == itemList.length) {
+    if (items.length == itemCount) {
         return false;
     }
     while (true) {
-        var index = random(0, itemList.length);
+        var index = random(0, itemCount);
         if (!items.includes(index)) {
             break;
         }
     }
     user_info.data.items.add(index);
     wechat.setStorage("user_info", user_info);
-    return itemList[index];
 }
 function getLeters(n) {
     words = [];
@@ -623,45 +628,3 @@ function getCh(string) {
     var index = string.indexOf('；');
     return index != -1 ? string.intercept(0, index) : string;
 }
-
-
-// 测试代码
-// wx.setStorage({
-//     key: "user_info",
-//     data: {
-//         basic: { nickname: "2 0 1 2", avaterUrl: "#", openId: "155a72dc45b86fc324b9649a89b59d717164fc7f" },
-//         data: { level: 0, exp: 12, items: [] },
-//         update_time: {},
-//         word_tag: {
-//             completed: [],
-//             mistaken: [],
-//             collected: []
-//         }
-//     }
-// })
-
-// wx.setStorage({
-//   key: "word_list",
-//   data: [
-//     { "_id": "cloud-word-apple", "power": 1.0, "last_view_time": 3600.0, "en": "apple", "ch": "n.苹果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-banana", "power": 2.0, "last_view_time": 3600.0, "en": "banana", "ch": "n.香蕉;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-carambola", "power": 2.0, "last_view_time": 3600.0, "en": "carambola", "ch": "n.杨桃;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-durian", "power": 2.0, "last_view_time": 3600.0, "en": "durian", "ch": "n.榴莲;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-grape", "power": 2.0, "last_view_time": 3600.0, "en": "grape", "ch": "n.葡萄;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-mango", "power": 2.0, "last_view_time": 3600.0, "en": "mango", "ch": "n.芒果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-mangosteen", "power": 2.0, "last_view_time": 3600.0, "en": "mangosteen", "ch": "n.山竹;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-orange", "power": 2.0, "last_view_time": 3600.0, "en": "orange", "ch": "n.橙子;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pear", "power": 2.0, "last_view_time": 3600.0, "en": "pear", "ch": "n.梨;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pineapple", "power": 2.0, "last_view_time": 3600.0, "en": "pineapple", "ch": "n.菠萝;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-pitaya", "power": 2.0, "last_view_time": 3600.0, "en": "pitaya", "ch": "n.火龙果;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-strawberry", "power": 2.0, "last_view_time": 3600.0, "en": "strawberry", "ch": "n.草莓;", "audio": "audioSrc", "image": "imageSrc" },
-//     { "_id": "cloud-word-watermelon", "power": 2.0, "last_view_time": 3600.0, "en": "watermelon", "ch": "n.西瓜;", "audio": "audioSrc", "image": "imageSrc" }
-//   ]
-// })
-
-
-// wechat.callFunction("getWordDB", { level: 0 }).then(res => {
-//     console.log(res.result.data);
-// }, err => {
-//     console.log("!!!");
-// })

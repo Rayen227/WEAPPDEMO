@@ -10,13 +10,17 @@
         <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
     </view>
 </view> -->
-<view bind:tap="starWord">收藏</view>
 <view class="font word">
-    <view>{{word.en}}</view>
+    <view>
+        <text>></text>
+        {{word.en}}
+    </view>
     <view>{{word.ch}}</view>
     <view>{{word.accent}}</view>
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
+<image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
+<!-- <view bind:tap="starWord" class="starWord" hover-class="unstarWord"></view> -->
 <!-- 例句 -->
 <!-- <view class="font example">
     <view>她正在点蜡烛。</view>
@@ -29,3 +33,4 @@
     <view>{{word.sentenceEn}}</view>
     <image class="jpg" src="{{word.jpg}}"></image>
 </view>
+<!-- <view class="starWord" hover-class="unstarWord"></view> -->

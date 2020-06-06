@@ -1,16 +1,19 @@
 let wechat = require('../../../utils/promise.js');
 var user_info;
 var words = [];
+var emptyStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811';
+var fullStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/be261f3ee4b00ce0501db5f580943b0.png?sign=fe54b08a74700d055cf7c178824db75e&t=1591455799';
 Page({
-
   data: {
     word: {},
-    isStar: false
+    isStar: false,
+    starUrl: ''
   },
 
   onLoad: function (options) {
     let that = this;
     var word = {};
+    var isStar;
     wx.showToast({
       icon: 'loading',
       duration: 1500
@@ -59,11 +62,12 @@ Page({
       for (var i = 0; i < tmp.length; i++) {
         words.add(tmp[i].en);
       }
+      isStar = words.includes(word.en) ? true : false;
       that.setData({
-        isStar: words.includes(word.en) ? true : false
+        isStar: isStar,
+        starUrl: isStar ? fullStar : emptyStar
       });
     });
-
   },
   playMp3: function () {
     var audio = wx.createInnerAudioContext();
@@ -83,12 +87,14 @@ Page({
       });
       user_info.word_tag.collected.add(that.data.word);
       that.setData({
-        isStar: true
+        isStar: true,
+        starUrl: fullStar
       });
       words.add(that.data.word.en);
     } else {//已收藏
       that.setData({
-        isStar: false
+        isStar: false,
+        starUrl: emptyStar
       });
       wx.showToast({
         title: "已取消",

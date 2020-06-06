@@ -47,15 +47,6 @@ text {
   color: #a52a2a;
 }
 
-/* .word view:nth-child(3) {
-margin-left: 40rpx;
-margin-top: 30rpx;
-width: 30rpx;
-height: 30rpx;
-font-size: 20rpx;
-background-color: greenyellow;
-} */
-
 .example {
   margin-top: 40rpx;
 }
@@ -91,11 +82,26 @@ background-color: greenyellow;
   text-align: center;
   background-color: hotpink;
 }
-
 .jpg{
-  margin: 40rpx auto;
+  margin-top: 40rpx;
+  margin-left: 23%;
   width: 200px;
   height: 200px;
-  /* background-color: lawngreen; */
-}
+  background-color: lawngreen;
+  }
 
+.starWord {
+  width: 100rpx;
+  height: 100rpx;
+  background-size: 100rpx 100rpx ;
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811) ; */
+
+  }
+  
+  /* .unstarWord {
+  width: 100rpx;
+  height: 100rpx;
+  background-size: 100rpx 100rpx ;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/be261f3ee4b00ce0501db5f580943b0.png?sign=25e09db4f2849965f35048e14178fbe6&t=1591457772) ;
+
+  } */

@@ -1,15 +1,13 @@
 let wechat = require('../../utils/promise.js');
-let itemList = require('../../utils/itemList.js');
 var user_info;
-var items;
-var itemCount = 28;//道具总数
+var itemCount = 13;//道具总数
 Page({
     data: {
-        isOwned: [],
-        itemList: []
+        isOwned: []
     },
     onLoad: function () {
         var that = this;
+        var items;
         wx.showToast({
             icon: 'loading',
             duration: 1000
@@ -23,8 +21,7 @@ Page({
                 isOwned[items[i]] = true;
             }
             that.setData({
-                isOwned: isOwned,
-                itemList: itemList
+                isOwned: isOwned
             });
             console.log(that.data);
         }, err => { });
