@@ -61,35 +61,25 @@ Page({
 
         }).then(res => {
             var cloud = res.result.data[0];
-            if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
-                //更新数据库
-                user_info.update_time = time.getTime();
-                var tmp = {
-                    avatarUrl: user_info.avatarUrl,
-                    data: user_info.data,
-                    nickname: user_info.nickname,
-                    update_time: user_info.update_time,
-                    word_tag: user_info.word_tag
-                };
-                console.log(tmp);
-                db.collection("users").doc(user_info._id).update({
-                    data: tmp,
-                    success: function () {
-                        console.log("更新成功");
-                    },
-                    fail: function (err) {
-                        console.log("更新失败: ", err);
-                    }
-                });
-            }
-            else {//数据库更新时间较晚
-                //更新缓存
-                cloud.update_time = time.getTime();
-                wx.setStorage({
-                    key: "user_info",
-                    data: cloud
-                });
-            }
+            //更新数据库
+            user_info.update_time = time.getTime();
+            var tmp = {
+                avatarUrl: user_info.avatarUrl,
+                data: user_info.data,
+                nickname: user_info.nickname,
+                update_time: user_info.update_time,
+                word_tag: user_info.word_tag
+            };
+            db.collection("users").doc(user_info._id).update({
+                data: tmp,
+                success: function () {
+                    console.log("数据库更新成功");
+                },
+                fail: function (err) {
+                    console.log("更新失败: ", err);
+                }
+            });
+
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
             if (bgm && bgm.paused) {
                 // bgm.play();
@@ -160,5 +150,8 @@ Page({
         } else {
             bgm.stop();
         }
-    }
+    },
+    onPullDownRefresh() {
+        this.onLoad();
+    },
 });

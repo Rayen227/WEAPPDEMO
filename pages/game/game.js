@@ -198,10 +198,6 @@ Page({
                 word: "选对了"
             })
             word.power--;
-            count += Math.floor(Math.random() * 2);
-            if (count >= 10) {
-                var item = drawItem();
-            }
             word.last_view_time = time.getTime().timestamp;
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
@@ -211,12 +207,21 @@ Page({
                         icon: 'loading',
                         duration: 1000
                     });
-                    wechat.callFunction("getWordDB", { level: user_info.data.level }).then(res => {
+                    wx.showModal({
+                        title: '恭喜！',
+                        content: "你升级了~在主页中刷新页面就能看到哦",
+                        showCancel: false,
+                        confirmColor: '#3CC51F',
+                        confirmText: "确定"
+                    });
+                    wechat.callFunction("getWordDB", { level: user_info.data.level + 1 }).then(res => {
                         var tmp = word_list;
                         word_list = res.result.data.words;
                         word_list = word_list.concat(tmp);
                         user_info.data.level++;
                         return wechat.setStorage("word_list", word_list);
+                    }, err => { }).then(res => {
+                        return wechat.setStorage("user_info", user_info);
                     }, err => { });
                 }
             }
@@ -424,10 +429,17 @@ Page({
                 complete: () => { }
             });
             if (count >= 5) {
+                wx.showModal({
+                    title: '恭喜！',
+                    content: '奖励随机小道具一枚~以及帮你装饰在小空间里了哦',
+                    showCancel: false,
+                    confirmText: '确定',
+                    confirmColor: '#3CC51F'
+                });
                 drawItem();
                 count = 0;
             } else {
-                cout += 3;
+                count += 3;
             }
         } else {
             wx.showModal({
