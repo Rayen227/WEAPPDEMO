@@ -132,7 +132,6 @@ Page({
                 word_list = res.result.data.words;
                 word_list = word_list.concat(tmp);
                 console.log("缓存单词更新成功");
-                user_info.data.level++;
                 return wechat.setStorage("word_list", word_list);//同时写入缓存
             }
         }, err => { console.log(err); }).then(res => {
@@ -167,6 +166,7 @@ Page({
         if (my_option == true_option) {//选对啦
             audio[0].play();
             count++;
+            user_info.data.exp++;
             if (my_option == 0) {
                 that.setData({
                     animation: [animation, null, null, null]
@@ -234,13 +234,18 @@ Page({
         }
         else {
             // 选错了
-            // wx.createAudioContext("falseAudio").play();
             audio[1].play();
             word.power += word.power < 3 ? 1 : 0;//权上限为3
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
-            mistaken.insert(mistaken.length, word);
-            // console.log(false);
+            var tmp = [];
+            for (var i = 0; i < mistaken.length; i++) {
+                tmp.add(mistaken[i].en);
+            }
+            if (!tmp.includes(word.en)) {
+                mistaken.add(word);
+            }
+            user_info.word_tag.mistaken = mistaken;
             tmp[my_option] = 'answer-hover-false';
             tmp[true_option] = 'answer-hover-true';
             console.log(tmp);
@@ -297,7 +302,7 @@ Page({
         });
         wechat.setStorage("word_list", word_list).then(res => {
             return wechat.setStorage("user_info", user_info);
-        }, err => { });
+        }, err => { })
     },
 
     containerTap: function (res) {

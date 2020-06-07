@@ -4,6 +4,7 @@
 </view>
 <!-- 头像 -->
 <view class="head">
+    <view class="headimg"></view>
     <image src="{{avatarUrl}}" />
 </view>
 <!-- 排名 -->

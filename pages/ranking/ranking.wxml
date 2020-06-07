@@ -5,16 +5,28 @@
     <image src="{{userList[index].avatarUrl}}" alt=""></image>
 </view> -->
 <!-- 标题 -->
-<view class="title">皇榜</view>
+<view class="font title">
+    <image src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/rank.png?sign=fa20ed01bfecee67d73ff339cf78ccca&t=1591024592" />
+    <text>排行榜</text>
+</view>
 <!-- 内容 -->
+<view class="temp"></view>
+<!-- <view class="font rank"> -->
 <view class="rank" wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
     <image src="{{item.avatarUrl}}" />
-    <view class="name">{{item.nickname}} LV.{{item.level}} {{segmentList[index]}}</view>
-    <view class="ranking">{{index}}</view>
+    <view class="name">{{item.nickname}}</view>
+    <view class="lv">LV.{{item.level}} {{segmentList[index]}}</view>
+    <view class="ranking">{{index+1}}</view>
 </view>
+<view class="temp"></view>
 <!-- 玩家排行 -->
-<view class="m_rank">
+<view class="font m_rank">
+    <!-- <image src="{{user_info.avatarUrl}}" />
+    <view class="m_name">LV.</view>
+    <view class="m_lv">LV.0 tofnfk</view>
+    <view class="m_ranking">1</view> -->
     <image src="{{user_info.avatarUrl}}" />
-    <view class="m_name">{{user_info.nickname}} LV.{{user_info.data.level}} {{segment}}</view>
+    <view class="m_name">{{user_info.nickname}}</view>
+    <view class="m_lv">LV.{{user_info.data.level}} {{segment}}</view>
     <view class="m_ranking">{{rank}}</view>
 </view>

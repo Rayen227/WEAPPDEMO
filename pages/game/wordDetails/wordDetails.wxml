@@ -1,15 +1,3 @@
-<!-- 单词 -->
-<!-- <view class="font word">
-    <view>
-        <text>></text>
-        light
-    </view>
-    <view>v. 点火，照亮； adj. 不严重的； n. 光亮； adv. 轻轻地</view>
-    <view>
-        /laɪt/
-        <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
-    </view>
-</view> -->
 <view class="font word">
     <view>
         <text>></text>
@@ -20,17 +8,8 @@
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view>
 <image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
-<!-- <view bind:tap="starWord" class="starWord" hover-class="unstarWord"></view> -->
-<!-- 例句 -->
-<!-- <view class="font example">
-    <view>她正在点蜡烛。</view>
-    <view>She is lighting a candle.</view>
-</view>
-<image class="jpg" src="{{word.jpg}}" />
-<audio src="{{word.mp3}}" id="mp3"></audio> -->
 <view class="font example">
     <view>{{word.sentenceCh}}</view>
     <view>{{word.sentenceEn}}</view>
     <image class="jpg" src="{{word.jpg}}"></image>
 </view>
-<!-- <view class="starWord" hover-class="unstarWord"></view> -->

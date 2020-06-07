@@ -25,7 +25,7 @@ overflow-y: auto;
   height: 140rpx;
   text-align: center;
   background-color: rgb(243, 219, 174);
-
+  z-index: 2;
 
 }
 .nav view {
@@ -39,14 +39,16 @@ overflow-y: auto;
   line-height: 100rpx;
   border-radius: 30rpx;
   background-color: rgb(130, 189, 243);
+  /* background-color: lawngreen; */
 }
-.nav .hovering {
+.hovering {
   background-color: rgb(54, 150, 240);
 }
 
 
 /* 中部 */
 .problem {
+  position: relative;
   margin: 140rpx auto;
   width: 700rpx;
   /* border-style:outset; */
@@ -54,13 +56,31 @@ overflow-y: auto;
   /* background-color:yellow; */
   /* z-index: -1; */
 }
-.problem view {
+.options{
   border-style:outset;
   border-radius: 20rpx;
   width: 700rpx;
   height: 100rpx;
   line-height: 100rpx;
   background-color: rgb(231, 186, 89);
+}
+.del {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  background-size: 60rpx 60rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302);
+}
+.hoverdel {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  background-size: 60rpx 60rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%821.png?sign=30f8aa8c962de631c0faa262e7608219&t=1591512982);
 }
 
 /* 下面 */

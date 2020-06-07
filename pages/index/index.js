@@ -82,7 +82,7 @@ Page({
 
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
             if (bgm && bgm.paused) {
-                // bgm.play();
+                bgm.play();
             }
 
         });
