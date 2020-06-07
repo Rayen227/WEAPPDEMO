@@ -248,7 +248,7 @@ Page({
             user_info.word_tag.mistaken = mistaken;
             tmp[my_option] = 'answer-hover-false';
             tmp[true_option] = 'answer-hover-true';
-            console.log(tmp);
+            console.log("???", tmp);
             this.setData({
                 correct: false,
                 selected: true,

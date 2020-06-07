@@ -41,7 +41,7 @@ overflow-y: auto;
   background-color: rgb(130, 189, 243);
   /* background-color: lawngreen; */
 }
-.hovering {
+.nav .hovering {
   background-color: rgb(54, 150, 240);
 }
 
@@ -71,7 +71,7 @@ overflow-y: auto;
   width: 60rpx;
   height: 60rpx;
   background-size: 60rpx 60rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302);
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302); */
 }
 .hoverdel {
   position: absolute;
@@ -80,7 +80,7 @@ overflow-y: auto;
   width: 60rpx;
   height: 60rpx;
   background-size: 60rpx 60rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%821.png?sign=30f8aa8c962de631c0faa262e7608219&t=1591512982);
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%821.png?sign=30f8aa8c962de631c0faa262e7608219&t=1591512982); */
 }
 
 /* 下面 */

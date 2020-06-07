@@ -64,9 +64,7 @@ Page({
             //更新数据库
             user_info.update_time = time.getTime();
             var tmp = {
-                avatarUrl: user_info.avatarUrl,
                 data: user_info.data,
-                nickname: user_info.nickname,
                 update_time: user_info.update_time,
                 word_tag: user_info.word_tag
             };
@@ -84,7 +82,8 @@ Page({
             if (bgm && bgm.paused) {
                 bgm.play();
             }
-
+            // user_info.word_tag.completed = [];
+            // return wechat.setStorage("user_info", user_info);
         });
     },
     startGameHandle: function () {

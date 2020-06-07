@@ -7,10 +7,11 @@
    </view>
    <!-- 中部 -->
    <view class="problem">
-      <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" bind:tap="showDetails" class="options">
+      <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" catch:tap="showDetails" class="options">
          {{item.en}}
          <!-- <view class="options"> -->
-         <view class="del" hover-class="hoverdel"></view>
+         <image class="del" src="{{src}}" catch:tap="setCompleted" data-index="{{index}}" />
+         <!-- <view class="del" hover-class="hoverdel"></view> -->
       </view>
    </view>
    <!-- 下面 -->
