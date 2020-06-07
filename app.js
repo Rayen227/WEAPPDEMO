@@ -2,7 +2,7 @@
 wx.cloud.init({
   env: "elay-pvyjb"
 });
-
+var bgm;
 //app.js
 App({});
 

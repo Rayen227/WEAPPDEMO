@@ -1,16 +1,13 @@
-// pages/wordDetails/wordDetails.js
+let wechat = require('../../../utils/promise.js');
+var user_info;
+var words = [];
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-    word: {}
+    word: {},
+    isStar: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     let that = this;
     var word = {};
@@ -18,89 +15,100 @@ Page({
       icon: 'loading',
       duration: 1500
     });
-    // console.log(options);
-    if (options.flag == "0") {
-      wx.getStorage({
-        key: "gamePage",
-        success: function (res) {
-          word = res.data.options[options.item];
-          wx.cloud.getTempFileURL({
-            fileList: [word.mp3],
-            success: res => {
-              word.mp3 = res.fileList[0].tempFileURL;
-              that.setData({
-                word: word
-              });
-            },
-            fail: console.error
-          });
-        }
-      });
-    } else {
-      word.en = options.en;
-      word.ch = options.ch;
-      word.accent = options.accent;
-      word.jpg = options.jpg;
-      word.mp3 = options.mp3;
-      word.sentenceEn = options.sentenceEn;
-      word.sentenceCh = options.sentenceCh;
-      console.log(word);
+    wechat.getStorage("user_info").then(res => {
+      user_info = res.data;
+      if (options.flag == "0") {
+        wx.getStorage({
+          key: "gamePage",
+          success: function (res) {
+            word = res.data.options[options.item];
+            wx.cloud.getTempFileURL({
+              fileList: [word.mp3],
+              success: res => {
+                word.mp3 = res.fileList[0].tempFileURL;
+                that.setData({
+                  word: word
+                });
+              },
+              fail: console.error
+            });
+          }
+        });
+      } else {
+        word.en = options.en;
+        word.ch = options.ch;
+        word.accent = options.accent;
+        word.jpg = options.jpg;
+        word.mp3 = options.mp3;
+        word.sentenceEn = options.sentenceEn;
+        word.sentenceCh = options.sentenceCh;
+        wx.cloud.getTempFileURL({
+          fileList: [word.mp3],
+          success: res => {
+            word.mp3 = res.fileList[0].tempFileURL;
+            that.setData({
+              word: word
+            });
+          },
+          fail: console.error
+        });
+      }
+    }, err => { }).then(empty => {
+      var tmp = user_info.word_tag.collected;
+      words = [];
+      for (var i = 0; i < tmp.length; i++) {
+        words.add(tmp[i].en);
+      }
       that.setData({
-        word: word
+        isStar: words.includes(word.en) ? true : false
       });
-    }
+    });
 
   },
   playMp3: function () {
-    wx.createAudioContext("mp3").play();
+    var audio = wx.createInnerAudioContext();
+    audio.src = this.data.word.mp3;
+    audio.onError(err => {
+      console.log(err);
+    });
+    audio.play();
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+  starWord: function () {
+    var that = this;
+    if (!this.data.isStar) {//未收藏
+      wx.showToast({
+        title: "已收藏",
+        icon: "success",
+        duration: 800
+      });
+      user_info.word_tag.collected.add(that.data.word);
+      that.setData({
+        isStar: true
+      });
+      words.add(that.data.word.en);
+    } else {//已收藏
+      that.setData({
+        isStar: false
+      });
+      wx.showToast({
+        title: "已取消",
+        icon: "success",
+        duration: 800
+      });
+      for (var i = 0; i < words.length; i++) {
+        if (that.data.word.en == words[i]) {
+          user_info.word_tag.collected.remove(i);
+          words.remove(i);
+          break;
+        }
+      }
+    }
+    wechat.setStorage("user_info", user_info);
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    wx.removeStorage({
+      key: "gamePage"
+    });
   }
-})
+});

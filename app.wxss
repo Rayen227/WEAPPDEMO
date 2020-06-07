@@ -26,14 +26,13 @@
   height: 90rpx;
   text-align: center;
   line-height: 90rpx;
-  /* color: #681752;  暗玉紫 */
-  background-color: lightcoral;
+  color: rgb(202, 134, 44);
 }
 /* 选中后 */
     /* 权值问题 */
 .select {
-  color: rgb(94, 255, 0);
-  background-color: lightcyan;
+  color: rgb(211, 175, 128);
+  /* background-color: rgb(196, 152, 94); */
 }
 
 .position {

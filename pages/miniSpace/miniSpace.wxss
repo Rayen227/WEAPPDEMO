@@ -4,66 +4,6 @@ page {
   background-color:rgb(86, 12, 119) ;
 }
 
-/* 操作菜单 */
-.menu {
-  position: fixed;
-  z-index: 1;
-  top: 150rpx;
-  background-color: cornflowerblue;
-}
-
-  /* 音量设置 */
-.musicSetup-1{
-  width: 90rpx;
-  height: 90rpx;
-  text-align: center;
-  line-height: 90rpx;
-  background-color: lightcoral;
-}
-
-  /* 截图 */
-.screenshot {
-  width: 90rpx;
-  height: 90rpx;
-  text-align: center;
-  line-height: 90rpx;
-}
-
-/* 背包 */
-/* .list{
-    z-index: 1;
-    overflow-y: scroll;
-    white-space: nowrap;  
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 150rpx;
-    background-color: coral;
-  } */
-  /* 背包格 */
-/* .classify{
-    display: inline-block;
-    margin:25rpx 25rpx 25rpx 0;
-    width: 100rpx;
-    height: 100rpx;
-    background-color: cornflowerblue;
-  } */
-    /* 第一格背包 */
-/* .classify:nth-child(1){
-  margin:25rpx 25rpx 25rpx 25rpx;
-} */
-  /* 隐藏滚动条 */
-/* ::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    color: transparent;
-} */
-
-/* 背景 */
-/* .background { 
-  z-index: -1;
-} */
-
   /* 背景图片 */
 .background .temp{
   display: inline-block;
@@ -71,8 +11,7 @@ page {
   width: 2240rpx;
   height: 1700rpx;
   background-size: cover;
-  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/furniture1.png?sign=632c11de7bf4f9bed39d7b03c1e0addf&t=1591370847); */
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/housebg.png?sign=27fdd62a4ac5d3202fcb428c46c1628e&t=1591445944);
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%8212.png?sign=acc410c383231f6f5d0eeb249ce2c1a5&t=1591456079);
 }
 
 .temp view {
@@ -178,4 +117,40 @@ page {
   width: 2099rpx;
   height: 197rpx;   
   background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%9B%BE%E5%B1%827.png?sign=b7f8bf692bbe3c5337ee5be7855fd44a&t=1591373109);
+}
+.temp view:nth-child(14) {
+  top: 1213rpx;
+  left: 1254rpx;
+  width: 353rpx;
+  height: 310rpx;   
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/yellow.png?sign=a12ab5716fef88e1549c073451b7a849&t=1591455125);
+}
+.temp view:nth-child(15) {
+  top: 369rpx;
+  left: 1315rpx;
+  width: 325rpx;
+  height: 350rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E7%A6%8F%E5%AD%97.png?sign=f4292c950c9dc33def87acb50135925c&t=1591455317);
+  z-index: 2;
+}
+.temp view:nth-child(16) {
+  top: 318rpx;
+  left: 581rpx;
+  width: 370rpx;
+  height: 437rpx;     
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E5%BA%8A.png?sign=febf2f4e2855df220326b1c5d48f80d1&t=1591455395);
+}
+.temp view:nth-child(17) {
+  top: 413rpx;
+  left: 904rpx;
+  width: 724rpx;
+  height: 303rpx;  
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E6%A2%B3%E5%A6%86%E5%8F%B0.png?sign=7ba886416fdccb985cc6a9dbaf299114&t=1591455535);
+}
+.temp view:nth-child(18) {
+  top: 375rpx;
+  left: 976rpx;
+  width: 399rpx;
+  height: 126rpx;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/minispace/%E7%AA%97%E6%88%B7%E6%9C%88%E4%BA%AE.png?sign=c92cc422bde3ab36dd2d119c7d85460b&t=1591456023);
 }

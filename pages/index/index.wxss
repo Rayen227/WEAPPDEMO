@@ -33,11 +33,13 @@ page {
 /* 排名 */
 .rank {
   margin: 0rpx auto;
+  text-align: center;
+  line-height: 350rpx;
   width: 650rpx;
   height: 350rpx;
   background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/rank.png?sign=fa20ed01bfecee67d73ff339cf78ccca&t=1591024592);
   background-size: 650rpx 350rpx;
-}
+  }
 
 /* 开始 */
 .game {

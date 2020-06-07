@@ -1,12 +1,20 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
+let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
+var bgm;
+var hardPaused = false;
+var gameBack = false;
+var loginBack = false;
 Page({
     data: {
         avatarUrl: '',
         animation1: {},
-        animation2: {}
+        animation2: {},
+        segment: "",
+        level: 0,
+        mistake: ''
     },
     onLoad: function () {
         var that = this;
@@ -16,7 +24,21 @@ Page({
             duration: 1000
         });
         wechat.getSetting().then(res => {
+            wx.cloud.getTempFileURL({
+                fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/miniSpace_bgm.mp3'],
+                success: res => {
+                    bgm = wx.createInnerAudioContext();
+                    var url = res.fileList[0].tempFileURL;
+                    bgm.loop = true;
+                    bgm.src = url;
+                    bgm.onError(err => {
+                        console.log(err);
+                    });
+                },
+                fail: console.error
+            });
             if (!res.authSetting['scope.userInfo']) {
+                loginBack = true;
                 wx.navigateTo({
                     url: '../login/login'
                 });
@@ -25,20 +47,20 @@ Page({
         }, err => { }).then(res => {
             user_info = res.data;
             that.setData({
-                avatarUrl: user_info.avatarUrl
+                avatarUrl: user_info.avatarUrl,
+                level: user_info.data.level,
+                segment: getSegment(user_info.data.level)
             });
-            // console.log(user_info);
-
             return wechat.callFunction("getUser", { _id: user_info._id });
         }, err => {//若玩家清除了数据缓存, 重新授权
+            loginBack = true;
             wx.navigateTo({
                 url: '../login/login'
             });
+            return wechat.callFunction("getUser", { _id: user_info._id });
 
         }).then(res => {
-            // console.log(user_info);
             var cloud = res.result.data[0];
-            // console.log(cloud);
             if (flag && user_info.update_time.timestamp > cloud.update_time.timestamp) {//缓存更新时间较晚
                 //更新数据库
                 user_info.update_time = time.getTime();
@@ -69,9 +91,15 @@ Page({
                 });
             }
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
+            if (bgm.paused) {
+                // bgm.play();
+            }
+
         });
     },
     startGameHandle: function () {
+        // bgm.pause();
+        gameBack = true;
         var animation = wx.createAnimation({
             duration: 200,
             timingFunction: 'linear'
@@ -81,7 +109,7 @@ Page({
         this.setData({
             animation1: animation
         })
-        wx.redirectTo({
+        wx.navigateTo({
             url: '../game/game'
         });
     },
@@ -94,9 +122,43 @@ Page({
         animation.scale(1, 1).step(2);
         this.setData({
             animation2: animation
-        })
-        wx.redirectTo({
+        });
+        wx.navigateTo({
             url: '../miniSpace/miniSpace'
         });
+    },
+    toDefinition: function () {
+        this.setData({
+            mistake: 'mistake-hover'
+        });
+        wx.navigateTo({
+            url: '../mistake/mistake'
+        });
+    },
+    showRanking: function () {
+        wx.navigateTo({
+            url: '../ranking/ranking'
+        });
+    },
+    onUnload: function () {
+
+    },
+    onShow: function () {
+        if (bgm && !hardPaused && gameBack && !loginBack) {
+            bgm.play();
+        }
+        this.setData({
+            mistake: ''
+        });
+    },
+    stopBgm: function () {
+        // hardPaused = hardPaused ? true : false;
+        hardPaused = true;
+        if (bgm.paused) {
+            bgm.play();
+            hardPaused = false;
+        } else {
+            bgm.stop();
+        }
     }
 });

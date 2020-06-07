@@ -1,5 +1,5 @@
 <!-- 单词 -->
-<view class="font word">
+<!-- <view class="font word">
     <view>
         <text>></text>
         light
@@ -9,23 +9,28 @@
         /laɪt/
         <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
     </view>
-</view>
-<!-- <view class="font word">
-<view>{{word.en}}</view>
-<view>{{word.ch}}</view>
-<view>{{word.accent}}</view>
-<view class="iconfont icon-laba play" bind:tap="playMp3"></view>
 </view> -->
+<view class="font word">
+    <view>
+        <text>></text>
+        {{word.en}}
+    </view>
+    <view>{{word.ch}}</view>
+    <view>{{word.accent}}</view>
+    <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
+</view>
+<image class="starWord" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811" />
+<!-- <view bind:tap="starWord" class="starWord" hover-class="unstarWord"></view> -->
 <!-- 例句 -->
-<view class="font example">
+<!-- <view class="font example">
     <view>她正在点蜡烛。</view>
     <view>She is lighting a candle.</view>
 </view>
 <image class="jpg" src="{{word.jpg}}" />
-<audio src="{{word.mp3}}" id="mp3"></audio>
-<!-- <view class="font example">
-<view>{{word.sentenceCh}}</view>
-<view>{{word.sentenceEn}}</view>
-<image class="jpg" src="{{word.jpg}}"></image>
-</view>
 <audio src="{{word.mp3}}" id="mp3"></audio> -->
+<view class="font example">
+    <view>{{word.sentenceCh}}</view>
+    <view>{{word.sentenceEn}}</view>
+    <image class="jpg" src="{{word.jpg}}"></image>
+</view>
+<!-- <view class="starWord" hover-class="unstarWord"></view> -->
