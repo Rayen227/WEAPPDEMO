@@ -36,7 +36,6 @@ Page({
       console.log(userTmp);
       userTmp.sort(cmp);
       for (var i = 0; i < userTmp.length && i < 100; i++) {
-
         if (user_info._id == userTmp[i]._id) {
           rank = i + 1;
         }
