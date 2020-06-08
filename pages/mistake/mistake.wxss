@@ -65,9 +65,9 @@ overflow-y: auto;
   background-color: rgb(231, 186, 89);
 }
 .del {
-  position: absolute;
-  top: 20rpx;
-  right: 20rpx;
+  float: right;
+  margin-top: 15rpx;
+  margin-right: 30rpx;
   width: 60rpx;
   height: 60rpx;
   background-size: 60rpx 60rpx;

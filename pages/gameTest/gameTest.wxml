@@ -1,2 +1,0 @@
-<!-- <audio src="https://656c-elay-pvyjb-1301343918.tcb.qcloud.la/audio/miniSpace_bgm.mp3?sign=d709635939d5dd1e874133a335c6bba3&t=1591109715" id="bgm"></audio> -->
-<button type="primary" bind:tap="play">play</button>

@@ -1,8 +1,7 @@
 //云开发环境初始化
 wx.cloud.init({
-  env: "elay-pvyjb"
+  env: "elay-t6atq"
 });
-var bgm;
 //app.js
 App({});
 

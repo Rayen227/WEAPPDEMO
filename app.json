@@ -4,7 +4,6 @@
     "pages/mistake/mistake",
     "pages/miniSpace/miniSpace",
     "pages/game/game",
-    "pages/gameTest/gameTest",
     "pages/ranking/ranking",
     "pages/game/wordDetails/wordDetails",
     "pages/login/login"

@@ -1,6 +1,5 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
-let sha1 = require('../../utils/HASH_SHA1.js');
 const db = wx.cloud.database();
 Page({
     data: {

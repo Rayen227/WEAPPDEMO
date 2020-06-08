@@ -1,6 +1,6 @@
 <view wx:if="{{canIUse}}">
     <view class='header'>
-        <image src='/images/wx_login.png'></image>
+        <image src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/logo.png?sign=7361492adc948a9d12e82a7c5f2aee1b&t=1591542243"></image>
     </view>
     <view class='content'>
         <view>申请获取以下权限</view>

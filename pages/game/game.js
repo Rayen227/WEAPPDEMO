@@ -90,7 +90,7 @@ Page({
             duration: 500
         });
         wx.cloud.getTempFileURL({
-            fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/correct.mp3', 'cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/false.mp3'],
+            fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/correct.mp3', 'cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/false.mp3'],
             success: res => {
                 audio[0] = wx.createInnerAudioContext();
                 audio[1] = wx.createInnerAudioContext();

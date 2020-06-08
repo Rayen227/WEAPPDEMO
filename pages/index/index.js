@@ -25,7 +25,7 @@ Page({
         });
         wechat.getSetting().then(res => {
             wx.cloud.getTempFileURL({
-                fileList: ['cloud://elay-pvyjb.656c-elay-pvyjb-1301343918/audio/miniSpace_bgm.mp3'],
+                fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/index_bgm.mp3'],
                 success: res => {
                     bgm = wx.createInnerAudioContext();
                     var url = res.fileList[0].tempFileURL;
@@ -87,7 +87,7 @@ Page({
         });
     },
     startGameHandle: function () {
-        bgm.pause();
+        // bgm.pause();
         gameBack = true;
         var animation = wx.createAnimation({
             duration: 200,
@@ -154,3 +154,7 @@ Page({
         this.onLoad();
     },
 });
+
+wechat.callFunction("getWordDB", { level: 0 }).then(res => {
+    console.log(res.result.data);
+}, err => { console.log(err); })

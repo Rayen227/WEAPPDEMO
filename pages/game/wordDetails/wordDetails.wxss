@@ -35,6 +35,7 @@ text {
 
 /* 单词--音标 */
 .word view:nth-child(3) {
+  display: inline-block;
   font-size: 50rpx;
   font-weight: 700;
   color: gray;
@@ -87,7 +88,6 @@ text {
   margin-left: 23%;
   width: 200px;
   height: 200px;
-  background-color: lawngreen;
   }
 
 .starWord {
