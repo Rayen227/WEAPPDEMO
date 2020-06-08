@@ -87,7 +87,7 @@ Page({
         });
     },
     startGameHandle: function () {
-        // bgm.pause();
+        bgm.pause();
         gameBack = true;
         var animation = wx.createAnimation({
             duration: 200,
@@ -117,6 +117,7 @@ Page({
         });
     },
     toDefinition: function () {
+        bgm.pause();
         this.setData({
             mistake: 'mistake-hover'
         });
@@ -154,7 +155,3 @@ Page({
         this.onLoad();
     },
 });
-
-wechat.callFunction("getWordDB", { level: 0 }).then(res => {
-    console.log(res.result.data);
-}, err => { console.log(err); })
