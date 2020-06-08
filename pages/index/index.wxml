@@ -1,7 +1,7 @@
 <!-- 音量设置 -->
-<view class="musicSetup" hover-class="select" bind:tap="stopBgm">
+<!-- <view class="musicSetup" hover-class="select" bind:tap="stopBgm">
     <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
-</view>
+</view> -->
 <!-- 头像 -->
 <view class="head">
     <view class="headimg"></view>

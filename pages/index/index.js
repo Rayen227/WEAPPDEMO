@@ -3,7 +3,7 @@ let time = require('../../utils/time.js');
 let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
-var bgm;
+// var bgm;
 var hardPaused = false;
 var gameBack = false;
 var loginBack = false;
@@ -18,25 +18,24 @@ Page({
     },
     onLoad: function () {
         var that = this;
-        var flag = 1;
         wx.showToast({
             icon: 'loading',
             duration: 1000
         });
         wechat.getSetting().then(res => {
-            wx.cloud.getTempFileURL({
-                fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/index_bgm.mp3'],
-                success: res => {
-                    bgm = wx.createInnerAudioContext();
-                    var url = res.fileList[0].tempFileURL;
-                    bgm.loop = true;
-                    bgm.src = url;
-                    bgm.onError(err => {
-                        console.log(err);
-                    });
-                },
-                fail: console.error
-            });
+            // wx.cloud.getTempFileURL({
+            //     fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/index_bgm.mp3'],
+            //     success: res => {
+            //         bgm = wx.createInnerAudioContext();
+            //         var url = res.fileList[0].tempFileURL;
+            //         bgm.loop = true;
+            //         bgm.src = url;
+            //         bgm.onError(err => {
+            //             console.log(err);
+            //         });
+            //     },
+            //     fail: console.error
+            // });
             if (!res.authSetting['scope.userInfo']) {
                 loginBack = true;
                 wx.navigateTo({
@@ -79,15 +78,13 @@ Page({
             });
 
         }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
-            if (bgm && bgm.paused) {
-                bgm.play();
-            }
-            // user_info.word_tag.completed = [];
-            // return wechat.setStorage("user_info", user_info);
+            // if (bgm && bgm.paused) {
+            //     bgm.play();
+            // }
         });
     },
     startGameHandle: function () {
-        bgm.pause();
+        // bgm.pause();
         gameBack = true;
         var animation = wx.createAnimation({
             duration: 200,
@@ -117,7 +114,7 @@ Page({
         });
     },
     toDefinition: function () {
-        bgm.pause();
+        // bgm.pause();
         this.setData({
             mistake: 'mistake-hover'
         });
@@ -134,23 +131,23 @@ Page({
 
     },
     onShow: function () {
-        if (bgm && !hardPaused && gameBack && !loginBack) {
-            bgm.play();
-        }
+        // if (bgm && !hardPaused && gameBack && !loginBack) {
+        //     bgm.play();
+        // }
         this.setData({
             mistake: ''
         });
     },
-    stopBgm: function () {
-        // hardPaused = hardPaused ? true : false;
-        hardPaused = true;
-        if (bgm.paused) {
-            bgm.play();
-            hardPaused = false;
-        } else {
-            bgm.stop();
-        }
-    },
+    // stopBgm: function () {
+    //     // hardPaused = hardPaused ? true : false;
+    //     hardPaused = true;
+    //     if (bgm.paused) {
+    //         bgm.play();
+    //         hardPaused = false;
+    //     } else {
+    //         bgm.stop();
+    //     }
+    // },
     onPullDownRefresh() {
         this.onLoad();
     },

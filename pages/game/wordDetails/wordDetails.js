@@ -45,6 +45,7 @@ Page({
         word.mp3 = options.mp3;
         word.sentenceEn = options.sentenceEn;
         word.sentenceCh = options.sentenceCh;
+        // console.log(word);
         wx.cloud.getTempFileURL({
           fileList: [word.mp3],
           success: res => {
@@ -71,7 +72,12 @@ Page({
   },
   playMp3: function () {
     var audio = wx.createInnerAudioContext();
-    audio.src = this.data.word.mp3;
+    var word = this.data.word;
+    if (this.data.word.mp3 == "") {
+      audio.src = "https://656c-elay-t6atq-1302369471.tcb.qcloud.la/words/" + word.en + ".mp3"
+    } else {
+      audio.src = word.mp3;
+    }
     audio.onError(err => {
       console.log(err);
     });

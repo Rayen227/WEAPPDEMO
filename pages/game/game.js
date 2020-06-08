@@ -162,7 +162,7 @@ Page({
         animation.translateY(0).step(2);
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
-        var tmp = ['', '', '', ''];
+        var classTmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
             audio[0].play();
             count++;
@@ -225,11 +225,11 @@ Page({
                     }, err => { });
                 }
             }
-            tmp[my_option] = 'answer-hover-true';
+            classTmp[my_option] = 'answer-hover-true';
             that.setData({
                 correct: true,
                 selected: true,
-                hover_class: tmp
+                hover_class: classTmp
             });
         }
         else {
@@ -246,13 +246,12 @@ Page({
                 mistaken.add(word);
             }
             user_info.word_tag.mistaken = mistaken;
-            tmp[my_option] = 'answer-hover-false';
-            tmp[true_option] = 'answer-hover-true';
-            console.log("???", tmp);
+            classTmp[my_option] = 'answer-hover-false';
+            classTmp[true_option] = 'answer-hover-true';
             this.setData({
                 correct: false,
                 selected: true,
-                hover_class: tmp
+                hover_class: classTmp
             });
             // 选错了的跳动样式的开始
             var animation2 = wx.createAnimation({
