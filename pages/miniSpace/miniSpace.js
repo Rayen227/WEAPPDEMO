@@ -8,8 +8,8 @@ Page({
     onLoad: function () {
         var that = this;
         var items;
-        wx.showToast({
-            icon: 'loading',
+        wx.showLoading({
+            title: 'Loading',
             duration: 1000
         });
         wechat.getStorage('user_info').then(res => {

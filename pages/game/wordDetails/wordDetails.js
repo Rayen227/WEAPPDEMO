@@ -14,8 +14,8 @@ Page({
     let that = this;
     var word = {};
     var isStar;
-    wx.showToast({
-      icon: 'loading',
+    wx.showLoading({
+      title: 'Loading',
       duration: 1500
     });
     wechat.getStorage("user_info").then(res => {

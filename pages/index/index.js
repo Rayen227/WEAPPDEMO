@@ -4,7 +4,7 @@ let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
 // var bgm;
-var hardPaused = false;
+// var hardPaused = false;
 var gameBack = false;
 var loginBack = false;
 Page({
@@ -18,9 +18,9 @@ Page({
     },
     onLoad: function () {
         var that = this;
-        wx.showToast({
-            icon: 'loading',
-            duration: 1000
+        wx.showLoading({
+            title: 'Loading',
+            duration: 1200
         });
         wechat.getSetting().then(res => {
             // wx.cloud.getTempFileURL({

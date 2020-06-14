@@ -8,8 +8,8 @@ Page({
 
     bindGetUserInfo: function (e) {
         var that = this;
-        wx.showToast({
-            icon: 'loading',
+        wx.showLoading({
+            title: 'Loading',
             duration: 1800
         });
         if (e.detail.userInfo) {

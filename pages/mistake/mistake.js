@@ -7,8 +7,8 @@ Page({
     isCurrent: ['hovering', '', '']
   },
   onLoad: function (options) {
-    wx.showToast({
-      icon: 'loading',
+    wx.showLoading({
+      title: 'Loading',
       duration: 300
     });
     var that = this;

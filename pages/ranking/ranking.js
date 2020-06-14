@@ -12,9 +12,9 @@ Page({
   onLoad: function (options) {
     var that = this;
     var segmentList = [];
-    wx.showToast({
-      icon: 'loading',
-      duration: 800
+    wx.showLoading({
+      title: 'Loading',
+      duration: 1200
     });
     wechat.getStorage("user_info").then(res => {
       user_info = res.data;

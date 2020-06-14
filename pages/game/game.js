@@ -85,8 +85,8 @@ Page({
     onLoad: function () {
         var that = this;
         var needUpdate = false;
-        wx.showToast({
-            icon: 'loading',
+        wx.showLoading({
+            title: 'Loading',
             duration: 500
         });
         wx.cloud.getTempFileURL({
@@ -113,8 +113,8 @@ Page({
             if (word_list.length < 4) {//缓存中单词数量不足
                 console.log("缓存单词不足");
                 needUpdate = true;
-                wx.showToast({
-                    icon: 'loading',
+                wx.showLoading({
+                    title: 'Loading',
                     duration: 1000
                 });
                 return wechat.callFunction("getWordDB", { level: user_info.data.level });
@@ -203,8 +203,8 @@ Page({
                 word_list.remove(listId);
                 //判断是否更新缓存
                 if (word_list.length < 4) {
-                    wx.showToast({
-                        icon: 'loading',
+                    wx.showLoading({
+                        title: 'Loading',
                         duration: 1000
                     });
                     wx.showModal({
@@ -344,8 +344,8 @@ Page({
             });
         }
         else {
-            wx.showToast({
-                icon: 'loading',
+            wx.showLoading({
+                title: 'Loading',
                 duration: 500
             });
             answer = [];

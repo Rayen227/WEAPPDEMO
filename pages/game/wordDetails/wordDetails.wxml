@@ -11,5 +11,5 @@
 <view class="font example">
     <view>{{word.sentenceCh}}</view>
     <view>{{word.sentenceEn}}</view>
-    <image class="jpg" src="{{word.jpg}}"></image>
+    <!-- <image class="jpg" src="{{word.jpg}}"></image> -->
 </view>
