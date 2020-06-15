@@ -50,30 +50,38 @@ Page({
                 level: user_info.data.level,
                 segment: getSegment(user_info.data.level)
             });
-            return wechat.callFunction("getUser", { _id: user_info._id });
+            return wechat.callFunction("getUser", { _openid: user_info._openid });
         }, err => {//若玩家清除了数据缓存, 重新授权
             loginBack = true;
             wx.navigateTo({
                 url: '../login/login'
             });
-            return wechat.callFunction("getUser", { _id: user_info._id });
+            return wechat.callFunction("getUser", { _openid: user_info._openid });
 
         }).then(res => {
             var cloud = res.result.data[0];
             //更新数据库
             user_info.update_time = time.getTime();
-            var tmp = {
-                data: user_info.data,
-                update_time: user_info.update_time,
-                word_tag: user_info.word_tag
-            };
-            db.collection("users").doc(user_info._id).update({
-                data: tmp,
-                success: function () {
-                    console.log("数据库更新成功");
-                },
-                fail: function (err) {
-                    console.log("更新失败: ", err);
+            // var tmp = {
+            //     data: user_info.data,
+            //     update_time: user_info.update_time,
+            //     word_tag: user_info.word_tag
+            // };
+            // db.collection("users").where(user_info._openid).update({
+            //     data: tmp,
+            //     success: function () {
+            //         console.log("数据库更新成功");
+            //     },
+            //     fail: function (err) {
+            //         console.log("更新失败: ", err);
+            //     }
+            // });
+            return wechat.callFunction("updateUser", {
+                _openid: user_info._openid,
+                data: {
+                    data: user_info.data,
+                    update_time: user_info.update_time,
+                    word_tag: user_info.word_tag
                 }
             });
 
@@ -127,8 +135,8 @@ Page({
             url: '../ranking/ranking'
         });
     },
-    onUnload: function () {
-
+    onHide: function () {
+        this.onLoad();
     },
     onShow: function () {
         // if (bgm && !hardPaused && gameBack && !loginBack) {
@@ -152,3 +160,7 @@ Page({
         this.onLoad();
     },
 });
+
+// var a = "我是猪";
+
+// console.log(a.replace(/[^\u0000-\u00ff]/g, "aaa").length);

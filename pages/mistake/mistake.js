@@ -19,6 +19,9 @@ Page({
       });
     }, err => { });
   },
+  onShow: function () {
+    this.onLoad();
+  },
   showCompleted: function () {
     curTag = 'completed';
     this.setData({

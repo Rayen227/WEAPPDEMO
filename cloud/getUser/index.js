@@ -5,8 +5,7 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await cloud.database().collection('users').where({ _id: event._id }).get({
+  return await cloud.database().collection('users').where({ _openid: event._openid }).get({
     success: console.log, fail: console.error
   });
-
 }

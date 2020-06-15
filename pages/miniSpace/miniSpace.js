@@ -1,6 +1,6 @@
 let wechat = require('../../utils/promise.js');
 var user_info;
-var itemCount = 13;//道具总数
+var itemCount = 18;//道具总数
 Page({
     data: {
         isOwned: []

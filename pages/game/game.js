@@ -6,6 +6,7 @@ var listId = 0;
 var true_option = 0;
 var my_option = 0;
 var count = 0;
+var combo = 0;
 var problem = {};
 var options = [];
 var letters = [];
@@ -71,13 +72,15 @@ Page({
         var right = answer.length;
         if (right < this.data.maxLength) {
             answer[right] = letters[index];
+            visible[index] = false;
         }
-        visible[index] = false;
         // console.log(answer);
         this.setData({
             answer: answer,
             visible: visible,
-            joint: true
+            joint: true,
+            curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
+            curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500]
         });
 
     },
@@ -95,10 +98,12 @@ Page({
                 audio[0] = wx.createInnerAudioContext();
                 audio[1] = wx.createInnerAudioContext();
                 audio[0].src = res.fileList[0].tempFileURL;
+                audio[0].playbackRate = 2;
                 audio[0].onError(err => {
                     console.log(err);
                 });
                 audio[1].src = res.fileList[1].tempFileURL;
+                audio[1].playbackRate = 2;
                 audio[1].onError(err => {
                     console.log(err);
                 });
@@ -139,6 +144,7 @@ Page({
             for (var i = 0; i < word_list.length; i++) {
                 word_list[i].ch = getCh(word_list[i].ch)
             }
+            console.log("单词更新、重构成功:", word_list);
             resetPage(that);
         }, err => { }).then(empty => {
             wx.setStorage({
@@ -164,8 +170,14 @@ Page({
         let word = word_list[listId];
         var classTmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
+            audio[0].stop();
             audio[0].play();
             count++;
+            combo++;
+            if (count > 15 && combo > 10) {
+                drawItem();
+                count = 0;
+            }
             user_info.data.exp++;
             if (my_option == 0) {
                 that.setData({
@@ -234,7 +246,9 @@ Page({
         }
         else {
             // 选错了
+            audio[1].stop();
             audio[1].play();
+            combo = 0;
             word.power += word.power < 3 ? 1 : 0;//权上限为3
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
@@ -301,7 +315,7 @@ Page({
         });
         wechat.setStorage("word_list", word_list).then(res => {
             return wechat.setStorage("user_info", user_info);
-        }, err => { })
+        }, err => { });
     },
 
     containerTap: function (res) {
@@ -398,6 +412,7 @@ Page({
 
     confirmLetters: function () {
         var that = this;
+        // console.log(words);
         if (isAWord(answer)) {
             wx.showModal({
                 title: '你成功了~',
@@ -432,7 +447,7 @@ Page({
                 fail: () => { },
                 complete: () => { }
             });
-            if (count >= 5) {
+            if (count >= 10) {
                 wx.showModal({
                     title: '恭喜！',
                     content: '奖励随机小道具一枚~以及帮你装饰在小空间里了哦',
@@ -479,6 +494,19 @@ Page({
                 fail: () => { },
                 complete: () => { }
             });
+            let mistaken = user_info.word_tag.mistaken;
+            var tmp = [];
+            for (var i = 0; i < mistaken.length; i++) {
+                tmp.add(mistaken[i].en);
+            }
+            if (!tmp.includes(words[0].en)) {
+                mistaken.add(words[0]);
+            }
+            if (!tmp.includes(words[1].en)) {
+                mistaken.add(words[1]);
+            }
+            user_info.word_tag.mistaken = mistaken;
+            wechat.setStorage("user_info", user_info);
         }
     }
 });
@@ -641,6 +669,10 @@ function random(lower, upper) {
 }
 
 function getCh(string) {
-    var index = string.indexOf('；');
+    var tmp1 = string.indexOf('；');
+    var tmp2 = string.indexOf(';');
+    var index = -1;
+    if (tmp1 != -1 && tmp2 == -1 || tmp1 != -1 && tmp2 != -1 && tmp1 < tmp2) index = tmp1;
+    else index = tmp2;
     return index != -1 ? string.intercept(0, index) : string;
 }
