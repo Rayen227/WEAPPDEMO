@@ -98,12 +98,10 @@ Page({
                 audio[0] = wx.createInnerAudioContext();
                 audio[1] = wx.createInnerAudioContext();
                 audio[0].src = res.fileList[0].tempFileURL;
-                audio[0].playbackRate = 2;
                 audio[0].onError(err => {
                     console.log(err);
                 });
                 audio[1].src = res.fileList[1].tempFileURL;
-                audio[1].playbackRate = 2;
                 audio[1].onError(err => {
                     console.log(err);
                 });
@@ -249,7 +247,7 @@ Page({
             audio[1].stop();
             audio[1].play();
             combo = 0;
-            word.power += word.power < 3 ? 1 : 0;//权上限为3
+            // word.power += word.power < 3 ? 1 : 0;//权上限为2
             //加入错题本
             let mistaken = user_info.word_tag.mistaken;
             var tmp = [];
@@ -522,13 +520,15 @@ function allDifferent(item, array) {
 function resetPage(this_pointer) {
     // console.log(word_list);
     var temp = {};
+    var now = time.getTime().timestamp;
+    // console.log(now);
     for (let i = 0; i < 30; i++) {
         //获取随机数下标,保证随机数范围在[0, word_list.length)内
         var random_index = Math.floor(Math.random() * word_list.length);
         //console.log(random);
         temp = word_list[random_index];
-        //优先挑选10分钟内未遇到过的,且已经错过一次以上的单词
-        if (temp.last_view_time >= 10 * 60 && temp.power >= 3) {
+        //优先挑选5分钟内未遇到过的
+        if (temp.last_view_time <= now - 5 * 60) {
             break;
         }
     }
@@ -537,9 +537,11 @@ function resetPage(this_pointer) {
     //更新选项
     temp = [];
     let right = word_list[listId];
-    if (word_list.length < 4) {
-        //更新单词
-    }
+    word_list[listId].last_view_time = now;
+    wx.setStorage({
+        key: "word_list",
+        data: word_list
+    })
     //已选中
     let got = [];
     //随机挑选选项
@@ -584,7 +586,7 @@ function resetPage(this_pointer) {
 //抽取碎片
 function drawItem() {
     var that = this;
-    var itemCount = 13;
+    var itemCount = 18;
     var items = user_info.data.items;
     if (items.length == itemCount) {
         return false;
@@ -669,8 +671,10 @@ function random(lower, upper) {
 }
 
 function getCh(string) {
-    var tmp1 = string.indexOf('；');
-    var tmp2 = string.indexOf(';');
+    // var len = string.replace(/[^\u0000-\u00ff]/g, "aa").length;
+
+    var tmp1 = string.indexOf('，');
+    var tmp2 = string.indexOf('；');
     var index = -1;
     if (tmp1 != -1 && tmp2 == -1 || tmp1 != -1 && tmp2 != -1 && tmp1 < tmp2) index = tmp1;
     else index = tmp2;

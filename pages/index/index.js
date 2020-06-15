@@ -161,6 +161,6 @@ Page({
     },
 });
 
-// var a = "我是猪";
+// var a = "，";
 
-// console.log(a.replace(/[^\u0000-\u00ff]/g, "aaa").length);
+// console.log(a.replace(/[^\u0000-\u00ff]/g, "aa").length);
