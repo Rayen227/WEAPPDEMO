@@ -104,3 +104,10 @@ overflow-y: auto;
   background-color: lawngreen;
 } */
 
+.empty{
+  margin-top: 350rpx;
+  margin-left: 300rpx;
+  color: darkgray;
+  font-size: 32rpx;
+  opacity: 0.5;
+}

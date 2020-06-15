@@ -4,7 +4,8 @@ var curTag = 'mistaken';
 Page({
   data: {
     wordList: [],
-    isCurrent: ['hovering', '', '']
+    isCurrent: ['hovering', '', ''],
+    showDelete: true
   },
   onLoad: function (options) {
     wx.showLoading({
@@ -21,26 +22,34 @@ Page({
   },
   onShow: function () {
     this.onLoad();
+    this.setData({
+      isCurrent: ['hovering', '', ''],
+      showDelete: true
+    })
   },
   showCompleted: function () {
     curTag = 'completed';
     this.setData({
       wordList: user_info.word_tag.completed,
-      isCurrent: ['', '', 'hovering']
+      isCurrent: ['', '', 'hovering'],
+      showDelete: true,
+      showDelete: false
     });
   },
   showMistaken: function () {
     curTag = 'mistaken';
     this.setData({
       wordList: user_info.word_tag.mistaken,
-      isCurrent: ['hovering', '', '']
+      isCurrent: ['hovering', '', ''],
+      showDelete: true
     });
   },
   showCollected: function () {
     curTag = 'collected';
     this.setData({
       wordList: user_info.word_tag.collected,
-      isCurrent: ['', 'hovering', '']
+      isCurrent: ['', 'hovering', ''],
+      showDelete: true
     });
   },
   showDetails: function (e) {

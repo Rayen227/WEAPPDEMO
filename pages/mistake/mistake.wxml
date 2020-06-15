@@ -10,10 +10,11 @@
       <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" catch:tap="showDetails" class="options">
          {{item.en}}
          <!-- <view class="options"> -->
-         <image class="del" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302" catch:tap="setCompleted" data-index="{{index}}" />
+         <image wx:if="{{showDelete}}" class="del" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302" catch:tap="setCompleted" data-index="{{index}}" />
          <!-- <view class="del" hover-class="hoverdel"></view> -->
       </view>
    </view>
    <!-- 下面 -->
    <view class="kong"></view>
+   <view wx:if="{{!wordList.length}}" class="empty">空 空 如 也 ...</view>
 </view>
