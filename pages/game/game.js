@@ -414,7 +414,7 @@ Page({
         if (isAWord(answer)) {
             wx.showModal({
                 title: '你成功了~',
-                content: "你拼出的是" + "'" + words[0].en + "'" + "\n刚才的字母还可以拼成" + "'" + words[1].en + "'~",
+                content: "以下两项都是对的~ " + " '" + words[0].en + "、 '" + " '" + words[1].en + "'",
                 showCancel: true,
                 cancelText: '下一题',
                 cancelColor: '#3CC51F',
