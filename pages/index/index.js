@@ -17,65 +17,26 @@ Page({
         mistake: ''
     },
     onLoad: function () {
+        var openId;
         var that = this;
         wx.showLoading({
             title: 'Loading',
             duration: 1200
         });
-        wechat.getSetting().then(res => {
-            // wx.cloud.getTempFileURL({
-            //     fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/index_bgm.mp3'],
-            //     success: res => {
-            //         bgm = wx.createInnerAudioContext();
-            //         var url = res.fileList[0].tempFileURL;
-            //         bgm.loop = true;
-            //         bgm.src = url;
-            //         bgm.onError(err => {
-            //             console.log(err);
-            //         });
-            //     },
-            //     fail: console.error
-            // });
-            if (!res.authSetting['scope.userInfo']) {
-                loginBack = true;
+        wechat.callFunction("getOpenId").then(res => {
+            openId = res.result.openId;
+            return wechat.callFunction("getUser", { _openid: openId });
+        }, err => { }).then(res => {
+            user_info = res.result.data[0];
+            if (!user_info) {
                 wx.navigateTo({
                     url: '../login/login'
                 });
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
-            user_info = res.data;
-            that.setData({
-                avatarUrl: user_info.avatarUrl,
-                level: user_info.data.level,
-                segment: getSegment(user_info.data.level)
-            });
-            return wechat.callFunction("getUser", { _openid: user_info._openid });
-        }, err => {//若玩家清除了数据缓存, 重新授权
-            loginBack = true;
-            wx.navigateTo({
-                url: '../login/login'
-            });
-            return wechat.callFunction("getUser", { _openid: user_info._openid });
-
-        }).then(res => {
-            var cloud = res.result.data[0];
-            //更新数据库
+            user_info = res.data;//以缓存为准
             user_info.update_time = time.getTime();
-            // var tmp = {
-            //     data: user_info.data,
-            //     update_time: user_info.update_time,
-            //     word_tag: user_info.word_tag
-            // };
-            // db.collection("users").where(user_info._openid).update({
-            //     data: tmp,
-            //     success: function () {
-            //         console.log("数据库更新成功");
-            //     },
-            //     fail: function (err) {
-            //         console.log("更新失败: ", err);
-            //     }
-            // });
             return wechat.callFunction("updateUser", {
                 _openid: user_info._openid,
                 data: {
@@ -85,7 +46,11 @@ Page({
                 }
             });
 
-        }, err => { console.log("!cloud.getUser ERROR: ", err); }).then(empty => {
+        }, err => { //缓存丢失
+            console.log("Local storage lost!Reset by the last cloud stroage!");
+            wechat.setStorage("user_info", user_info);
+        }).then(empty => {
+            that.setData({ avatarUrl: user_info.avatarUrl })
             // if (bgm && bgm.paused) {
             //     bgm.play();
             // }

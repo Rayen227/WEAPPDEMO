@@ -591,14 +591,16 @@ function drawItem() {
     if (items.length == itemCount) {
         return false;
     }
-    while (true) {
-        var index = random(0, itemCount);
-        if (!items.includes(index)) {
-            break;
+    var index = random(0, items.length - items.length);
+    for (var i = 0; i < itemCount; i++) {
+        if (items.includes(i)) continue;
+        if (index-- == 0) {
+            user_info.data.items.add(i);
+            wechat.setStorage("user_info", user_info);
+            return;
         }
     }
-    user_info.data.items.add(index);
-    wechat.setStorage("user_info", user_info);
+    console.log("?REEOE: FUNCTION drawItem()!");
 }
 function getLeters(n) {
     words = [];
