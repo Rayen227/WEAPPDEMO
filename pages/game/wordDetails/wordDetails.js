@@ -89,7 +89,7 @@ Page({
       wx.showToast({
         title: "已收藏",
         icon: "success",
-        duration: 800
+        duration: 1800
       });
       user_info.word_tag.collected.add(that.data.word);
       that.setData({
