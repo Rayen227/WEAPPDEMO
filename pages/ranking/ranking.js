@@ -27,6 +27,10 @@ Page({
       for (var i = 0; i < users.length; i++) {
         tmp = {};
         tmp.nickname = users[i].nickname;
+        console.log(tmp.nickname, tmp.nickname.replace(/[^\u0000-\u00ff]/g, "aa").length);
+        if (tmp.nickname.replace(/[^\u0000-\u00ff]/g, "aa").length > 10) {
+          tmp.nickname = cut(tmp.nickname);
+        }
         tmp.avatarUrl = users[i].avatarUrl;
         tmp.exp = users[i].data.exp;
         tmp._id = users[i]._id;
@@ -66,4 +70,18 @@ var cmp = function (obj1, obj2) {
   } else {
     return 0;
   }
+}
+
+function cut(str) {
+  var reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
+  var cnt = 0;
+  var str_cut = "";
+  for (var i = 0; i < str.length; i++) {
+    if (reg.test(str[i]))
+      cnt += 2;
+    else cnt++;
+    if (cnt >= 7) break;
+    str_cut += str[i];
+  }
+  return str_cut + "..";
 }

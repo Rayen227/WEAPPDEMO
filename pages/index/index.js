@@ -19,6 +19,7 @@ Page({
     onLoad: function () {
         var openId;
         var that = this;
+        var user_cloud;
         wx.showLoading({
             title: 'Loading',
             duration: 1200
@@ -27,15 +28,15 @@ Page({
             openId = res.result.openId;
             return wechat.callFunction("getUser", { _openid: openId });
         }, err => { }).then(res => {
-            user_info = res.result.data[0];
-            if (!user_info) {
+            user_cloud = res.result.data[0];
+            if (!user_cloud) {
                 wx.navigateTo({
                     url: '../login/login'
                 });
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
-            user_info = res.data;//以缓存为准
+            user_info = res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
             user_info.update_time = time.getTime();
             return wechat.callFunction("updateUser", {
                 _openid: user_info._openid,
@@ -45,16 +46,22 @@ Page({
                     word_tag: user_info.word_tag
                 }
             });
-
         }, err => { //缓存丢失
             console.log("Local storage lost!Reset by the last cloud stroage!");
-            wechat.setStorage("user_info", user_info);
-        }).then(empty => {
-            that.setData({ avatarUrl: user_info.avatarUrl })
+            user_info = user_cloud;
+            wechat.setStorage("user_info", user_cloud);
+        }).then(res => {
+            that.setData({
+                avatarUrl: user_info.avatarUrl,
+                segment: getSegment(user_info.data.level),
+                level: user_info.data.level
+            });
+            return wechat.setStorage("user_info", user_info);
+        }, err => { }).then(emp => {
             // if (bgm && bgm.paused) {
             //     bgm.play();
             // }
-        });
+        })
     },
     startGameHandle: function () {
         // bgm.pause();
@@ -128,4 +135,4 @@ Page({
 
 // var a = "，";
 
-// console.log(a.replace(/[^\u0000-\u00ff]/g, "aa").length);
+// console.log(a.replace(/[^\u0000-\u00ff]/g, "aa").length, a);

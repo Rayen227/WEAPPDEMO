@@ -154,6 +154,15 @@ Page({
     },
 
     onUploud: function () {
+        user_info.update_time = time.getTime();
+        wechat.callFunction("updateUser", {
+            _openid: user_info._openid,
+            data: {
+                data: user_info.data,
+                update_time: user_info.update_time,
+                word_tag: user_info.word_tag
+            }
+        });
     },
 
     selectHandle: function (event) {
@@ -596,8 +605,7 @@ function drawItem() {
         if (items.includes(i)) continue;
         if (index-- == 0) {
             user_info.data.items.add(i);
-            wechat.setStorage("user_info", user_info);
-            return;
+            wechat.setStorage("user_info", user_info).then(res => { return; }, err => { });
         }
     }
     console.log("?REEOE: FUNCTION drawItem()!");
@@ -674,7 +682,6 @@ function random(lower, upper) {
 
 function getCh(string) {
     // var len = string.replace(/[^\u0000-\u00ff]/g, "aa").length;
-
     var tmp1 = string.indexOf('，');
     var tmp2 = string.indexOf('；');
     var index = -1;
