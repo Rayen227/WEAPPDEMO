@@ -51,15 +51,21 @@ Page({
                                     key: "user_info",
                                     data: user_info,
                                     success: function () {
-                                        wx.redirectTo({
-                                            url: '../index/index'
-                                        });
+                                        wechat.callFunction("getSTDWordset").then(res => {
+                                            console.log(res);
+                                            return wechat.setStorage("STDWordset", res.result.data);
+                                        }, err => { console.log(err); }).then(res => {
+                                            wx.redirectTo({
+                                                url: '../index/index'
+                                            });
+                                        })
                                     }
                                 })
                             }
                         })
                     }
-                })
+                });
+
             })
         } else {
             wx.showModal({

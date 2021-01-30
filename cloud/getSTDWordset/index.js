@@ -5,7 +5,7 @@ cloud.init()
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-    return await cloud.database().collection("wordDB").doc(event.level).get({
+    return await cloud.database().collection('STDWordset').get({
         success: console.log, fail: console.error
     });
 }

@@ -1,0 +1,280 @@
+page {
+    margin: 0;
+    padding: 0;
+    background-size: 750rpx 100%;
+    background-repeat: no-repeat;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/gamebg.png?sign=c99069ff5ffb40fa4ffffa586c4065f0&t=1589641708);
+}
+
+
+
+/* 涟漪特效 */
+.ripple {
+    background-color: rgba(70, 64, 64, 0.1);
+    /* background-color: red; */
+    /* border-radius: 100%; */
+    /* height:10px;
+    width:10px; */
+    height: 5rpx;
+    width: 5rpx;
+    margin-top: -90px;
+    position: absolute;
+    overflow: hidden;
+}
+.container{
+    width:100%;
+    height:100%;
+    overflow: hidden
+}
+@-webkit-keyframes ripple {
+    100% {
+    webkit-transform: scale(40);
+    transform: scale(40);
+    background-color: transparent;
+    }
+}
+
+/* 模式一 */
+/* 问题 */
+.position_up {
+    position: absolute;
+    top: 44rpx;
+    left: 442rpx;
+    width: 165rpx;
+    height: 78rpx;
+}
+.question {
+    position: relative;
+    box-sizing:border-box;
+    margin:120rpx auto 80rpx;
+    padding: 30rpx;
+    width: 550rpx;
+    height: 300rpx;
+}
+.question view {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;  /* 上下居中 */
+    justify-content: center;   /* 单行时居中 */
+    text-align: center;/* 左右居中 */
+    font-size: 90rpx;
+    font-weight: bolder;
+    color: black;
+    text-shadow: 1rpx 1rpx gray;
+    line-height:.9em;   /*行间距（行高）*/
+}
+.question image {
+    width: 550rpx;
+    height: 300rpx;
+}
+/* 选项 */
+.answer {
+    box-sizing: border-box;
+    margin: 0 auto;
+    width: 680rpx;
+}
+/* 清除浮动 */
+.answer:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.answer .options {
+    margin-bottom: 40rpx;
+    width: 320rpx;
+    height: 200rpx;
+    background-size: 320rpx 200rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose.png?sign=196ae54f34fb385cf98bfbb0b103dfcc&t=1589639279);
+}
+.answer view view {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;  /* 上下居中 */   
+    justify-content: center;  /* 单行时居中 */
+    text-align: center;  /* 左右居中 */
+    font-weight: bolder;
+    color: black;
+    line-height:.9em;  /*行间距（行高）*/
+    font-size: 48rpx;
+    text-shadow: 3rpx 3rpx rgb(179, 179, 179);
+}
+.answer view:nth-child(odd) {
+    float: left;
+}
+.answer view:nth-child(even) {
+    float: right;
+}
+/* 注意权值 */
+.answer .answer-hover-true {
+    font-weight: bolder;
+    text-shadow: 3rpx 3rpx grey;
+    color: rgb(1, 109, 1);
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose_t.png?sign=8ac9c6c1e402450c5d5a02ed9e978ebb&t=1589639203);
+}
+.answer .answer-hover-false {
+    font-weight: bolder;
+    text-shadow: 3rpx 3rpx hotpink;
+    color: red;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose_f.png?sign=a5d2cb344a4de7ed925d236a458ccb85&t=1589639385);
+}
+/* 一个提示下一题的小盒子的开始 */
+.box {
+    position: absolute;
+    left: 225rpx;
+    right: 150rpx;
+    bottom: 35rpx;
+    height: 120rpx;
+    width: 300rpx;
+    background-color: yellow;
+  }
+  
+.box2 {
+    position: absolute;
+    left: 225rpx;
+    right: 150rpx;
+    bottom: 35rpx;
+    height: 120rpx;
+    width: 300rpx;
+    background-color: transparent;
+  }
+.next-hover {
+    background-color: brown;
+}
+/* .problem-block{
+    width: 80rpx;
+    height: 60rpx;
+    background-color: #fff;
+} */
+.next {
+    margin: 10rpx auto;
+    width: 280rpx;
+    height: 120rpx;
+    background-size: 280rpx 120rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/confirm.png?sign=e34294f82c1e9af1f7e0284e406d9d44&t=1591110586);
+}
+
+
+
+/* 模式二 */
+/* 拼单词 背景 */
+.spell_img {
+    margin-top: 110rpx;
+    width: 100%;
+    height: 300rpx;
+    background-size: 800rpx 400rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/meibranch2.png?sign=c6c35927ca2b82321a99614fed37e5cb&t=1589903610);
+}
+/* 字母 */
+.letter view{
+    position: absolute;
+    width: 100rpx;
+    height: 100rpx;
+    font-size: 56rpx;
+    line-height: 100rpx;
+    text-align: center;
+    background-size: 100rpx 100rpx;
+}
+/* 背景图片设置 */
+.letter view:nth-child(3n-2) {
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
+}
+.letter view:nth-child(3n-1) {
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei2.png?sign=ff4a9f664c2c09d19595b1fa7bc33adb&t=1589556026);
+}
+.letter view:nth-child(3n) {
+    width: 60rpx;
+    height: 87rpx;
+    background-size: 60rpx 87rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei3.png?sign=d5aeed68d6067681c7d28cb3a3896b4a&t=1589641119);
+}
+/* 拼词字母摆放 */
+.spellLetter view {
+    position: absolute;
+    width: 80rpx;
+    height: 80rpx;
+    font-size: 56rpx;
+    line-height: 100rpx;
+    text-align: center;
+    background-size: 80rpx 80rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
+}
+/* 重置按钮 */
+.reset {
+    position: absolute;
+    top: 250rpx;
+    left: 0;
+    width: 80rpx;
+    height: 80rpx;
+    background-size: 80rpx 80rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/reset.png?sign=3dce3b1b5c8c30fc2a61c56564488b3c&t=1591023420);
+}
+/* .reset_hover {
+    background-color: lightpink;
+} */
+/* 确定按钮 */
+.determine {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 180rpx;
+    height: 100rpx;
+    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/confirm.png?sign=e34294f82c1e9af1f7e0284e406d9d44&t=1591110586);
+    background-size: 180rpx 100rpx;
+    border-radius: 10%;
+}
+/* 拼单词长度提示 */
+.length {
+    position: absolute;
+    top: 0;
+    left: 171rpx;
+    /* width: 500rpx; */
+    font-size: 40rpx;
+    /* background-color: khaki; */
+}
+.length view {
+    display: inline-block;
+}
+/* .spellLetter view:nth-child(1) {
+    top: 100rpx;
+    left: 0;
+}
+.spellLetter view:nth-child(2) {
+    top: 121rpx;
+    left: 70rpx;
+}
+.spellLetter view:nth-child(3) {
+    top: 150rpx;
+    left: 148rpx;
+}
+.spellLetter view:nth-child(4) {
+    top: 185rpx;
+    left: 223rpx;
+}
+.spellLetter view:nth-child(5) {
+    top: 187rpx;
+    left: 304rpx;
+}
+.spellLetter view:nth-child(6) {
+    top: 214rpx;
+    left: 379rpx;
+}
+.spellLetter view:nth-child(7) {
+    top: 170rpx;
+    left: 440rpx;
+}
+.spellLetter view:nth-child(8) {
+    top: 159rpx;
+    left: 514rpx;
+}
+.spellLetter view:nth-child(9) {
+    top: 177rpx;
+    left: 594rpx;    
+}
+.spellLetter view:nth-child(10) {
+    top: 198rpx;
+    left: 672rpx;
+}*/

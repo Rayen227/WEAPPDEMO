@@ -1,12 +1,18 @@
 {
   "pages": [
+    
+    "pages/games/games",
+    "pages/login/login",
+    "pages/checkLevel/checkLevel",
     "pages/index/index",
     "pages/mistake/mistake",
     "pages/miniSpace/miniSpace",
     "pages/game/game",
     "pages/ranking/ranking",
-    "pages/game/wordDetails/wordDetails",
-    "pages/login/login"
+    "pages/game/wordDetails/wordDetails"
+    
+    
+    
   ],
   "window": {
     "backgroundTextStyle": "dark",

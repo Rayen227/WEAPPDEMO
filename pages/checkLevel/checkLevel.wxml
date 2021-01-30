@@ -1,0 +1,4 @@
+<!-- pages/checkLevel/checkLevel.wxml -->
+<view class="" wx:for="{{levelItems}}">
+    <view>{{item}}</view>
+</view>
