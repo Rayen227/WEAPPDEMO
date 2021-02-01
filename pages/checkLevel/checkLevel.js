@@ -6,7 +6,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        levelItems: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        levelItems: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        level: 0,
     },
 
     /**
@@ -14,6 +15,18 @@ Page({
      */
     onLoad: function (options) {
 
+    },
+
+    select(e) {
+        console.log(e.currentTarget.dataset.id);
+        wx.navigateTo({
+            url: '../games/games?level=' + e.currentTarget.dataset.id,
+            success: (result) => {
+
+            },
+            fail: () => { },
+            complete: () => { }
+        });
     },
 
     /**

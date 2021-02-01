@@ -1,4 +1,4 @@
 <!-- pages/checkLevel/checkLevel.wxml -->
 <view class="" wx:for="{{levelItems}}">
-    <view>{{item}}</view>
+    <view data-id="{{item}}" bind:tap="select">{{item+1}}</view>
 </view>

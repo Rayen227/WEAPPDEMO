@@ -37,19 +37,23 @@ Page({
         answer: [],
         visible: [],
         joint: false,
-        words: []
+        words: [],
+        lefts: 0,
     },
 
     onLoad: function (e) {
+        console.log(e);
+
         var that = this;
-        var needUpdate = false;
+        // var needUpdate = false;
         wx.showLoading({
             title: 'Loading',
             duration: 500
         });
         wechat.getStorage("STDWordset").then(res => {
             // console.log(res);
-            word_list = res.data[level].words;
+            word_list = res.data[e.level].words;
+            that.setData({ lefts: word_list.length - 3 })
             resetPage(that);
             // console.log(word_list);
         }, err => { });
@@ -133,7 +137,8 @@ Page({
             word.last_view_time = time.getTime().timestamp;
             if (word.power <= 0) {//权小于零则移除缓存记录
                 word_list.remove(listId);
-                //判断是否更新缓存
+                that.setData({ lefts: word_list.length - 3 })
+                //判断是否通关
                 if (word_list.length < 4) {
                     wx.showLoading({
                         title: 'Loading',
@@ -141,16 +146,13 @@ Page({
                     });
                     wx.showModal({
                         title: '恭喜！',
-                        content: "你升级了~在主页中刷新页面就能看到哦",
+                        content: "你通关了！",
                         showCancel: false,
                         confirmColor: '#3CC51F',
                         confirmText: "确定"
                     });
-                    wechat.callFunction("getWordDB", { level: user_info.data.level + 1 }).then(res => {
-                        var tmp = word_list;
-                        word_list = res.result.data.words;
-                        word_list = word_list.concat(tmp);
-                        user_info.data.level++;
+                    wechat.getStorage("STDWordset").then(res => {
+                        // word_list = res.data[level].words;
                         return wechat.setStorage("word_list", word_list);
                     }, err => { }).then(res => {
                         return wechat.setStorage("user_info", user_info);
@@ -383,7 +385,8 @@ function resetPage(this_pointer) {
         options: options,
         selected: false,//刷新状态
         correct: false,
-        hover_class: ['', '', '', '']
+        hover_class: ['', '', '', ''],
+        lefts: word_list.length - 3
     });
 }
 
