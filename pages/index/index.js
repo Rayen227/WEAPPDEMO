@@ -74,7 +74,7 @@ Page({
         animation.scale(1, 1).step(2);
         this.setData({
             animation1: animation
-        })
+        });
         wx.navigateTo({
             url: '../checkLevel/checkLevel.wxml'
         });

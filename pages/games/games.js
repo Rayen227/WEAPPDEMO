@@ -277,7 +277,7 @@ Page({
         }, 200)
     },
 
-    showDetailsHandle: function (event) {
+    showDetailsHandle: function (e) {
         // console.log("showDetailesHandle");
         let that = this;
         wx.setStorage({
@@ -287,9 +287,12 @@ Page({
                 options: options
             },
             success: function () {
-                wx.navigateTo({
-                    url: 'wordDetails/wordDetails?item=' + event.currentTarget.dataset.id + '&flag=0'
-                });
+                wechat.setStorage("currentWord", options[e.currentTarget.dataset.id]).then(res => {
+                    wx.navigateTo({
+                        url: '../wordDetails/wordDetails'
+                    });
+                }, err => { });
+
             }
         });
 

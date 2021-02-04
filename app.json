@@ -1,15 +1,15 @@
 {
-  "pages": [
+  "pages": ["pages/mistake/mistake",
     "pages/checkLevel/checkLevel",
     "pages/games/games",
     "pages/login/login",
     "pages/game/game",
     "pages/index/index",
-    "pages/mistake/mistake",
-    "pages/miniSpace/miniSpace",
     
+    "pages/miniSpace/miniSpace",
+  
     "pages/ranking/ranking",
-    "pages/game/wordDetails/wordDetails"
+    "pages/wordDetails/wordDetails"
     
     
     
