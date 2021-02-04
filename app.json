@@ -3,11 +3,11 @@
     "pages/checkLevel/checkLevel",
     "pages/games/games",
     "pages/login/login",
-    
+    "pages/game/game",
     "pages/index/index",
     "pages/mistake/mistake",
     "pages/miniSpace/miniSpace",
-    "pages/game/game",
+    
     "pages/ranking/ranking",
     "pages/game/wordDetails/wordDetails"
     

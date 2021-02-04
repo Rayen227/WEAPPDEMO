@@ -76,7 +76,7 @@ Page({
             animation1: animation
         })
         wx.navigateTo({
-            url: '../game/game'
+            url: '../checkLevel/checkLevel.wxml'
         });
     },
     toMiniSpaceHandle: function () {

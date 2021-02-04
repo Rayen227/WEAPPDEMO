@@ -51,6 +51,9 @@ Page({
                                     key: "user_info",
                                     data: user_info,
                                     success: function () {
+                                        var unpassed = [];
+                                        for (var i = 0; i < 35; i++) unpassed.add(i);
+                                        wechat.setStorage("unpassed", unpassed);
                                         wechat.callFunction("getSTDWordset").then(res => {
                                             console.log(res);
                                             return wechat.setStorage("STDWordset", res.result.data);
