@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/checkLevel/checkLevel",
+    "pages/index/index",
     "pages/games/games",
     "pages/login/login",
+    "pages/checkLevel/checkLevel",
     
-    "pages/index/index",
     "pages/mistake/mistake",
     "pages/miniSpace/miniSpace",
     "pages/game/game",

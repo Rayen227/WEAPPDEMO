@@ -1,10 +1,10 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 
-
 var level = 0;
 var user_info = {};
 var word_list = [];
+var word_set = [];
 var listId = 0;
 var true_option = 0;
 var my_option = 0;
@@ -52,8 +52,9 @@ Page({
         });
         wechat.getStorage("STDWordset").then(res => {
             // console.log(res);
+            word_set = res.data;
             word_list = res.data[e.level].words;
-            that.setData({ lefts: word_list.length - 3 })
+            // that.setData({ lefts: word_list.length - 3 })
             resetPage(that);
             // console.log(word_list);
         }, err => { });
@@ -132,7 +133,7 @@ Page({
             that.setData({
                 nextPageAnimation: nextPageAnimation,
                 word: "选对了"
-            })
+            });
             word.power--;
             word.last_view_time = time.getTime().timestamp;
             if (word.power <= 0) {//权小于零则移除缓存记录
@@ -441,6 +442,10 @@ function split(words) {
         }
     }
     return randomUpset(tmp);
+}
+
+function setSet() {
+    wechat.setStorage("STDWordset", word_set);
 }
 
 function getWord() {

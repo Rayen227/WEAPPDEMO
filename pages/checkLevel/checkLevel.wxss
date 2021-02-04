@@ -1,1 +1,24 @@
 /* pages/checkLevel/checkLevel.wxss */
+page {
+  margin: 0;
+  padding: 0;
+  background-size: 750rpx 100%;
+  background-repeat: no-repeat;
+  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/gamebg.png?sign=c99069ff5ffb40fa4ffffa586c4065f0&t=1589641708);
+}
+
+.checkbox {
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: wrap; 
+  width: 654rpx;
+  margin: 200rpx auto; 
+  position: relative;
+  left: 5rpx;
+}
+.check{
+  width: 26%;
+  height: 100rpx;
+  background:wheat;
+  margin: 3%;
+}
