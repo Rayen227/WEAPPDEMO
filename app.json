@@ -1,5 +1,6 @@
 {
-  "pages": ["pages/mistake/mistake",
+  "pages": [
+    "pages/mistake/mistake",
     "pages/checkLevel/checkLevel",
     "pages/games/games",
     "pages/login/login",
