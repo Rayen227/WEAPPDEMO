@@ -1,26 +1,21 @@
 {
-  "pages": [
-    "pages/mistake/mistake",
-    "pages/checkLevel/checkLevel",
-    "pages/games/games",
-    "pages/login/login",
-    "pages/game/game",
-    "pages/index/index",
-    
-    "pages/miniSpace/miniSpace",
-  
-    "pages/ranking/ranking",
-    "pages/wordDetails/wordDetails"
-    
-    
-    
-  ],
-  "window": {
-    "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#ccc",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "white"
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+    "pages": ["pages/login/login",
+        "pages/index/index",
+        
+        "pages/mistake/mistake",
+        "pages/checkLevel/checkLevel",
+        "pages/games/games",
+        "pages/game/game",
+        "pages/miniSpace/miniSpace",
+        "pages/ranking/ranking",
+        "pages/wordDetails/wordDetails"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#ccc",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "white"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
 }

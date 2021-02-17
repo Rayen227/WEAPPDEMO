@@ -76,7 +76,13 @@ Page({
             animation1: animation
         });
         wx.navigateTo({
-            url: '../checkLevel/checkLevel.wxml'
+            url: '../checkLevel/checkLevel',
+            success: res => {
+
+            },
+            fail: err => {
+                console.log(err);
+            }
         });
     },
     toMiniSpaceHandle: function () {

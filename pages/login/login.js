@@ -1,6 +1,11 @@
 let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
+var isNewUser = false;
 const db = wx.cloud.database();
+var user_info = {};
+var unpassed = [];
+var openid = "";
+var wordset = {};
 Page({
     data: {
         canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -14,62 +19,58 @@ Page({
         });
         if (e.detail.userInfo) {
             var tmp = e.detail.userInfo;
+
             wechat.callFunction("getOpenId").then(res => {
-                var openid = res.result.openId;
-                var user_info = {
-                    nickname: tmp.nickName,
-                    avatarUrl: tmp.avatarUrl,
-                    data: { level: 0, exp: 0, items: [] },
-                    update_time: time.getTime(),
-                    word_tag: {
-                        completed: [],
-                        mistaken: [],
-                        collected: []
-                    }
-                };
-
-                db.collection("users").add({
-                    data: user_info,
-                    success: function () {
-                        db.collection("users").where({ _openid: openid }).get({
-                            success: function (res) {
-                                console.log(res.data[0]);
-                                user_info = {
-                                    _id: res.data[0]._id,
-                                    _openid: openid,
-                                    nickname: tmp.nickName,
-                                    avatarUrl: tmp.avatarUrl,
-                                    data: { level: 0, exp: 0, items: [] },
-                                    update_time: time.getTime(),
-                                    word_tag: {
-                                        completed: [],
-                                        mistaken: [],
-                                        collected: []
-                                    }
-                                };
-                                wx.setStorage({
-                                    key: "user_info",
-                                    data: user_info,
-                                    success: function () {
-                                        var unpassed = [];
-                                        for (var i = 0; i < 35; i++) unpassed.add(i);
-                                        wechat.setStorage("unpassed", unpassed);
-                                        wechat.callFunction("getSTDWordset").then(res => {
-                                            console.log(res);
-                                            return wechat.setStorage("STDWordset", res.result.data);
-                                        }, err => { console.log(err); }).then(res => {
-                                            wx.redirectTo({
-                                                url: '../index/index'
-                                            });
-                                        })
-                                    }
-                                })
-                            }
-                        })
-                    }
+                openid = res.result.openId;
+                return wechat.callFunction("getSTDWordset");
+            }).then(res => {
+                wordset = res.result.data;
+                return wechat.callFunction("getUser", { _openid: openid });
+            }, err => {
+                console.log("callFunction:getSTDWordset", err);
+            }).then(res => {
+                if (res.result.data.length != 0) {
+                    console.log("User exist");
+                    user_info = res.result.data[0];
+                    user_info.update_time = time.getTime();
+                } else {
+                    console.log("User unfound");
+                    isNewUser = true;
+                    user_info = {
+                        nickname: tmp.nickName,
+                        avatarUrl: tmp.avatarUrl,
+                        data: { level: 0, exp: 0, items: [] },
+                        update_time: time.getTime(),
+                        word_tag: {
+                            completed: [],
+                            mistaken: [],
+                            collected: []
+                        },
+                        unpassed: wordset[0].words
+                    };
+                }
+                return wechat.setStorage("user_info", user_info);
+            }, err => {
+                console.log("callFunction:getUser");
+            }).then(res => {
+                return wechat.setStorage("STDWordset", wordset);
+            }, err => {
+                console.log("setStorage:user_info", err);
+            }).then(res => {
+                if (isNewUser) {
+                    user_info['_openid'] = openid;
+                    return wechat.callFunction("addUser", { user_info: user_info });
+                }
+            }, err => {
+                console.log("setStorage:STDWordset", err);
+            }).then(res => {
+                wx.redirectTo({
+                    url: '../index/index'
                 });
+            }, err => {
+                console.log("setStorage:unpassed", err);
+            });
 
-            })
         } else {
             wx.showModal({
                 title: '警告',

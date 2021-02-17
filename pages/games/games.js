@@ -3,7 +3,6 @@ let time = require('../../utils/time.js');
 
 var level = 0;
 var isRelaxed = false;
-var unpassed = [];
 var user_info = {};
 var word_list = [];
 var word_set = [];
@@ -61,7 +60,6 @@ Page({
             fail: console.error
         });
 
-
         level = e.level;
         var that = this;
         // var needUpdate = false;
@@ -71,20 +69,15 @@ Page({
         });
         wechat.getStorage("STDWordset").then(res => {
             word_set = res.data;
-            word_list = res.data[level].words;
-            // console.log("word_list: ", word_list);
+            word_list = word_set[level].words;
             return wechat.getStorage("user_info");
         }, err => { })
             .then(res => {
                 user_info = res.data;
-                // console.log("onLoad: ", user_info);
-                isRelaxed = level < user_info.data.level;
-
-                return wechat.getStorage("unpassed");
+                isRelaxed = level != user_info.data.level;
             }).then(res => {
-                unpassed = res.data;
                 if (!isRelaxed)
-                    that.data.lefts = unpassed.length;
+                    that.data.lefts = user_info.unpassed.length;
                 resetPage(that);
             }, err => { });
 
@@ -112,7 +105,6 @@ Page({
             count++;
             combo++;
             word.power--;
-            console.log("选对啦");
             word.last_view_time = time.getTime().timestamp;
             if (count > 15 && combo > 10) {
                 drawItem();
@@ -151,35 +143,34 @@ Page({
             });
 
             if (word.power <= 0) {
-                unpassed.remove(listId);
-                that.setData({ lefts: unpassed.length });
-                wechat.setStorage("unpassed", unpassed);
-                if (unpassed.length <= 0) {//通关
+                user_info.unpassed.remove(listId);
+                that.setData({ lefts: user_info.unpassed.length });
+                wechat.setStorage("user_info", user_info);
+                if (user_info.unpassed.length <= 0) {//通关
                     user_info.data.level++;//等级增加
                     wechat.setStorage("user_info", user_info).then(res => {
                         return wechat.getStorage("STDWordset");
-                    }, err => { })
-                        .then(res => {
-                            word_list = res.data[level].words;
-                            unpassed = [];
-                            for (var i = 0; i < word_list.length; i++) {
-                                unpassed.add(i);
+                    }, err => { }).then(res => {
+                        word_list = res.data[level].words;
+                        user_info.unpassed = [];
+                        for (var i = 0; i < word_list.length; i++) {
+                            user_info.unpassed.add(i);
+                        }
+                        return wechat.setStorage("user_info", user_info);
+                    }, err => { }).then(res => {
+                        wx.showModal({
+                            title: '恭喜！',
+                            content: "你通关了！",
+                            showCancel: false,
+                            confirmColor: '#3CC51F',
+                            confirmText: "确定",
+                            complete: function () {
+                                wx.navigateTo({
+                                    url: '../index/index.html'
+                                });
                             }
-                            return wechat.setStorage("unpassed", unpassed);
-                        }, err => { }).then(res => {
-                            wx.showModal({
-                                title: '恭喜！',
-                                content: "你通关了！",
-                                showCancel: false,
-                                confirmColor: '#3CC51F',
-                                confirmText: "确定",
-                                complete: function () {
-                                    wx.navigateTo({
-                                        url: '../index/index.html'
-                                    });
-                                }
-                            });
-                        }, err => { });
+                        });
+                    }, err => { });
                 }
             }
             classTmp[my_option] = 'answer-hover-true';
@@ -212,7 +203,6 @@ Page({
                 selected: true,
                 hover_class: classTmp
             });
-            // 选错了的跳动样式的开始
             var animation2 = wx.createAnimation({
                 duration: 100,
                 timingFunction: 'linear'
@@ -239,8 +229,6 @@ Page({
                     animation: [null, null, null, animation2]
                 })
             }
-            // 选错了的跳动样式的结束
-            // 选错了的提示部分的开始
             var nextPageAnimation = wx.createAnimation({
                 duration: 20,
                 timingFunction: 'linear'
@@ -252,9 +240,7 @@ Page({
                     nextPageAnimation: nextPageAnimation,
                     word: "选错了"
                 });
-            // 选错了的提示部分的结束
         }
-        // 重新把animation清空
         this.setData({
             animation: []
         });
@@ -278,7 +264,6 @@ Page({
     },
 
     showDetailsHandle: function (e) {
-        // console.log("showDetailesHandle");
         let that = this;
         wx.setStorage({
             key: "gamePage",
@@ -345,14 +330,6 @@ Page({
 
 });
 
-// function allDifferent(item, array) {
-//     for (let i = 0; i < array.length; i++) {
-//         if (item == array[i])
-//             return false;
-//     }
-//     return true;
-// }
-
 function resetPage(this_pointer) {
 
     listId = getWord();
@@ -360,11 +337,6 @@ function resetPage(this_pointer) {
     //更新选项
     // var temp = [];
     let right = word_list[listId];
-    // word_list[listId].last_view_time = now;
-    // wx.setStorage({
-    //     key: "word_list",
-    //     data: word_list
-    // })
     //已选中
     let got = [];
     var random_list_index;
@@ -377,17 +349,14 @@ function resetPage(this_pointer) {
         random_list_index = user_info.data.level == 0 ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * user_info.data.level);
         random_index = Math.floor(Math.random() * word_set[random_list_index].left);
         tmp_word = word_set[random_list_index].words[random_index];
-        // console.log(random_list_index, random_index);
         isNotIncludes = true;
         for (var j = 0; j < got.length; j++) {
             if (got[j].en == tmp_word.en)
                 isNotIncludes = false;
         }
         if (isNotIncludes) {
-            // temp[i] = (word_list[random_index]);
             got.add(tmp_word);
             i++;
-            // console.log(got);
         }
     }
     console.log(cnt);
@@ -414,7 +383,7 @@ function resetPage(this_pointer) {
         selected: false,//刷新状态
         correct: false,
         hover_class: ['', '', '', ''],
-        lefts: isRelaxed ? 0 : unpassed.length
+        lefts: isRelaxed ? 0 : user_info.unpassed.length
     });
 }
 
@@ -452,9 +421,6 @@ function getLeters(n) {
         }
     }
     letters = split([words[0].en, words[1].en]);
-    // console.log(words[0].en, words[1].en);
-    // console.log(words);
-    // console.log(words);
     return maxLength;
 }
 
@@ -474,8 +440,8 @@ function split(words) {
 //返回单词word_list对应下标
 function getWord() {
     if (!isRelaxed) {//闯关模式
-        var random_index = Math.floor(Math.random() * unpassed.length);
-        return unpassed[random_index];
+        var random_index = Math.floor(Math.random() * user_info.unpassed.length);
+        return random_index;
     } else {//休闲模式
         var random_index = Math.floor(Math.random() * word_list.length);
         return random_index;
