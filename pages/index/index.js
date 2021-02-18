@@ -36,8 +36,7 @@ Page({
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
-            user_info =
-                res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
+            user_info = res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
             if (res.data.update_time.timestamp <= user_cloud.update_time.timestamp) {
                 console.log("Updated by cloud data");
             }
@@ -62,11 +61,38 @@ Page({
                 level: user_info.data.level
             });
             return wechat.setStorage("user_info", user_info);
-        }, err => { }).then(emp => {
-            // if (bgm && bgm.paused) {
-            //     bgm.play();
-            // }
-        })
+        }, err => { }).then(res => {
+            //版本更新
+            var word_set;
+            if (user_info.update_time.timestamp < 1613657650000) {
+                console.log("Version updated");
+                wechat.callFunction("getSTDWordset").then(res => {
+                    word_set = res.result.data;
+                    return wechat.setStorage("STDWordset", word_set);
+                }, err => {
+                    console.log(err);
+                }).then(res => {
+                    user_info["unpassed"] = word_set[user_info.data.level].words;
+                    return wechat.setStorage("user_info", user_info)
+                }, err => {
+                    console.log(err);
+                }).then(res => {
+                    user_info.update_time = time.getTime();
+                    return wechat.callFunction("updateUser", {
+                        _openid: user_info._openid,
+                        data: {
+                            data: user_info.data,
+                            update_time: user_info.update_time,
+                            word_tag: user_info.word_tag,
+                            unpassed: user_info.unpassed
+                        }
+                    });
+                }, err => {
+                    console.log(err);
+                });
+
+            }
+        });
     },
     startGameHandle: function () {
         // bgm.pause();
