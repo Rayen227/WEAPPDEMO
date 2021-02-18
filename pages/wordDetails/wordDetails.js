@@ -1,4 +1,5 @@
 let wechat = require('../../utils/promise.js');
+let time = require('../../utils/time.js');
 var user_info;
 var words = [];
 var emptyStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811';
@@ -98,7 +99,7 @@ Page({
             }
         }
         wechat.setStorage("user_info", user_info);
-
+        updateCloud();
     },
     onUnload: function () {
         wx.removeStorage({
@@ -106,3 +107,16 @@ Page({
         });
     }
 });
+
+function updateCloud() {
+    user_info.update_time = time.getTime();
+    wechat.callFunction("updateUser", {
+        _openid: user_info._openid,
+        data: {
+            data: user_info.data,
+            update_time: user_info.update_time,
+            word_tag: user_info.word_tag,
+            unpassed: user_info.unpassed
+        }
+    });
+}
