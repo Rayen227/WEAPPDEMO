@@ -2,14 +2,11 @@ let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 
 var level = 0;
+var isRelaxed = false;
 var user_info = {};
 var word_list = [];
 var word_set = [];
-var listId = 0;
-var true_option = 0;
-var my_option = 0;
 var count = 0;
-var combo = 0;
 var problem = {};
 var options = [];
 var letters = [];
@@ -42,25 +39,6 @@ Page({
     },
 
     onLoad: function (e) {
-        console.log(e);
-
-        var that = this;
-        // var needUpdate = false;
-        wx.showLoading({
-            title: 'Loading',
-            duration: 500
-        });
-        wechat.getStorage("STDWordset").then(res => {
-            // console.log(res);
-            word_set = res.data;
-            word_list = res.data[e.level].words;
-            // that.setData({ lefts: word_list.length - 3 })
-            resetPage(that);
-            // console.log(word_list);
-        }, err => { });
-        wechat.getStorage("user_info").then(res => {
-            user_info = res.data;
-        });
         wx.cloud.getTempFileURL({
             fileList: ['cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/correct.mp3', 'cloud://elay-t6atq.656c-elay-t6atq-1302369471/audio/false.mp3'],
             success: res => {
@@ -77,6 +55,27 @@ Page({
             },
             fail: console.error
         });
+
+        level = e.level;
+        var that = this;
+        wx.showLoading({
+            title: 'Loading',
+            duration: 500
+        });
+        wechat.getStorage("STDWordset").then(res => {
+            word_set = res.data;
+            return wechat.getStorage("user_info");
+        }, err => { }).then(res => {
+            user_info = res.data;
+            isRelaxed = level != user_info.data.level;
+            word_list = isRelaxed ? word_set[level].words : user_info.unpassed;
+        }).then(res => {
+            if (!isRelaxed) {
+                that.data.lefts = user_info.unpassed.length;
+            }
+            resetPage(that);
+        }, err => { });
+
     },
 
     onUploud: function () {
@@ -93,12 +92,15 @@ Page({
         animation.translateY(0).step(2);
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
+        console.log(word);
         var classTmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
             audio[0].stop();
             audio[0].play();
             count++;
             combo++;
+            word.power--;
+            word.last_view_time = time.getTime().timestamp;
             if (count > 15 && combo > 10) {
                 drawItem();
                 count = 0;
@@ -134,29 +136,35 @@ Page({
                 nextPageAnimation: nextPageAnimation,
                 word: "选对了"
             });
-            word.power--;
-            word.last_view_time = time.getTime().timestamp;
-            if (word.power <= 0) {//权小于零则移除缓存记录
-                word_list.remove(listId);
-                that.setData({ lefts: word_list.length - 3 })
-                //判断是否通关
-                if (word_list.length < 4) {
-                    wx.showLoading({
-                        title: 'Loading',
-                        duration: 1000
-                    });
-                    wx.showModal({
-                        title: '恭喜！',
-                        content: "你通关了！",
-                        showCancel: false,
-                        confirmColor: '#3CC51F',
-                        confirmText: "确定"
-                    });
-                    wechat.getStorage("STDWordset").then(res => {
-                        // word_list = res.data[level].words;
-                        return wechat.setStorage("word_list", word_list);
+
+            if (word.power <= 0) {
+                user_info.unpassed.remove(listId);
+                that.setData({ lefts: user_info.unpassed.length });
+                wechat.setStorage("user_info", user_info);
+                if (user_info.unpassed.length <= 0) {//通关
+                    user_info.data.level++;//等级增加
+                    wechat.setStorage("user_info", user_info).then(res => {
+                        return wechat.getStorage("STDWordset");
                     }, err => { }).then(res => {
+                        word_list = res.data[level].words;
+                        user_info.unpassed = [];
+                        for (var i = 0; i < word_list.length; i++) {
+                            user_info.unpassed.add(i);
+                        }
                         return wechat.setStorage("user_info", user_info);
+                    }, err => { }).then(res => {
+                        wx.showModal({
+                            title: '恭喜！',
+                            content: "你通关了！",
+                            showCancel: false,
+                            confirmColor: '#3CC51F',
+                            confirmText: "确定",
+                            complete: function () {
+                                wx.navigateTo({
+                                    url: '../checkLevel/checkLevel'
+                                });
+                            }
+                        });
                     }, err => { });
                 }
             }
@@ -190,7 +198,6 @@ Page({
                 selected: true,
                 hover_class: classTmp
             });
-            // 选错了的跳动样式的开始
             var animation2 = wx.createAnimation({
                 duration: 100,
                 timingFunction: 'linear'
@@ -217,8 +224,6 @@ Page({
                     animation: [null, null, null, animation2]
                 })
             }
-            // 选错了的跳动样式的结束
-            // 选错了的提示部分的开始
             var nextPageAnimation = wx.createAnimation({
                 duration: 20,
                 timingFunction: 'linear'
@@ -230,15 +235,11 @@ Page({
                     nextPageAnimation: nextPageAnimation,
                     word: "选错了"
                 });
-            // 选错了的提示部分的结束
         }
-        // 重新把animation清空
         this.setData({
             animation: []
         });
-        wechat.setStorage("word_list", word_list).then(res => {
-            return wechat.setStorage("user_info", user_info);
-        }, err => { });
+        wechat.setStorage("user_info", user_info);
         updateCloud();
     },
 
@@ -256,8 +257,7 @@ Page({
         }, 200)
     },
 
-    showDetailsHandle: function (event) {
-        // console.log("showDetailesHandle");
+    showDetailsHandle: function (e) {
         let that = this;
         wx.setStorage({
             key: "gamePage",
@@ -266,16 +266,20 @@ Page({
                 options: options
             },
             success: function () {
-                wx.navigateTo({
-                    url: 'wordDetails/wordDetails?item=' + event.currentTarget.dataset.id + '&flag=0'
-                });
+                wechat.setStorage("currentWord", options[e.currentTarget.dataset.id]).then(res => {
+                    wx.navigateTo({
+                        url: '../wordDetails/wordDetails'
+                    });
+                }, err => { });
+
             }
         });
 
     },
 
     resetHandle: function () {
-        if (random(0, 10) >= 1) {
+        // if (random(0, 10) >= 1) {
+        if (true) {
             resetPage(this);
             this.setData({
                 gameType: 1
@@ -320,66 +324,51 @@ Page({
 
 });
 
-function allDifferent(item, array) {
-    for (let i = 0; i < array.length; i++) {
-        if (item == array[i])
-            return false;
-    }
-    return true;
-}
-
 function resetPage(this_pointer) {
-    // console.log(word_list);
-    var temp = {};
-    var now = time.getTime().timestamp;
-    // console.log(now);
-    for (let i = 0; i < 30; i++) {
-        //获取随机数下标,保证随机数范围在[0, word_list.length)内
-        var random_index = Math.floor(Math.random() * word_list.length);
-        //console.log(random);
-        temp = word_list[random_index];
-    }
-    listId = random_index;
-    problem = temp;//全局同步
+
+    listId = getWord();
+    problem = word_list[listId];
     //更新选项
-    temp = [];
+    // var temp = [];
     let right = word_list[listId];
-    // word_list[listId].last_view_time = now;
-    wx.setStorage({
-        key: "word_list",
-        data: word_list
-    })
     //已选中
     let got = [];
+    var random_list_index;
+    var random_index;
+    var tmp_word;
+    var cnt = 0;
+    var isNotIncludes;
     //随机挑选选项
-    for (let i = 0; i < 3;) {
-        random_index = Math.floor(Math.random() * word_list.length);
-        if (random_index != listId && allDifferent(random_index, got)) {//不冲突
-            //temp[i++]=word_list[randomIndex];
-            temp[i] = (word_list[random_index]);
-            got[i] = random_index;
-            //console.log(last);
+    for (let i = 0; i < 3; cnt++) {
+        random_list_index = user_info.data.level == 0 ? Math.floor(Math.random() * 2) : Math.floor(Math.random() * user_info.data.level);
+        random_index = Math.floor(Math.random() * word_set[random_list_index].left);
+        tmp_word = word_set[random_list_index].words[random_index];
+        isNotIncludes = true;
+        for (var j = 0; j < got.length; j++) {
+            if (got[j].en == tmp_word.en)
+                isNotIncludes = false;
+        }
+        if (isNotIncludes) {
+            got.add(tmp_word);
             i++;
-            //console.log(randomIndex);
         }
     }
     //随机插入正确答案
     let random = Math.random();
     if (random >= 0 && random < 0.25) {
-        temp.insert(0, right);
+        got.insert(0, right);
         true_option = 0;
     } else if (random >= 0.25 && random < 0.5) {
-        temp.insert(1, right);
+        got.insert(1, right);
         true_option = 1;
     } else if (random >= 0.5 && random < 0.75) {
-        temp.insert(2, right);
+        got.insert(2, right);
         true_option = 2;
     } else {
-        temp.insert(3, right);
+        got.insert(3, right);
         true_option = 3;
     }
-    //console.log(temp);
-    options = temp;//全局同步
+    options = got;//全局同步
     //页面同步
     this_pointer.setData({
         problem: problem,
@@ -387,7 +376,7 @@ function resetPage(this_pointer) {
         selected: false,//刷新状态
         correct: false,
         hover_class: ['', '', '', ''],
-        lefts: word_list.length - 3
+        lefts: isRelaxed ? 0 : user_info.unpassed.length
     });
 }
 
@@ -425,9 +414,6 @@ function getLeters(n) {
         }
     }
     letters = split([words[0].en, words[1].en]);
-    console.log(words[0].en, words[1].en);
-    // console.log(words);
-    // console.log(words);
     return maxLength;
 }
 
@@ -444,13 +430,15 @@ function split(words) {
     return randomUpset(tmp);
 }
 
-function setSet() {
-    wechat.setStorage("STDWordset", word_set);
-}
-
+//返回单词word_list对应下标
 function getWord() {
-    var random_index = Math.floor(Math.random() * word_list.length)
-    return word_list[random_index];
+    if (!isRelaxed) {//闯关模式
+        var random_index = Math.floor(Math.random() * user_info.unpassed.length);
+        return random_index;
+    } else {//休闲模式
+        var random_index = Math.floor(Math.random() * word_list.length);
+        return random_index;
+    }
 }
 //随机打乱数组顺序
 function randomUpset(arr) {
@@ -470,7 +458,6 @@ function getRpx() {
 }
 
 function isAWord(letters) {
-    // console.log(letters.join(''), words);
     for (var i = 0; i < words.length; i++) {
         if (letters.join('') == words[i].en) {
             return true;
@@ -500,7 +487,8 @@ function updateCloud() {
         data: {
             data: user_info.data,
             update_time: user_info.update_time,
-            word_tag: user_info.word_tag
+            word_tag: user_info.word_tag,
+            unpassed: user_info.unpassed
         }
     });
 }

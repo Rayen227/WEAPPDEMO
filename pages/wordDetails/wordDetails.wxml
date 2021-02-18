@@ -12,3 +12,9 @@
     </view>
     <image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
 </view>
+<image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
+<view class="font example" bind:tap="playAac">
+    <view>{{word.sentenceCh}}</view>
+    <view>{{word.sentenceEn}}</view>
+    <!-- <image class="jpg" src="{{word.jpg}}"></image> -->
+</view>
