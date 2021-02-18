@@ -6,8 +6,8 @@
         <view class="iconfont icon-gufengwujianzhongguofenggudaileqipipa_huaban_huaban_huaban_huaban"></view>
     </view> -->
     <!-- 模式一 -->
-    <!-- <view wx:if="{{gameType}}"> -->
-    <view wx:if="{{true}}">
+    <view wx:if="{{gameType}}">
+    <!-- <view wx:if="{{true}}"> -->
         <!-- 问题 -->
         <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
         <view class="font question">
