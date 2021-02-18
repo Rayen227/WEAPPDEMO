@@ -62,24 +62,23 @@ Page({
 
         level = e.level;
         var that = this;
-        // var needUpdate = false;
         wx.showLoading({
             title: 'Loading',
             duration: 500
         });
         wechat.getStorage("STDWordset").then(res => {
             word_set = res.data;
-            word_list = word_set[level].words;
             return wechat.getStorage("user_info");
-        }, err => { })
-            .then(res => {
-                user_info = res.data;
-                isRelaxed = level != user_info.data.level;
-            }).then(res => {
-                if (!isRelaxed)
-                    that.data.lefts = user_info.unpassed.length;
-                resetPage(that);
-            }, err => { });
+        }, err => { }).then(res => {
+            user_info = res.data;
+            isRelaxed = level != user_info.data.level;
+            word_list = isRelaxed ? word_set[level].words : user_info.unpassed;
+        }).then(res => {
+            if (!isRelaxed) {
+                that.data.lefts = user_info.unpassed.length;
+            }
+            resetPage(that);
+        }, err => { });
 
     },
 
@@ -97,7 +96,7 @@ Page({
         animation.translateY(0).step(2);
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
-
+        console.log(word);
         var classTmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
             audio[0].stop();
@@ -166,7 +165,7 @@ Page({
                             confirmText: "确定",
                             complete: function () {
                                 wx.navigateTo({
-                                    url: '../index/index.html'
+                                    url: '../checkLevel/checkLevel'
                                 });
                             }
                         });
@@ -246,7 +245,6 @@ Page({
         });
         wechat.setStorage("user_info", user_info);
         updateCloud();
-        console.log(word_list[listId]);
     },
 
     containerTap: function (res) {
@@ -359,7 +357,6 @@ function resetPage(this_pointer) {
             i++;
         }
     }
-    console.log(cnt);
     //随机插入正确答案
     let random = Math.random();
     if (random >= 0 && random < 0.25) {
@@ -494,7 +491,8 @@ function updateCloud() {
         data: {
             data: user_info.data,
             update_time: user_info.update_time,
-            word_tag: user_info.word_tag
+            word_tag: user_info.word_tag,
+            unpassed: user_info.unpassed
         }
     });
 }

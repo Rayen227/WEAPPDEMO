@@ -36,18 +36,23 @@ Page({
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
-            user_info = res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
+            user_info =
+                res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
+            if (res.data.update_time.timestamp <= user_cloud.update_time.timestamp) {
+                console.log("Updated by cloud data");
+            }
             user_info.update_time = time.getTime();
             return wechat.callFunction("updateUser", {
                 _openid: user_info._openid,
                 data: {
                     data: user_info.data,
                     update_time: user_info.update_time,
-                    word_tag: user_info.word_tag
+                    word_tag: user_info.word_tag,
+                    unpassed: user_info.unpassed
                 }
             });
         }, err => { //缓存丢失
-            console.log("Local storage lost!Reset by the last cloud stroage!");
+            console.log("Local storage not found!Reset by the lastest cloud stroage!");
             user_info = user_cloud;
             wechat.setStorage("user_info", user_cloud);
         }).then(res => {
