@@ -1,16 +1,16 @@
 <view class="pg">
    <!-- 上方 -->
    <view class="nav">
-      <view bind:tap="showMistaken" class="{{isCurrent[0]}}">错题</view>
-      <view bind:tap="showCollected" class="{{isCurrent[1]}}">收藏</view>
-      <view bind:tap="showCompleted" class="{{isCurrent[2]}}">历史错题</view>
+      <view bind:tap="showMistaken" class="{{isCurrent[0]}} mistake"></view>
+      <view bind:tap="showCollected" class="{{isCurrent[1]}} favorite"></view>
+      <view bind:tap="showCompleted" class="{{isCurrent[2]}} hiserror"></view>
    </view>
    <!-- 中部 -->
    <view class="problem">
       <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" catch:tap="showDetails" class="options">
          {{item.en}}
          <!-- <view class="options"> -->
-         <image wx:if="{{showDelete}}" class="del" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%822.png?sign=e13af1a8c4b85c438714c4f5f0811690&t=1591512302" catch:tap="setCompleted" data-index="{{index}}" />
+         <image wx:if="{{showDelete}}" class="del" src="https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/wrong.png?sign=5e3530ba27e3bf22f9b49fd19c98e51c&t=1612347432" catch:tap="setCompleted" data-index="{{index}}" />
          <!-- <view class="del" hover-class="hoverdel"></view> -->
       </view>
    </view>

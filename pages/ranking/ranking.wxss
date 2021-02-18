@@ -1,124 +1,163 @@
 page {
     margin: 0;
     padding: 0;
-    background-color: rgb(255, 219, 153);
-}
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/lb_bg.png?sign=2111c382eb8e41717d3b3fb3e5d6356f&t=1612348268);
+    background-size: 750rpx 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    height: 100vh;
+  }
 
 /* 标题 */
 .title {  
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 120rpx;    
-    background-color: rgb(255, 219, 153);
-
-}
-.title image {
-    position: fixed;
-    top: 0;
-    left: 375rpx;
-    margin-left: -150rpx;
-    margin-top: 10rpx;
+    margin: 180rpx auto 0;
     width: 300rpx;
-    height: 100rpx;
+    height: 100rpx;    
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/learderboard.png?sign=f51f06fe54382dbfa38e993e6e9938ea&t=1612348369);
+    background-size: 300rpx 100rpx;
 }
-.title text {
-    position: fixed;
+
+/* 表头 */
+.header {
+    position: relative;
+    margin: 0 95rpx;
+    height: 50rpx;
+    width: 75%;
+}
+/* .header view {
+    display: inline-block;
+    box-sizing: border-box;
+} */
+
+.h_name {
+    margin-left: 10rpx;
+    width: 27%;
+    height: 50rpx;
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/charactername.png?sign=5a059991365ead2de2e001709fc2a9f8&t=1612349160);
+    background-size: 100% 50rpx;
+}
+.h_grade {
+    position: absolute;
+    right: 105rpx;
     top: 0;
-    left: 300rpx;
-    font-size: 50rpx;
-    line-height: 120rpx;
-    color: rgb(112, 13, 13);
+    /* margin-left: 170rpx; */
+    width: 18%;
+    height: 50rpx;
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/grade.png?sign=abd8badde8b2958b88251419f55a60d3&t=1612349508);
+    background-size: 100% 50rpx;
+}
+.h_rank {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 18%;
+    height: 50rpx;
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/rank.png?sign=5ba5346854c9920f281f4ba94f561f74&t=1612349572);
+    background-size: 100% 50rpx;
 }
 
 /* 内容 */
-.temp {
-    width: 100%;
-    height: 120rpx;
+.rank_box {
+    margin: 10rpx auto;
+    width: 70%;
+    height: 60%;
+
 }
 .rank {
     position: relative;
     margin: 20rpx auto;
-    width: 90%;
-    height: 120rpx;
+    height: 90rpx;
     font-size: 40rpx;
-    background-color: rgb(254, 243, 201);
-    box-shadow: 4rpx 4rpx 2rpx rgb(168, 148, 86);
+    line-height: 90rpx;
 }
 /* 头像 */
 .rank image {
-    float: left;
-    width: 120rpx;
-    height: 120rpx;
+    position: absolute;
+    top: 5rpx;
+    left: 0;
+    /* float: left; */
+    border-radius: 80rpx;
+    width: 80rpx;
+    height: 80rpx;
 }
 /* 昵称 */
 .name {
+    /* display: inline-block; */
     position: absolute;
     top: 0;
-    left: 120rpx;
-    padding-left: 20rpx;
-    height: 120rpx;
-    line-height: 120rpx;
+    left: 100rpx;
+    /* padding-left: 20rpx; */
+    height: 90rpx;
+    width: 150rpx;
+    line-height: 90rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .lv {
     position: absolute;
-    right: 120rpx;
+    right: 100rpx;
     top: 0;
-    padding-right: 20rpx;
-    height: 120rpx;
-    line-height: 120rpx;
+    height: 90rpx;
+    line-height: 90rpx;
 }
 /* 排名 */
 .ranking {
-    float: right;
-    width: 120rpx;
-    height: 120rpx;
-    line-height: 120rpx;
-    text-align: center;
+    position: absolute;
+    right: 20rpx;
+    top: 0;
+    /* width: 90rpx;
+    height: 90rpx; */
+    line-height: 90rpx;
+    /* text-align: center; */
 }
 /* 玩家排行 */
 /* 内容 */
 .m_rank {
-    position: fixed;
-    bottom: 3rpx;
-    right: 2rpx;
-    width: 98%;
-    height: 100rpx;
-    border-style:ridge;
+    position: relative;
+    margin: 10rpx auto;
+    width: 70%;
+    height: 90rpx;
     font-size: 40rpx;
-    font-weight: bolder;
-    background-color: rgb(254, 243, 201); 
+    line-height: 90rpx;
+    
 }
+
 /* 头像 */
 .m_rank image {
-    float: left;
-    width: 120rpx;
-    height: 120rpx;
+    position: absolute;
+    top: 5rpx;
+    left: 0;
+    border-radius: 80rpx;
+    width: 80rpx;
+    height: 80rpx;
 }
 /* 昵称 */
-.m_name {
+/* .m_name {
     position: absolute;
     top: 0;
-    left: 120rpx;
-    padding-left: 20rpx;
-    height: 120rpx;
-    line-height: 120rpx;
+    left: 100rpx;
+    height: 90rpx;
+    width: 150rpx;
+    line-height: 90rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .m_lv {
     position: absolute;
-    right: 120rpx;
+    right: 100rpx;
     top: 0;
-    padding-right: 20rpx;
-    height: 120rpx;
-    line-height: 120rpx;
-}
+    height: 90rpx;
+    line-height: 90rpx;
+} */
 /* 排名 */
-.m_ranking {
-    float: right;
-    width: 120rpx;
-    height: 120rpx;
-    line-height: 120rpx;
-    text-align: center;
-}
+/* .m_ranking {
+    position: absolute;
+    right: 20rpx;
+    top: 0;
+    line-height: 90rpx;
+} */

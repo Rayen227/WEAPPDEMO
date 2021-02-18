@@ -1,44 +1,48 @@
 page {
-background-color: skyblue;
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/indexbg.png?sign=47ae00f96074fb145bb4e6ede2e709ba&t=1612193794);
+  background-size: 750rpx 100%;
 }
-
+.bg {
+  position: relative;
+  box-sizing: border-box;
+  padding: 100rpx 70rpx 0;
+  margin: 50rpx auto;
+  width: 680rpx;
+  height: 950rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/bg.png?sign=b632e0b2c4aae8256ba838855e26fcac&t=1613650026);
+  background-size: 680rpx 950rpx;
+}
 /* 单词 */
-.word{
+/* .word{
   overflow: hidden;
   margin-top: 20rpx;
   padding: 20rpx 20rpx 20rpx 30rpx;
-  background-color: palegoldenrod; 
-}
-text {
-  font-size: 40rpx;
-  font-weight: 900;
-  line-height: 100rpx;
-  color: rgb(111, 0, 255);
-}
+} */
 
 /* 单词--英文 */
-.word view:nth-child(1) {
+.bg view:nth-child(1) {
   font-size: 60rpx;
   font-weight: bolder;
   line-height: 100rpx;
 }
 
 /* 单词--中文 */
-.word view:nth-child(2) {
+.bg view:nth-child(2) {
   font-size: 50rpx;
-  font-weight: 700;
-  color: gray;
+  /* font-weight: 700; */
+  /* color: gray; */
   line-height: .9em;
 }
 
 /* 单词--音标 */
-.word view:nth-child(3) {
+.bg view:nth-child(3) {
   display: inline-block;
   font-size: 50rpx;
   font-weight: 700;
-  color: gray;
+  font-family: 'SimHei';
+  /* color: gray; */
 }
 
 /* 喇叭 */
@@ -53,10 +57,9 @@ text {
 }
 
 .example view:nth-child(odd){
-  margin-top: 10rpx;
-  padding-top: 20rpx;
-  padding-left: 40rpx;
-  background-color: burlywood;
+  /* margin-top: 10rpx; */
+  /* padding-top: 20rpx; */
+  /* padding-left: 40rpx; */
   font-size: 36rpx;
   font-weight: 400;
   line-height: 72rpx;
@@ -64,9 +67,8 @@ text {
 }
 
 .example view:nth-child(even){
-  padding-top: 10rpx;
-  padding-left: 40rpx;
-  background-color: burlywood;
+  /* padding-top: 10rpx; */
+  /* padding-left: 40rpx; */
   font-size: 36rpx;
   font-weight: 400;
   line-height: 72rpx;
@@ -81,7 +83,7 @@ text {
   font-weight: 1000;
   line-height: 100rpx;
   text-align: center;
-  background-color: hotpink;
+  /* background-color: hotpink; */
 }
 .jpg{
   margin-top: 40rpx;
@@ -91,17 +93,10 @@ text {
   }
 
 .starWord {
+  position: absolute;
+  bottom: 60rpx;
+  right: 70rpx;
   width: 100rpx;
   height: 100rpx;
   background-size: 100rpx 100rpx ;
-  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811) ; */
-
   }
-  
-  /* .unstarWord {
-  width: 100rpx;
-  height: 100rpx;
-  background-size: 100rpx 100rpx ;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/be261f3ee4b00ce0501db5f580943b0.png?sign=25e09db4f2849965f35048e14178fbe6&t=1591457772) ;
-
-  } */

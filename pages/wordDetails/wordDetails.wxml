@@ -1,11 +1,16 @@
-<view class="font word">
-    <view>
-        <text>></text>
-        {{word.en}}
-    </view>
+<view class = "font bg">
+    <view>{{word.en}}</view>
     <view>{{word.ch}}</view>
     <view>{{word.accent}}</view>
+
     <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
+    
+    <view class="font example">
+        <view>{{word.sentenceCh}}</view>
+        <view>{{word.sentenceEn}}</view>
+        <!-- <image class="jpg" src="{{word.jpg}}"></image> -->
+    </view>
+    <image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
 </view>
 <image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
 <view class="font example" bind:tap="playAac">

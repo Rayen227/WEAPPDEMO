@@ -1,7 +1,7 @@
 page {
   margin: 0;
   padding: 0;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/indexbg.png?sign=3711b2fa913c74e8a9e18c5046efde75&t=1590416542);
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/indexbg.png?sign=47ae00f96074fb145bb4e6ede2e709ba&t=1612193794);
   background-size: 750rpx 100%;
 }
 /* 头像 */
@@ -13,7 +13,7 @@ page {
   height: 241rpx;
   z-index: 2;
   background-size: 250rpx 240rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/head.png?sign=e9f81cad6e95ee9c7b865a5781cfb66d&t=1590416763);
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/head.png?sign=92899e13d81dabe4d91663f399e7af88&t=1612193729);
 }
 .head {
   box-sizing: border-box;
@@ -32,12 +32,12 @@ page {
 
 /* 排名 */
 .rank {
-  margin: 0rpx auto;
+  margin: 10rpx auto;
   text-align: center;
   line-height: 350rpx;
   width: 650rpx;
   height: 350rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/rank.png?sign=fa20ed01bfecee67d73ff339cf78ccca&t=1591024592);
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/rank.png?sign=97a24b0a51fa0248d05266076ac445df&t=1612193885);
   background-size: 650rpx 350rpx;
   }
 
@@ -45,9 +45,9 @@ page {
 .game {
   margin: 40rpx auto;
   width: 400rpx;
-  height: 165rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/start.png?sign=282094c0e3e08cbadd216f2ff35eb0a3&t=1591024328);
-  background-size: 400rpx 165rpx;
+  height: 125rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/start.png?sign=875937e4d315f3a50a47305f781ab1b1&t=1612193948);
+  background-size: 400rpx 125rpx;
   /* 阴影 */
   /* filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1)) drop-shadow(0 0 15px rgba(96, 96, 96, 0.8)) drop-shadow(0 0 5px rgba(96, 96, 96, 0.9));
   color: rgb(83, 156, 93); */
@@ -58,9 +58,9 @@ page {
 .room {
   margin: 40rpx auto;
   width: 400rpx;
-  height: 165rpx;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/room.png?sign=bfc23cee15bd40e838803ed399523935&t=1591024470);
-  background-size: 400rpx 165rpx;
+  height: 125rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/room.png?sign=78f0c40f457236f7f510865a58e5c95b&t=1612193914);
+  background-size: 400rpx 125rpx;
 }
 
 /* 错题本 */
@@ -71,7 +71,7 @@ page {
   width: 180rpx;
   height: 150rpx;
   background-repeat: no-repeat;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/mistakeclose.png?sign=bc5ef82a977eec87647777b28f19bc3f&t=1590418104);
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/mistakeclose.png?sign=bbe6f4a056d72c1aef5a20391456b0e9&t=1612193816);
   background-size: 180rpx 150rpx;
 }
 .mistake-hover {
@@ -79,5 +79,5 @@ page {
   height: 160rpx;
   background-repeat: no-repeat ;
   background-size: 170rpx 160rpx ;
-  background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/index/mistakeopen.png?sign=1cca9d3c71f52ea6aeec63bfd4544b85&t=1590418124) ;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/mistakeopen.png?sign=359b20a886007ab357514a1879c462fa&t=1612193844) ;
 }
