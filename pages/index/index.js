@@ -7,6 +7,7 @@ var user_info = {};
 // var hardPaused = false;
 var gameBack = false;
 var loginBack = false;
+var lastTime;
 Page({
     data: {
         avatarUrl: '',
@@ -36,6 +37,7 @@ Page({
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
+            lastTime = user_cloud.update_time.timestamp;
             user_info = res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
             if (res.data.update_time.timestamp <= user_cloud.update_time.timestamp) {
                 console.log("Updated by cloud data");
@@ -64,7 +66,7 @@ Page({
         }, err => { }).then(res => {
             //版本更新
             var word_set;
-            if (user_info.update_time.timestamp < 1613657650000) {
+            if (lastTime < 1613657650000) {
                 console.log("Version updated");
                 wechat.callFunction("getSTDWordset").then(res => {
                     word_set = res.result.data;
