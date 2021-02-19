@@ -19,9 +19,9 @@ Page({
         var that = this;
         wechat.getStorage("user_info").then(res => {
             var level = res.data.data.level
-            that.selectable.memset(12, false);
+            that.data.selectable.memset(12, false);
             for (var i = 0; i <= level; i++) {
-                that.selectable[i] = true;
+                that.data.selectable[i] = true;
             }
             that.setData({
                 selectable: that.selectable
@@ -30,8 +30,6 @@ Page({
     },
 
     select(e) {
-        console.log(e.currentTarget.dataset.id);
-
         wx.navigateTo({
             url: '../games/games?level=' + e.currentTarget.dataset.id,
             success: (result) => {

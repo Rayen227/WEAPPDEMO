@@ -104,12 +104,12 @@ Page({
             count++;
             combo++;
             word.power--;
+            user_info.data.exp++;
             word.last_view_time = time.getTime().timestamp;
             if (count > 15 && combo > 10) {
                 drawItem();
                 count = 0;
             }
-            user_info.data.exp++;
             if (my_option == 0) {
                 that.setData({
                     animation: [animation, null, null, null]
@@ -151,10 +151,7 @@ Page({
                         return wechat.getStorage("STDWordset");
                     }, err => { }).then(res => {
                         word_list = res.data[level].words;
-                        user_info.unpassed = [];
-                        for (var i = 0; i < word_list.length; i++) {
-                            user_info.unpassed.add(i);
-                        }
+                        user_info.unpassed = word_set[user_info.data.level].words
                         return wechat.setStorage("user_info", user_info);
                     }, err => { }).then(res => {
                         wx.showModal({
@@ -184,8 +181,10 @@ Page({
             audio[1].stop();
             audio[1].play();
             combo = 0;
+            if (--user_info.data.exp < 0)
+                user_info.data.exp = 0;
             // word.power += word.power < 3 ? 1 : 0;//权上限为2
-            //加入错题本
+            // 加入错题本
             let mistaken = user_info.word_tag.mistaken;
             var tmp = [];
             for (var i = 0; i < mistaken.length; i++) {
