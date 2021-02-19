@@ -1,3 +1,4 @@
+let wechat = require('../../utils/promise.js');
 var isTesting = true;
 // pages/checkLevel/checkLevel.js
 Page({
@@ -7,6 +8,7 @@ Page({
      */
     data: {
         levelItems: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        selectable: [],
         level: 0,
     },
 
@@ -14,11 +16,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        // wechat.getStorage("")
     },
 
     select(e) {
         console.log(e.currentTarget.dataset.id);
+
         wx.navigateTo({
             url: '../games/games?level=' + e.currentTarget.dataset.id,
             success: (result) => {
