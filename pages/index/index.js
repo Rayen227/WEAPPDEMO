@@ -94,7 +94,7 @@ Page({
                     console.log(err);
                 });
             }
-        });
+        })
         // .then(res => {
         //     return wechat.callFunction("getSTDWordset");
         // }, err => { console.log(err); }).then(res => {

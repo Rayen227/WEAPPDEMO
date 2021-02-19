@@ -1,5 +1,5 @@
 let wechat = require('../../utils/promise.js');
-var isTesting = true;
+var isTesting = false;
 // pages/checkLevel/checkLevel.js
 Page({
 
@@ -9,6 +9,7 @@ Page({
     data: {
         levelItems: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
         selectable: [],
+        isunique: [],
         level: 0,
     },
 
@@ -19,12 +20,19 @@ Page({
         var that = this;
         wechat.getStorage("user_info").then(res => {
             var level = res.data.data.level
-            that.data.selectable.memset(12, false);
+            that.data.selectable.memset(12, isTesting);
             for (var i = 0; i <= level; i++) {
                 that.data.selectable[i] = true;
             }
+            for (var i = 0; i <= level; i++) {
+                that.data.isunique[i] = false;
+                if (i == 3 || i == 7 || i == 11) {
+                    that.data.isunique[i] = true;
+                }
+            }
             that.setData({
-                selectable: that.selectable
+                selectable: that.data.selectable,
+                isunique: that.data.isunique
             });
         }, err => { });
     },

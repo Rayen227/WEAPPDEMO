@@ -243,6 +243,7 @@ Page({
             animation: []
         });
         wechat.setStorage("user_info", user_info);
+        // user_info.unpassed = [user_info.unpassed[0]];
         updateCloud();
     },
 
