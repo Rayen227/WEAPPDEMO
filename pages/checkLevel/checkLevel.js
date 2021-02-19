@@ -16,7 +16,17 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        // wechat.getStorage("")
+        var that = this;
+        wechat.getStorage("user_info").then(res => {
+            var level = res.data.data.level
+            that.selectable.memset(12, false);
+            for (var i = 0; i <= level; i++) {
+                that.selectable[i] = true;
+            }
+            that.setData({
+                selectable: that.selectable
+            });
+        }, err => { });
     },
 
     select(e) {
