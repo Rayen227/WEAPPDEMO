@@ -5,14 +5,14 @@ page {
     background-repeat: no-repeat;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/gamebg.png?sign=c99069ff5ffb40fa4ffffa586c4065f0&t=1589641708);
 }
+ 
 
 
-
-/* Á°äôÌØĞ§ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ§ */
 .ripple {
-    background-color: rgba(70, 64, 64, 0.1);
+    background-color: rgba(204, 255, 204, 0.9);
     /* background-color: red; */
-    /* border-radius: 100%; */
+    border-radius: 100%;
     /* height:10px;
     width:10px; */
     height: 5rpx;
@@ -24,8 +24,9 @@ page {
 .container{
     width:100%;
     height:100%;
-    overflow: hidden
+    overflow: hidden;
 }
+
 @-webkit-keyframes ripple {
     100% {
     webkit-transform: scale(40);
@@ -35,7 +36,7 @@ page {
 }
 
 /* Ä£Ê½Ò» */
-/* ÎÊÌâ */
+/* ï¿½ï¿½ï¿½ï¿½ */
 .position_up {
     position: absolute;
     top: 44rpx;
@@ -55,26 +56,26 @@ page {
     display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;  /* ÉÏÏÂ¾ÓÖĞ */
-    justify-content: center;   /* µ¥ĞĞÊ±¾ÓÖĞ */
-    text-align: center;/* ×óÓÒ¾ÓÖĞ */
+    align-items: center;  /* ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ */
+    justify-content: center;   /* ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ */
+    text-align: center;/* ï¿½ï¿½ï¿½Ò¾ï¿½ï¿½ï¿½ */
     font-size: 90rpx;
     font-weight: bolder;
     color: black;
     text-shadow: 1rpx 1rpx gray;
-    line-height:.9em;   /*ĞĞ¼ä¾à£¨ĞĞ¸ß£©*/
+    line-height:.9em;   /*ï¿½Ğ¼ï¿½à£¨ï¿½Ğ¸ß£ï¿½*/
 }
 .question image {
     width: 550rpx;
     height: 300rpx;
 }
-/* Ñ¡Ïî */
+/* Ñ¡ï¿½ï¿½ */
 .answer {
     box-sizing: border-box;
     margin: 0 auto;
     width: 680rpx;
 }
-/* Çå³ı¸¡¶¯ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 .answer:after {
     content: "";
     display: block;
@@ -93,12 +94,12 @@ page {
     display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;  /* ÉÏÏÂ¾ÓÖĞ */   
-    justify-content: center;  /* µ¥ĞĞÊ±¾ÓÖĞ */
-    text-align: center;  /* ×óÓÒ¾ÓÖĞ */
+    align-items: center;  /* ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½ */   
+    justify-content: center;  /* ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ */
+    text-align: center;  /* ï¿½ï¿½ï¿½Ò¾ï¿½ï¿½ï¿½ */
     font-weight: bolder;
     color: black;
-    line-height:.9em;  /*ĞĞ¼ä¾à£¨ĞĞ¸ß£©*/
+    line-height:.9em;  /*ï¿½Ğ¼ï¿½à£¨ï¿½Ğ¸ß£ï¿½*/
     font-size: 48rpx;
     text-shadow: 3rpx 3rpx rgb(179, 179, 179);
 }
@@ -108,7 +109,7 @@ page {
 .answer view:nth-child(even) {
     float: right;
 }
-/* ×¢ÒâÈ¨Öµ */
+/* ×¢ï¿½ï¿½È¨Öµ */
 .answer .answer-hover-true {
     font-weight: bolder;
     text-shadow: 3rpx 3rpx grey;
@@ -121,7 +122,7 @@ page {
     color: red;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/choose_f.png?sign=a5d2cb344a4de7ed925d236a458ccb85&t=1589639385);
 }
-/* Ò»¸öÌáÊ¾ÏÂÒ»ÌâµÄĞ¡ºĞ×ÓµÄ¿ªÊ¼ */
+/* Ò»ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ÓµÄ¿ï¿½Ê¼ */
 .box {
     position: absolute;
     left: 225rpx;
@@ -159,8 +160,8 @@ page {
 
 
 
-/* Ä£Ê½¶ş */
-/* Æ´µ¥´Ê ±³¾° */
+/* Ä£Ê½ï¿½ï¿½ */
+/* Æ´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 .spell_img {
     margin-top: 110rpx;
     width: 100%;
@@ -168,7 +169,7 @@ page {
     background-size: 800rpx 400rpx;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/meibranch2.png?sign=c6c35927ca2b82321a99614fed37e5cb&t=1589903610);
 }
-/* ×ÖÄ¸ */
+/* ï¿½ï¿½Ä¸ */
 .letter view{
     position: absolute;
     width: 100rpx;
@@ -178,7 +179,7 @@ page {
     text-align: center;
     background-size: 100rpx 100rpx;
 }
-/* ±³¾°Í¼Æ¬ÉèÖÃ */
+/* ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ */
 .letter view:nth-child(3n-2) {
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
 }
@@ -191,7 +192,7 @@ page {
     background-size: 60rpx 87rpx;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei3.png?sign=d5aeed68d6067681c7d28cb3a3896b4a&t=1589641119);
 }
-/* Æ´´Ê×ÖÄ¸°Ú·Å */
+/* Æ´ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Ú·ï¿½ */
 .spellLetter view {
     position: absolute;
     width: 80rpx;
@@ -202,20 +203,22 @@ page {
     background-size: 80rpx 80rpx;
     background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/mei1.png?sign=386c77d918bb16f5b232f1ead58c8b57&t=1589555959);
 }
-/* ÖØÖÃ°´Å¥ */
+/* ï¿½ï¿½ï¿½Ã°ï¿½Å¥ */
+
 .reset {
     position: absolute;
     top: 250rpx;
-    left: 0;
-    width: 80rpx;
-    height: 80rpx;
-    background-size: 80rpx 80rpx;
-    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/reset.png?sign=3dce3b1b5c8c30fc2a61c56564488b3c&t=1591023420);
+    left: 10rpx;
+    width: 100rpx;
+    height: 100rpx;
+    background: no-repeat;
+    background-size: 100rpx 100rpx;
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/game/reset.png?sign=c30f91d918b0920d6eea53f53affef87&t=1613744502);
 }
 /* .reset_hover {
     background-color: lightpink;
 } */
-/* È·¶¨°´Å¥ */
+/* È·ï¿½ï¿½ï¿½ï¿½Å¥ */
 .determine {
     position: absolute;
     right: 0;
@@ -226,10 +229,10 @@ page {
     background-size: 180rpx 100rpx;
     border-radius: 10%;
 }
-/* Æ´µ¥´Ê³¤¶ÈÌáÊ¾ */
+/* Æ´ï¿½ï¿½ï¿½Ê³ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ */
 .length {
     position: absolute;
-    top: 0;
+    top: 40rpx;
     left: 171rpx;
     /* width: 500rpx; */
     font-size: 40rpx;
@@ -238,6 +241,42 @@ page {
 .length view {
     display: inline-block;
 }
+
+
+
+/* ------------- cjq æ–°å¢çš„æ–‡å­—æç¤ºæ ·å¼çš„å¼€å§‹ ----------------------- */
+.wordLeft {
+  position: absolute;
+  left: 233rpx;
+  top: 0;
+}
+
+.ctips {
+  position: absolute;
+  top: 480rpx;
+  left: 20rpx;
+  background-color: yellow;
+  width: 700rpx;
+  height: 300rpx;
+}
+
+/* æ‹¼å•è¯æ–‡å­—æç¤º */
+.meaning {
+    position: absolute;
+    top: 0;
+    left: 50rpx;
+    /* width: 500rpx; */
+    font-size: 40rpx;
+    /* background-color: khaki; */
+}
+.meaning view {
+    display: inline-block;
+}
+
+
+
+/* ------------- cjq æ–°å¢çš„æ–‡å­—æç¤ºæ ·å¼çš„ç»“æŸ ----------------------- */
+
 /* .spellLetter view:nth-child(1) {
     top: 100rpx;
     left: 0;

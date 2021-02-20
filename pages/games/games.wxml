@@ -1,23 +1,63 @@
-<view>{{"Words left: "+lefts}}</view>
-<view wx:if="{{true}}">
-    <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
-    <view class="font question">
-        <image class="position" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_down.png?sign=2c5388f729a98ab24a7cc450e8e4bd87&t=1589638761" />
-        <view>{{problem.power % 2 ? problem.en : problem.ch}}</view>
+<view class="ripple" style="{{rippleStyle}}"></view>
+<view class="container" bindtouchstart='containerTap'>
+    <view wx:if="{{ gameType }}">
+        <view class="wordLeft">{{"Words left: "+lefts}}</view>
+        <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
+        <view class="font question">
+            <image class="position" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_down.png?sign=2c5388f729a98ab24a7cc450e8e4bd87&t=1589638761" />
+            <view>{{problem.power % 2 ? problem.en : problem.ch}}</view>
+        </view>
+        <view class="font answer">
+            <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{animation[0]}}" class="options {{hover_class[0]}}">
+                <view>{{problem.power % 2 ? options[0].ch : options[0].en}}</view>
+            </view>
+            <view data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[1]}}" class="options {{hover_class[1]}}">
+                <view>{{problem.power % 2 ? options[1].ch : options[1].en}}</view>
+            </view>
+            <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[2]}}" class="options {{hover_class[2]}}">
+                <view>{{problem.power % 2 ? options[2].ch : options[2].en}}</view>
+            </view>
+            <view data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[3]}}" class="options {{hover_class[3]}}">
+                <view>{{problem.power % 2 ? options[3].ch : options[3].en}}</view>
+            </view>
+        </view>
+        <view wx:if="{{selected}}" bind:tap="resetHandle" class="next"></view>
     </view>
-    <view class="font answer">
-        <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{animation[0]}}" class="options {{hover_class[0]}}">
-            <view>{{problem.power % 2 ? options[0].ch : options[0].en}}</view>
+    <!-- 下面开始的为拼词模式 by cjq -->
+    <view wx:else>
+        <!-- 拼单词 背景 -->
+        <view class="spell_img"></view>
+        <!-- 字母 -->
+        <view class="letter" data-index="{{index}}" wx:for="{{letter}}" wx:key="item" wx:for-index="index" wx:if="{{visible[index]}}" catchtouchmove="moving" catchtouchstart="moveStart" catchtouchend="moveEnd" style="position: absolute;top:{{curTop[index]}}rpx;left:{{curLeft[index]}}rpx;width: 70rpx;height: 50rpx">
+            <view>{{item}}</view>
         </view>
-        <view data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[1]}}" class="options {{hover_class[1]}}">
-            <view>{{problem.power % 2 ? options[1].ch : options[1].en}}</view>
+        <!-- 拼词字母摆放 -->
+        <view class="spellLetter">
+            <view wx:for="{{maxLength-0}}" wx:for-index="index" style="position: absolute;top:{{problemTop[index]}}rpx;left:{{problemLeft[index]}}rpx;">
+                {{answer[index]}}
+            </view>
         </view>
-        <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[2]}}" class="options {{hover_class[2]}}">
-            <view>{{problem.power % 2 ? options[2].ch : options[2].en}}</view>
-        </view>
-        <view data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[3]}}" class="options {{hover_class[3]}}">
-            <view>{{problem.power % 2 ? options[3].ch : options[3].en}}</view>
-        </view>
+        <!-- 重置按钮 -->
+        <view class="reset" hover-class="reset_hover" bind:tap="resetLetters"></view>
+        <!-- 确定按钮 -->
+        <view wx:if="{{joint}}" class="determine" bind:tap="confirmLetters"></view>
+        <!-- <view class="font length">
+            可能的单词长度为:
+            <view wx:for="{{words}}" wx:for-index="index">
+                {{words[index].length}}
+                <text decode="{{true}}">&nbsp;</text>
+            </view>
+        </view> -->
+        <!-- 新增一个模块提示中文 -->
+        <!-- <view class="ctips">
+            <view class="font meaning">
+                这两个单词对应的中文释义为：
+                <text decode="{{true}}">\n</text>
+                <view wx:for="{{words}}" wx:for-index="index">
+                    {{words[index].ch}}
+                    <text decode="{{true}}">\n</text>
+                </view>
+            </view>
+        </view> -->
     </view>
-    <view wx:if="{{selected}}" bindtap="resetHandle" class="next"></view>
 </view>

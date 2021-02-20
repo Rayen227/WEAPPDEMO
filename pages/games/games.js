@@ -40,6 +40,11 @@ Page({
         joint: false,
         words: [],
         lefts: 0,
+        gameType: true,
+        curLeft: [],
+        curTop: [],
+        problemTop: [100, 121, 150, 185, 187, 214, 170, 159, 177, 198],
+        problemLeft: [0, 70, 148, 233, 304, 379, 440, 514, 594, 672],
     },
 
     onLoad: function (e) {
@@ -96,7 +101,6 @@ Page({
         animation.translateY(0).step(2);
         my_option = event.currentTarget.dataset.id;
         let word = word_list[listId];
-        console.log(word);
         var classTmp = ['', '', '', ''];
         if (my_option == true_option) {//选对啦
             audio[0].stop();
@@ -280,13 +284,166 @@ Page({
         });
 
     },
+    moveStart: function (e) {
+        startPoint = e.touches[0];
+    },
+
+    moving: function (e) {
+        var index = e.currentTarget.dataset.index;
+        var endPoint = e.touches[e.touches.length - 1];
+        var prop = getRpx();//获取rpx转化比例
+        var translateX = endPoint.clientX - startPoint.clientX;
+        var translateY = endPoint.clientY - startPoint.clientY;
+        startPoint = endPoint;
+        var curTop = this.data.curTop[index] + translateY * prop;
+        var curLeft = this.data.curLeft[index] + translateX * prop;
+        var tmpTop = this.data.curTop;
+        tmpTop[index] = curTop;
+        var tmpLeft = this.data.curLeft;
+        tmpLeft[index] = curLeft;
+        this.setData({
+            curTop: tmpTop,
+            curLeft: tmpLeft
+        });
+    },
+
+    moveEnd: function (e) {//最终定位
+        var that = this;
+        var index = e.currentTarget.dataset.index;
+        var right = answer.length;
+        if (right < this.data.maxLength) {
+            answer[right] = letters[index];
+            visible[index] = false;
+        }
+        this.setData({
+            answer: answer,
+            visible: visible,
+            joint: true,
+            curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
+            curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500]
+        });
+    },
+
+    // 重置字母按钮的作用
+    resetLetters: function () {
+        answer = [];
+        visible.memset(20, true);
+        // this.data.curLeft = oldLeft;
+        // this.data.curTop = oldTop;
+        this.setData({
+            answer: answer,
+            visible: visible,
+            curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
+            curTop: [769, 731, 689, 639, 803, 813, 621, 556, 885, 907, 674, 497, 900, 700, 992, 579, 1004, 508, 982, 500]
+        });
+    },
+
+    // 确定单词是否正确的按钮
+    confirmLetters: function () {
+        var that = this;
+        if (isAWord(answer)) {
+            wx.showModal({
+                title: '你成功了~',
+                content: "以下为正确的单词选项~ " + " '" + words[0].en + "'",
+                showCancel: true,
+                cancelText: '下一题',
+                cancelColor: '#3CC51F',
+                confirmText: '查看单词',
+                confirmColor: '#000000',
+                success: (result) => {
+                    if (!result.confirm) {
+                        that.resetHandle();
+                    } else {
+                        wx.showActionSheet({
+                            itemList: [words[0].en],
+                            success: function (res) {
+                                if (res.tapIndex == 2) {
+                                    that.resetHandle()
+                                } else {
+                                    wechat.setStorage("currentWord", words[0]).then(res => {
+                                        return wechat.navigateTo("../wordDetails/wordDetails");
+                                    }, err => { console.log(err); })
+                                }
+                            },
+                            fail: function (res) {
+                                that.resetHandle();
+                            }
+                        });
+                    }
+                },
+                fail: () => { },
+                complete: () => { }
+            });
+            if (count >= 10) {
+                wx.showModal({
+                    title: '恭喜！',
+                    content: '奖励随机小道具一枚~以及帮你装饰在小空间里了哦',
+                    showCancel: false,
+                    confirmText: '确定',
+                    confirmColor: '#3CC51F'
+                });
+                drawItem();
+                count = 0;
+            } else {
+                count += 3;
+            }
+        } else {
+            wx.showModal({
+                title: '你失败了...',
+                content: "以下为正确的单词选项~ " + " '" + words[0].en + "'",
+                showCancel: true,
+                cancelText: '下一题',
+                cancelColor: '#3CC51F',
+                confirmText: '查看单词',
+                confirmColor: '#000000',
+                success: (result) => {
+                    if (!result.confirm) {
+                        that.resetHandle();
+                    } else {
+                        wx.showActionSheet({
+                            itemList: [words[0].en],
+                            success: function (res) {
+                                if (res.tapIndex == 2) {
+                                    that.resetHandle()
+                                } else {
+                                    wechat.setStorage("currentWord", words[0]).then(res => {
+                                        return wechat.navigateTo("../wordDetails/wordDetails");
+                                    }, err => { console.log(err); })
+                                }
+                            },
+                            fail: function (res) {
+                                that.resetHandle();
+                            }
+                        });
+                    }
+                },
+                fail: () => { },
+                complete: () => { }
+            });
+            let mistaken = user_info.word_tag.mistaken;
+            var tmp = [];
+            for (var i = 0; i < mistaken.length; i++) {
+                tmp.add(mistaken[i].en);
+            }
+            if (!tmp.includes(words[0].en)) {
+                mistaken.add(words[0]);
+            }
+            // if (!tmp.includes(words[1].en)) {
+            //     mistaken.add(words[1]);
+            // }
+            user_info.word_tag.mistaken = mistaken;
+            wechat.setStorage("user_info", user_info);
+            updateCloud();
+        }
+    },
+
 
     resetHandle: function () {
         // if (random(0, 10) >= 1) {
-        if (true) {
+        if (false) {
             resetPage(this);
             this.setData({
-                gameType: 1
+                gameType: false
             });
         }
         else {
@@ -300,7 +457,7 @@ Page({
                 answer: answer,
                 visible: visible
             });
-            var maxLength = getLeters(2);
+            var maxLength = getLeters(1);
             var tmpLeft = [];
             var tmpTop = [];
             for (var i = 0; i < letters.length; i++) {
@@ -404,12 +561,17 @@ function drawItem() {
 }
 function getLeters(n) {
     words = [];
-    var tmp = {};
+    // var tmp = {};
+    var tmp_word;
     var maxLength = 0;
     for (var i = 0; i < n;) {
-        tmp = getWord();
-        if (tmp && !words.includes(tmp)) {
-            words[i++] = tmp;
+        var random_index = Math.floor(Math.random() * word_list.length);
+        var random_set = Math.floor(Math.random() * word_set.length);
+        tmp_word = word_set[random_set].words[random_index];
+        // tmp_word = isRelaxed ? word_list[tmp] : user_info.unpassed[tmp];
+        // console.log(tmp_word.en.length);
+        if (tmp_word && tmp_word.en.length <= 10 && !words.includes(tmp_word)) {
+            words[i++] = tmp_word;
         }
     }
     for (var i = 0; i < words.length; i++) {
@@ -417,7 +579,11 @@ function getLeters(n) {
             maxLength = (words[i].en).length;
         }
     }
-    letters = split([words[0].en, words[1].en]);
+    var tmp_words = [];
+    for (var i = 0; i < n; i++) {
+        tmp_words.add(words[i]);
+    }
+    letters = split(tmp_words);
     return maxLength;
 }
 
@@ -425,9 +591,10 @@ function split(words) {
     var tmp = [];
     var k = 0;
     for (var i = 0; i < words.length; i++) {
-        for (var j = 0; j < words[i].length; j++) {
-            if (words[i][j]) {
-                tmp[k++] = words[i][j];
+        var tmp_en = words[i].en;
+        for (var j = 0; j < tmp_en.length; j++) {
+            if (tmp_en) {
+                tmp[k++] = tmp_en[j];
             }
         }
     }
