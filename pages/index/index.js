@@ -3,7 +3,7 @@ let time = require('../../utils/time.js');
 let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
-// var word_set;
+var word_set;
 // var bgm;
 // var hardPaused = false;
 var gameBack = false;
@@ -31,6 +31,9 @@ Page({
             return wechat.callFunction("getUser", { _openid: openId });
         }, err => { }).then(res => {
             user_cloud = res.result.data[0];
+            // if (!user_cloud || !user_cloud.unpassed) {
+
+            // }
             if (!user_cloud) {
                 wx.navigateTo({
                     url: '../login/login'
@@ -94,7 +97,25 @@ Page({
                     console.log(err);
                 });
             }
-        })
+            return wechat.getStorage("STDWordset");
+        }).then(res => { }, err => {
+            wechat.callFunction("getSTDWordset").then(res => {
+                word_set = res.result.data;
+                return wechat.setStorage("STDWordset", res.result.data);
+            }, err => { console.log(err); }).then(res => {
+                user_info.unpassed = word_set[user_info.data.level].words;
+                console.log(user_info);
+                return wechat.callFunction("updateUser", {
+                    _openid: user_info._openid,
+                    data: {
+                        data: user_info.data,
+                        update_time: user_info.update_time,
+                        word_tag: user_info.word_tag,
+                        unpassed: user_info.unpassed
+                    }
+                });
+            }, err => { console.log(err); });
+        });
         // .then(res => {
         //     return wechat.callFunction("getSTDWordset");
         // }, err => { console.log(err); }).then(res => {
