@@ -15,10 +15,10 @@ Page({
         let that = this;
         var word = {};
         var isStar;
-        wx.showLoading({
-            title: 'Loading',
-            duration: 1500
-        });
+        // wx.showLoading({
+        //     title: 'Loading',
+        //     duration: 500
+        // });
         wechat.getStorage("currentWord").then(res => {
             word = res.data;
             word.mp3 = "http://tts.youdao.com/fanyivoice?word=" + word.en + "&le=eng&keyfrom=speaker-target";

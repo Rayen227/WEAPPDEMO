@@ -45,6 +45,7 @@ Page({
         curTop: [],
         problemTop: [100, 121, 150, 185, 187, 214, 170, 159, 177, 198],
         problemLeft: [0, 70, 148, 233, 304, 379, 440, 514, 594, 672],
+        isRelaxed: false,
     },
 
     onLoad: function (e) {
@@ -77,6 +78,9 @@ Page({
         }, err => { }).then(res => {
             user_info = res.data;
             isRelaxed = level != user_info.data.level;
+            that.setData({
+                isRelaxed: isRelaxed
+            });
             word_list = isRelaxed ? word_set[level].words : user_info.unpassed;
         }).then(res => {
             if (!isRelaxed) {
@@ -284,6 +288,7 @@ Page({
         });
 
     },
+
     moveStart: function (e) {
         startPoint = e.touches[0];
     },
@@ -439,11 +444,11 @@ Page({
 
 
     resetHandle: function () {
-        // if (random(0, 10) >= 1) {
-        if (false) {
+        if (random(0, 10) >= 1) {
+            // if (true) {
             resetPage(this);
             this.setData({
-                gameType: false
+                gameType: true
             });
         }
         else {
@@ -474,7 +479,7 @@ Page({
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
-                gameType: 0,
+                gameType: false,
                 maxLength: maxLength,
                 joint: false,
                 words: tmp
@@ -549,15 +554,12 @@ function drawItem() {
     if (items.length == itemCount) {
         return false;
     }
-    var index = random(0, items.length - items.length);
-    for (var i = 0; i < itemCount; i++) {
-        if (items.includes(i)) continue;
-        if (index-- == 0) {
-            user_info.data.items.add(i);
-            wechat.setStorage("user_info", user_info).then(res => { return; }, err => { });
-        }
+    var index = random(0, itemCount);
+    while (items.includes(index)) {
+        if (--index < 0) index = 17;
     }
-    console.log("?REEOE: FUNCTION drawItem()!");
+    user_info.data.items.add(index);
+    wechat.setStorage("user_info", user_info);
 }
 function getLeters(n) {
     words = [];

@@ -24,7 +24,7 @@ Page({
         var user_cloud;
         wx.showLoading({
             title: 'Loading',
-            duration: 1200
+            duration: 1500
         });
         wechat.callFunction("getOpenId").then(res => {
             openId = res.result.openId;
@@ -67,7 +67,7 @@ Page({
         }, err => { }).then(res => {
             //版本更新
             var word_set;
-            if (lastTime < 1613657650000) {
+            if (lastTime < 1613827545000) {
                 console.log("Version updated");
                 wechat.callFunction("getSTDWordset").then(res => {
                     word_set = res.result.data;

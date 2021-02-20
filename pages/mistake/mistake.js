@@ -21,19 +21,18 @@ Page({
             });
         }, err => { });
     },
-    onShow: function () {
-        this.onLoad();
-        this.setData({
-            isCurrent: ['hovering', '', ''],
-            showDelete: true
-        })
-    },
+    // onShow: function () {
+    //     this.onLoad();
+    //     this.setData({
+    //         isCurrent: ['hovering', '', ''],
+    //         showDelete: true
+    //     });
+    // },
     showCompleted: function () {
         curTag = 'completed';
         this.setData({
             wordList: user_info.word_tag.completed,
             isCurrent: ['', '', 'hovering'],
-            showDelete: true,
             showDelete: false
         });
     },
@@ -50,7 +49,7 @@ Page({
         this.setData({
             wordList: user_info.word_tag.collected,
             isCurrent: ['', 'hovering', ''],
-            showDelete: true
+            showDelete: false
         });
     },
     showDetails: function (e) {

@@ -1,7 +1,7 @@
 <view class="ripple" style="{{rippleStyle}}"></view>
 <view class="container" bindtouchstart='containerTap'>
     <view wx:if="{{ gameType }}">
-        <view class="wordLeft">{{"Words left: "+lefts}}</view>
+        <view class="wordLeft">{{isRelaxed?"休闲模式":"Words left: "+lefts}}</view>
         <image class="position_up" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_up.png?sign=e68783092686d20cd66fb464a0aa7912&t=1589638784" />
         <view class="font question">
             <image class="position" src="https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/question_down.png?sign=2c5388f729a98ab24a7cc450e8e4bd87&t=1589638761" />

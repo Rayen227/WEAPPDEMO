@@ -1,6 +1,6 @@
 <!-- pages/checkLevel/checkLevel.wxml -->
 <view class="checkbox">
-    <view class="check" wx:for="{{levelItems}}">
-        <view data-id="{{item}}" bind:tap="select">{{item+1}}</view>
+    <view class="check" data-id="{{item}}" bind:tap="select" wx:for="{{levelItems}}">
+        <view>{{item+1}}</view>
     </view>
 </view>
