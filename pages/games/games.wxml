@@ -1,6 +1,8 @@
 <view class="ripple" style="{{rippleStyle}}"></view>
 <view class="container" bindtouchstart='containerTap'>
     <view wx:if="{{ gameType }}">
+        <!-- 气泡 -->
+        <view class="bubble">{{isRelaxed?"休闲模式":"剩余的单词: "+lefts}}</view>
         <!-- 问题 -->
         <view class="font question">
             <view>{{problem.power % 2 ? problem.en : problem.ch}}</view>

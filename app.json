@@ -12,8 +12,8 @@
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#ccc",
-        "navigationBarTitleText": "WeChat",
+        "navigationBarBackgroundColor": "#92c9c9",
+        "navigationBarTitleText": "小小单词传",
         "navigationBarTextStyle": "white"
     },
     "style": "v2",

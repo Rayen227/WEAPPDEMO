@@ -170,11 +170,12 @@ page {
 .reset {
     position: absolute;
     top: 250rpx;
-    left: 0;
-    width: 80rpx;
-    height: 80rpx;
-    background-size: 80rpx 80rpx;
-    background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/game/reset.png?sign=3dce3b1b5c8c30fc2a61c56564488b3c&t=1591023420);
+    left: 10rpx;
+    width: 100rpx;
+    height: 100rpx;
+    background: no-repeat;
+    background-size: 100rpx 100rpx;
+    background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/game/reset.png?sign=c30f91d918b0920d6eea53f53affef87&t=1613744502);
 }
 
 .determine {
@@ -274,7 +275,7 @@ page {
     position: absolute;
     top: 600rpx;
     left: 20rpx;
-    background-color: yellow;
+    /* background-color: yellow; */
     width: 700rpx;
     height: 300rpx;
   }
@@ -291,4 +292,24 @@ page {
   .meaning view {
       display: inline-block;
   }
+  .ctips {
+    position: absolute;
+    top: 10rpx;
+    left: 130rpx;
+    /* background-color: yellow; */
+    width: 500rpx;
+    height: 80rpx;
+  }
   
+  /* 拼单词文字提示 */
+  .meaning {
+      position: absolute;
+      top: 0;
+      left: 50rpx;
+      /* width: 500rpx; */
+      font-size: 40rpx;
+      /* background-color: khaki; */
+  }
+  .meaning view {
+      display: inline-block;
+  }

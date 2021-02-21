@@ -24,6 +24,8 @@ var audio = [];
 
 Page({
     data: {
+        chinesemeaning: "",
+        resetanimation: {},
         problem: {},
         options: [],
         animation: [],
@@ -331,11 +333,18 @@ Page({
 
     // 重置字母按钮的作用
     resetLetters: function () {
+        var animation = wx.createAnimation({
+            duration: 100,
+            timingFunction: 'linear'
+        });
+        animation.scale(1.25).step(1);
+        animation.scale(1).step(2);
         answer = [];
         visible.memset(20, true);
         // this.data.curLeft = oldLeft;
         // this.data.curTop = oldTop;
         this.setData({
+            resetanimation: animation,
             answer: answer,
             visible: visible,
             curLeft: [321, 198, 420, 294, 470, 90, 152, 571, 349, 556, 51, 332, 200, 591, 100, 440, 300, 47, 480, 200],
@@ -469,6 +478,7 @@ Page({
                 tmpLeft[i] = oldLeft[i];
                 tmpTop[i] = oldTop[i];
             }
+            var cmeaning = words[0].ch;
             var tmp = [];
             for (var i = 0; i < words.length; i++) {
                 if (!tmp.includes(words[i].en)) {
@@ -476,6 +486,7 @@ Page({
                 }
             }
             this.setData({
+                chinesemeaning: cmeaning,
                 letter: letters,
                 curLeft: tmpLeft,
                 curTop: tmpTop,
