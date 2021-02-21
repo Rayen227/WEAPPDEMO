@@ -2,12 +2,10 @@
  * Promise化小程序接口
  */
 class Wechat {
-  /**
-   * @return {Promise} 
-   */
 
-  static getStorage(key){
-    return new Promise((resolve, reject)=>wx.getStorage({
+
+  static getStorage(key) {
+    return new Promise((resolve, reject) => wx.getStorage({
       key: key,
       success: resolve, fail: reject
     }))
@@ -27,6 +25,14 @@ class Wechat {
     }))
   };
 
+  static callFunction(name, event) {
+    return new Promise((resolve, reject) => wx.cloud.callFunction({
+      name: name,
+      data: event,
+      success: resolve, fail: reject
+    }))
+  }
+
   static setStorage(key, value) {
     return new Promise((resolve, reject) => wx.setStorage({
       key: key, data: value,
@@ -34,36 +40,41 @@ class Wechat {
     }))
   }
 
-  static showModel(content, mode){
-    return new Promise((resolve, reject) => wx.showModel({
-      title: mode=="confirm" ? '请确认' : '警告',
-      content: content,
-      confirmColor: mode=="confirm" ? 'green' : '',
-      cancelColor: mode=="warn" ? 'red' : '',
+  static setTime(time) {
+    return new Promise((resolve, reject) => setTimeout(resolve, time));
+  }
+
+  static navigateTo(url) {
+    return new Promise((resolve, reject) => wx.navigateTo({
+      url: url
+    }))
+  }
+
+  static redirectTo(url) {
+    return new Promise((resolve, reject) => wx.redirectTo({
+      url: url
+    }))
+  }
+
+  static switchTab(url) {
+    return new Promise((resolve, reject) => wx.switchTab({
+      url: url
+    }))
+  }
+
+
+  static getSetting() {
+    return new Promise((resolve, reject) => wx.getSetting({
       success: resolve, fail: reject
     }))
   }
 
-  static setTime(time){
-    return new Promise((resolve, reject) => setTimeout(resolve, time));
-  }
-
-  static navigateTo(url){
-     return new Promise((resolve, reject) => wx.navigateTo({
-      url: url
-     }))
-  }
-
-  static redirectTo(url){
-     return new Promise((resolve, reject) => wx.redirectTo({
-      url: url
-     }))
-  }
-
-  static switchTab(url){
-     return new Promise((resolve, reject) => wx.switchTab({
-      url: url
-     }))
+  static getTempFileUrl(list) {
+    return new Promise((resolve, reject) => wx.cloud.getTempFileURL({
+      fileList: list,
+      success: resolve,
+      fail: reject
+    }))
   }
 
 };

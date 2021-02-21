@@ -1,0 +1,38 @@
+<!-- pages/ranking/ranking.wxml -->
+<!-- <view wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
+    <view>{{userList[index].nickname}}</view>
+    <view>{{userList[index].exp}}</view>
+    <image src="{{userList[index].avatarUrl}}" alt=""></image>
+</view> -->
+<!-- 标题 -->
+<view class="font title"></view>
+<!-- 表头 -->
+<view class="header">
+    <view class="h_name"></view>
+    <view class="h_grade"></view>
+    <view class="h_rank"></view>
+</view>
+<!-- 玩家排行 -->
+<view class="font m_rank">
+    <!-- <image src="{{user_info.avatarUrl}}" />
+    <view class="m_name">LV.</view>
+    <view class="m_lv">LV.0 tofnfk</view>
+    <view class="m_ranking">1</view> -->
+    <image src="{{user_info.avatarUrl}}" />
+    <view class="name">{{user_info.nickname}}</view>
+    <view class="lv">{{segment}}</view>
+    <view class="ranking">{{rank}}</view>
+</view>
+
+<!-- 内容 -->
+<!-- <view class="font rank"> -->
+<scroll-view class="rank_box" scroll-y="{{true}}">
+    <view class="rank font" wx:for="{{userList}}" wx:for-index="index" wx:for-item="item">
+        <image src="{{item.avatarUrl}}" />
+        <view class="name">{{item.nickname}}</view>
+        <view class="lv">{{segmentList[index]}}</view>
+        <view class="ranking">{{index+1}}</view>
+    </view>
+</scroll-view>
+
+<!-- <view class="temp"></view> -->

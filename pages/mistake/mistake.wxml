@@ -1,0 +1,20 @@
+<view class="pg">
+   <!-- 上方 -->
+   <view class="nav">
+      <view bind:tap="showMistaken" class="{{isCurrent[0]}} mistake"></view>
+      <view bind:tap="showCollected" class="{{isCurrent[1]}} favorite"></view>
+      <view bind:tap="showCompleted" class="{{isCurrent[2]}} hiserror"></view>
+   </view>
+   <!-- 中部 -->
+   <scroll-view class="problem" scroll-y="{{true}}">
+      <view wx:for="{{wordList}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" catch:tap="showDetails" class="options">
+         {{item.en}}
+         <!-- <view class="options"> -->
+         <image wx:if="{{showDelete}}" class="del" src="https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/wrong.png?sign=5e3530ba27e3bf22f9b49fd19c98e51c&t=1612347432" catch:tap="setCompleted" data-index="{{index}}" />
+         <!-- <view class="del" hover-class="hoverdel"></view> -->
+      </view>
+   </scroll-view>
+   <!-- 下面 -->
+   <view class="kong"></view>
+   <view wx:if="{{!wordList.length}}" class="empty">空 空 如 也 ...</view>
+</view>

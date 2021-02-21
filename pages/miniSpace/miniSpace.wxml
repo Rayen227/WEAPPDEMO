@@ -1,0 +1,5 @@
+<scroll-view scroll-x class="background">
+    <view class="temp">
+        <view wx:for="{{isOwned}}" wx:for-item="item" wx:if="{{item}}"></view>
+    </view>
+</scroll-view>

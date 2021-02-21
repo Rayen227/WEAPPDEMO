@@ -1,0 +1,25 @@
+<!-- 气泡 -->
+<view class="bubble">{{"Words left: "+lefts}}</view>
+<!-- 模式一 -->
+<view wx:if="{{true}}">
+    <!-- 问题 -->
+    <view class="font question">
+        <view>{{problem.power % 2 ? problem.en : problem.ch}}</view>
+    </view>
+    <!-- 选项卡 -->
+    <view class="font answer">
+        <view data-id="0" bindtap="{{!selected?'selectHandle':'showDetailsHandle' }}" animation="{{animation[0]}}" class="options {{hover_class[0]}}">
+            <view>{{problem.power % 2 ? options[0].ch : options[0].en}}</view>
+        </view>
+        <view data-id="1" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[1]}}" class="options {{hover_class[1]}}">
+            <view>{{problem.power % 2 ? options[1].ch : options[1].en}}</view>
+        </view>
+        <view data-id="2" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[2]}}" class="options {{hover_class[2]}}">
+            <view>{{problem.power % 2 ? options[2].ch : options[2].en}}</view>
+        </view>
+        <view data-id="3" bindtap="{{!selected?'selectHandle':'showDetailsHandle'}}" animation="{{animation[3]}}" class="options {{hover_class[3]}}">
+            <view>{{problem.power % 2 ? options[3].ch : options[3].en}}</view>
+        </view>
+    </view>
+    <view wx:if="{{selected}}" bindtap="resetHandle" class="next"></view>
+</view>

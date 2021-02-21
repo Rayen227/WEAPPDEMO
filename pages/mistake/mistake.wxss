@@ -1,0 +1,142 @@
+/* pages/mistake/mistake.wxss */
+page {
+  margin: 0;
+  padding: 0;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/indexbg.png?sign=47ae00f96074fb145bb4e6ede2e709ba&t=1612193794);
+  background-size: 750rpx 100%;
+}
+.pg {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.pg::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  }
+
+/* 上方 */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80rpx;
+  text-align: center;
+  z-index: 2;
+
+}
+.nav view {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 40rpx 20rpx 0rpx;
+}
+
+.mistake {
+  width: 140rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/wquestion_uc.png?sign=4aecec6b28d59e28e7fd9ce0c0aeddc5&t=1612361506);
+  background-size: 140rpx 70rpx;
+}
+
+.nav .hovering:nth-child(3n-2) {
+  width: 140rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/wquestion_c.png?sign=2de21e27e5167640d14810a1b99623f5&t=1612340251);
+  background-size: 140rpx 70rpx;
+}
+
+.favorite {
+  width: 140rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/favorites_uc.png?sign=3cb613fcbd0170c200d66b6ecb0a3583&t=1612361544);
+  background-size: 140rpx 70rpx;
+}
+.nav .hovering:nth-child(3n-1) {
+  width: 140rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/favorites_c.png?sign=346c81fcbbbdbd6f71d90d0082147607&t=1612341532);
+  background-size: 140rpx 70rpx;
+}
+
+.hiserror {
+  width: 280rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/hiserror_uc.png?sign=4d7e13c4425a974f2d192d6ca2671088&t=1612361558);
+  background-size: 280rpx 70rpx;
+}
+.nav .hovering:nth-child(3n) {
+  width: 280rpx;
+  height: 70rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/hiserror_c.png?sign=3726be2469ff262c16402d33b0a9a636&t=1612341471);
+  background-size: 280rpx 70rpx;
+}
+
+/* 中部 */
+.problem {
+  position: absolute;
+  top: 12%;
+  right: 25rpx;
+  width: 700rpx;
+  height: 85%;
+}
+.options{
+  /* border-style:outset;
+  border-radius: 20rpx; */
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+  padding: 0rpx 30rpx;
+  width: 700rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/wrongbook/wbamboo.png?sign=8ca89b87a87c8591262123d1fc1344f0&t=1612347458);
+  background-size: 700rpx 100rpx;
+}
+.del {
+  float: right;
+  margin-top: 25rpx;
+  /* margin-right: 30rpx; */
+  width: 60rpx;
+  height: 60rpx;
+  background-size: 60rpx 60rpx;
+}
+.hoverdel {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  background-size: 60rpx 60rpx;
+  /* background-image: url(https://7465-test-h043w-1301939913.tcb.qcloud.la/images/mistake/%E5%9B%BE%E5%B1%821.png?sign=30f8aa8c962de631c0faa262e7608219&t=1591512982); */
+}
+
+/* 下面 */
+.kong { 
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40rpx;
+  /* text-align: center; */
+  /* background-color: aqua; */
+}
+/* .change view {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 20rpx 20rpx;
+  padding: 0 40rpx;
+  /* width: 200rpx; */
+  /* height: 100rpx;
+  line-height: 120rpx;
+  background-color: lawngreen;
+} */
+
+.empty{
+  margin-top: 350rpx;
+  margin-left: 300rpx;
+  color: darkgray;
+  font-size: 32rpx;
+  opacity: 0.5;
+}

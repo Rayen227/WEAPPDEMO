@@ -1,0 +1,7 @@
+<!-- pages/checkLevel/checkLevel.wxml -->
+<view class="title"></view>
+<view class="checkbox">
+    <view class="check" hover-class="checked" wx:for="{{levelItems}}">
+        <view data-id="{{item}}" bind:tap="select">{{selectable[item]}}</view>
+    </view>
+</view>
