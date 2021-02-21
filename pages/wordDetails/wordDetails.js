@@ -2,8 +2,8 @@ let wechat = require('../../utils/promise.js');
 let time = require('../../utils/time.js');
 var user_info;
 var words = [];
-var emptyStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811';
-var fullStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/be261f3ee4b00ce0501db5f580943b0.png?sign=fe54b08a74700d055cf7c178824db75e&t=1591455799';
+var emptyStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/uncheck.png?sign=1a1007b614e4bf1dee63abc28508bcba&t=1613747581';
+var fullStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/check.png?sign=d40ff65c883775d60b70a1c2411785dc&t=1613747599';
 Page({
     data: {
         word: {},
