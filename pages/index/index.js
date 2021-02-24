@@ -3,10 +3,12 @@ let time = require('../../utils/time.js');
 let getSegment = require('../../utils/getSegment.js');
 const db = wx.cloud.database();
 var user_info = {};
+var word_set;
 // var bgm;
 // var hardPaused = false;
 var gameBack = false;
 var loginBack = false;
+var lastTime;
 Page({
     data: {
         avatarUrl: '',
@@ -22,13 +24,16 @@ Page({
         var user_cloud;
         wx.showLoading({
             title: 'Loading',
-            duration: 1200
+            duration: 1500
         });
         wechat.callFunction("getOpenId").then(res => {
             openId = res.result.openId;
             return wechat.callFunction("getUser", { _openid: openId });
         }, err => { }).then(res => {
             user_cloud = res.result.data[0];
+            // if (!user_cloud || !user_cloud.unpassed) {
+
+            // }
             if (!user_cloud) {
                 wx.navigateTo({
                     url: '../login/login'
@@ -36,8 +41,8 @@ Page({
             }
             return wechat.getStorage("user_info");
         }, err => { }).then(res => {
-            user_info =
-                res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
+            lastTime = user_cloud.update_time.timestamp;
+            user_info = res.data.update_time.timestamp > user_cloud.update_time.timestamp ? res.data : user_cloud;
             if (res.data.update_time.timestamp <= user_cloud.update_time.timestamp) {
                 console.log("Updated by cloud data");
             }
@@ -62,11 +67,73 @@ Page({
                 level: user_info.data.level
             });
             return wechat.setStorage("user_info", user_info);
-        }, err => { }).then(emp => {
-            // if (bgm && bgm.paused) {
-            //     bgm.play();
-            // }
-        })
+        }, err => { }).then(res => {
+            //版本更新
+            var word_set;
+            if (lastTime < 1613827545000) {
+                console.log("Version updated");
+                wechat.callFunction("getSTDWordset").then(res => {
+                    word_set = res.result.data;
+                    return wechat.setStorage("STDWordset", word_set);
+                }, err => {
+                    console.log(err);
+                }).then(res => {
+                    user_info["unpassed"] = word_set[user_info.data.level].words;
+                    return wechat.setStorage("user_info", user_info)
+                }, err => {
+                    console.log(err);
+                }).then(res => {
+                    user_info.update_time = time.getTime();
+                    return wechat.callFunction("updateUser", {
+                        _openid: user_info._openid,
+                        data: {
+                            data: user_info.data,
+                            update_time: user_info.update_time,
+                            word_tag: user_info.word_tag,
+                            unpassed: user_info.unpassed
+                        }
+                    });
+                }, err => {
+                    console.log(err);
+                });
+            }
+            return wechat.getStorage("STDWordset");
+        }).then(res => { }, err => {
+            wechat.callFunction("getSTDWordset").then(res => {
+                word_set = res.result.data;
+                return wechat.setStorage("STDWordset", res.result.data);
+            }, err => { console.log(err); }).then(res => {
+                user_info.unpassed = word_set[user_info.data.level].words;
+                console.log(user_info);
+                return wechat.callFunction("updateUser", {
+                    _openid: user_info._openid,
+                    data: {
+                        data: user_info.data,
+                        update_time: user_info.update_time,
+                        word_tag: user_info.word_tag,
+                        unpassed: user_info.unpassed
+                    }
+                });
+            }, err => { console.log(err); });
+        });
+        // .then(res => {
+        //     return wechat.callFunction("getSTDWordset");
+        // }, err => { console.log(err); }).then(res => {
+        //     word_set = res.result.data;
+        //     return wechat.setStorage("STDWordset", res.result.data);
+        // }, err => { console.log(err); }).then(res => {
+        //     user_info.unpassed = word_set[user_info.data.level].words;
+        //     console.log(user_info);
+        //     return wechat.callFunction("updateUser", {
+        //         _openid: user_info._openid,
+        //         data: {
+        //             data: user_info.data,
+        //             update_time: user_info.update_time,
+        //             word_tag: user_info.word_tag,
+        //             unpassed: user_info.unpassed
+        //         }
+        //     });
+        // }, err => { console.log(err); });
     },
     startGameHandle: function () {
         // bgm.pause();

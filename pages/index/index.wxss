@@ -39,6 +39,7 @@ page {
   height: 350rpx;
   background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/rank.png?sign=97a24b0a51fa0248d05266076ac445df&t=1612193885);
   background-size: 650rpx 350rpx;
+  word-spacing: -20rpx;
   }
 
 /* 开始 */
@@ -56,7 +57,7 @@ page {
 
 /* 空间 */
 .room {
-  margin: 40rpx auto;
+  margin: 50rpx auto;
   width: 400rpx;
   height: 125rpx;
   background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/index/room.png?sign=78f0c40f457236f7f510865a58e5c95b&t=1612193914);

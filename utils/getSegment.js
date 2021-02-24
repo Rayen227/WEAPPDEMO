@@ -11,9 +11,8 @@ function getSeg(level) {
         case 7: return segment[2];
         case 8: ;
         case 9: ;
-        case 10: ;
-        case 11: return segment[3];
-        case 12: return segment[4];
+        case 10: return segment[3];
+        case 11: return segment[4];
     }
 }
 

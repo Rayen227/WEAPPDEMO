@@ -1,23 +1,27 @@
 let wechat = require('../../utils/promise.js');
+let time = require('../../utils/time.js');
 var user_info;
 var words = [];
-var emptyStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/4b95d6b69571e8d8a2a30717f340343.png?sign=89e05f5f9108a23c18c220ccb482b027&t=1591455811';
-var fullStar = 'https://7465-test-h043w-1301939913.tcb.qcloud.la/images/worddetails/be261f3ee4b00ce0501db5f580943b0.png?sign=fe54b08a74700d055cf7c178824db75e&t=1591455799';
+var emptyStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/uncheck.png?sign=1a1007b614e4bf1dee63abc28508bcba&t=1613747581';
+var fullStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/check.png?sign=d40ff65c883775d60b70a1c2411785dc&t=1613747599';
+var bloderweight = 'bolder';
+
 Page({
     data: {
         word: {},
         isStar: false,
-        starUrl: ''
+        starUrl: '',
+        fontweight: '',
     },
 
     onLoad: function () {
         let that = this;
         var word = {};
         var isStar;
-        wx.showLoading({
-            title: 'Loading',
-            duration: 1500
-        });
+        // wx.showLoading({
+        //     title: 'Loading',
+        //     duration: 500
+        // });
         wechat.getStorage("currentWord").then(res => {
             word = res.data;
             word.mp3 = "http://tts.youdao.com/fanyivoice?word=" + word.en + "&le=eng&keyfrom=speaker-target";
@@ -42,11 +46,23 @@ Page({
     playMp3: function () {
         var audio = wx.createInnerAudioContext();
         var word = this.data.word;
+        var fontweight;
         audio.src = word.mp3;
         audio.onError(err => {
             console.log(err);
         });
+        
         audio.play();
+        
+        this.setData({
+            fontweightda: bloderweight
+        })
+        var that = this;
+        setTimeout(function(){ 
+            that.setData({
+                fontweight: ''
+            })
+        }, 3000);
     },
     playAac: function () {
         var audio = wx.createInnerAudioContext();
@@ -98,7 +114,7 @@ Page({
             }
         }
         wechat.setStorage("user_info", user_info);
-
+        updateCloud();
     },
     onUnload: function () {
         wx.removeStorage({
@@ -106,3 +122,16 @@ Page({
         });
     }
 });
+
+function updateCloud() {
+    user_info.update_time = time.getTime();
+    wechat.callFunction("updateUser", {
+        _openid: user_info._openid,
+        data: {
+            data: user_info.data,
+            update_time: user_info.update_time,
+            word_tag: user_info.word_tag,
+            unpassed: user_info.unpassed
+        }
+    });
+}

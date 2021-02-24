@@ -1,4 +1,5 @@
 let wechat = require('../../utils/promise.js');
+let time = require('../../utils/time.js');
 var user_info;
 var curTag = 'mistaken';
 Page({
@@ -20,19 +21,18 @@ Page({
             });
         }, err => { });
     },
-    onShow: function () {
-        this.onLoad();
-        this.setData({
-            isCurrent: ['hovering', '', ''],
-            showDelete: true
-        })
-    },
+    // onShow: function () {
+    //     this.onLoad();
+    //     this.setData({
+    //         isCurrent: ['hovering', '', ''],
+    //         showDelete: true
+    //     });
+    // },
     showCompleted: function () {
         curTag = 'completed';
         this.setData({
             wordList: user_info.word_tag.completed,
             isCurrent: ['', '', 'hovering'],
-            showDelete: true,
             showDelete: false
         });
     },
@@ -49,7 +49,7 @@ Page({
         this.setData({
             wordList: user_info.word_tag.collected,
             isCurrent: ['', 'hovering', ''],
-            showDelete: true
+            showDelete: false
         });
     },
     showDetails: function (e) {
@@ -82,5 +82,19 @@ Page({
             wordList: words
         })
         wechat.setStorage('user_info', user_info);
+        updateCloud();
     }
 });
+
+function updateCloud() {
+    user_info.update_time = time.getTime();
+    wechat.callFunction("updateUser", {
+        _openid: user_info._openid,
+        data: {
+            data: user_info.data,
+            update_time: user_info.update_time,
+            word_tag: user_info.word_tag,
+            unpassed: user_info.unpassed
+        }
+    });
+}

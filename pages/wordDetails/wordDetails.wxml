@@ -1,20 +1,19 @@
-<view class = "font bg">
-    <view>{{word.en}}</view>
-    <view>{{word.ch}}</view>
-    <view>{{word.accent}}</view>
-
-    <view class="iconfont icon-laba play" bind:tap="playMp3"></view>
-    
+<view class="font bg">
+    <view class="en">{{word.en}}</view>
+    <view class="ch">{{word.ch}}</view>
+    <view class="accent">
+        {{word.accent}}
+        <text class="iconfont icon-laba play" style="font-weight:{{fontweight}}"  bind:tap="playMp3"></text>
+    </view>
+    <!-- <view class="iconfont icon-laba play" bind:tap="playMp3"></view> -->
+<view class="eg" >
+    例句示范
+    <text class="iconfont icon-laba play2" bind:tap="playAac"></text>
+</view>
     <view class="font example">
         <view>{{word.sentenceCh}}</view>
         <view>{{word.sentenceEn}}</view>
         <!-- <image class="jpg" src="{{word.jpg}}"></image> -->
     </view>
     <image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
-</view>
-<image class="starWord" src="{{starUrl}}" bind:tap="starWord" />
-<view class="font example" bind:tap="playAac">
-    <view>{{word.sentenceCh}}</view>
-    <view>{{word.sentenceEn}}</view>
-    <!-- <image class="jpg" src="{{word.jpg}}"></image> -->
 </view>
