@@ -1,7 +1,13 @@
 <!-- pages/checkLevel/checkLevel.wxml -->
+<!-- <view class="title"></view>
+<view class="checkbox">
+    <view class="{{selectable[item]?'check':'check2'}}" hover-class="checked" wx:for="{{levelItems}}">
+        <view data-id="{{item}}" bind:tap="select"></view>
+    </view>
+</view> -->
 <view class="title"></view>
 <view class="checkbox">
-    <view class="check" hover-class="checked" wx:for="{{levelItems}}">
+    <view class="{{selectable[item]?'check':'check2'}}" hover-class="checked" wx:for="{{levelItems}}">
         <view data-id="{{item}}" bind:tap="select"></view>
     </view>
 </view>
