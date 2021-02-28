@@ -11,6 +11,7 @@ Page({
         selectable: [],
         isunique: [],
         level: 0,
+        class:[],
     },
 
     /**

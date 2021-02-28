@@ -103,6 +103,42 @@ page {
 .checked:nth-child(12) {
   background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/12-2.png?sign=f5d037992d1ef6cf0c16b7ae31947eb1&t=1613831118);
 }
+.check2:nth-child(1){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/1-3.png?sign=44c3ab266c80cdc01243aea99b71a391&t=1614006625);
+}
+.check2:nth-child(2){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/2-3.png?sign=4d71d389c7c355c95507dd2395d4a238&t=1614006727);
+}
+.check2:nth-child(3){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/3-3.png?sign=a7625f7f5624269c14d75a1896839288&t=1614006751);
+}
+.check2:nth-child(4){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/4-3.png?sign=31d895b4e1e3d936c430e0f20e1190a5&t=1614006762);
+}
+.check2:nth-child(5){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/5-3.png?sign=037ce0e07db39abca8b6673184d487f4&t=1614006775);
+}
+.check2:nth-child(6){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/6-3.png?sign=70b8fa91463dd71210f30e3d19e33f87&t=1614006802);
+}
+.check2:nth-child(7){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/7-3.png?sign=f406fd5eba7ec69fc88b903dd4d909b6&t=1614006817);
+}
+.check2:nth-child(8){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/8-3.png?sign=817f3eafd6c94a2f972f0e73f75f6dac&t=1614006831);
+}
+.check2:nth-child(9){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/9-3.png?sign=290b83f56a97f614b4024619ad59adc7&t=1614006862);
+}
+.check2:nth-child(10){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/10-3.png?sign=290f991109afeefc7579614c3059d9d2&t=1614006894);
+}
+.check2:nth-child(11){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/11-3..png?sign=fab95611283a9ea93823fd14a8d7c608&t=1614006906);
+}
+.check2:nth-child(12){
+  background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/check/12-3.png?sign=15f30a4702299b24312188624e061210&t=1614006918);
+}
 
 .check view {
   height: 200rpx;

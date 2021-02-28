@@ -7,12 +7,12 @@ page {
 .bg {
   position: relative;
   box-sizing: border-box;
-  padding: 100rpx 70rpx 0;
-  margin: 50rpx auto;
+  padding: 120rpx 60rpx 0;
+  margin: 70rpx auto;
   width: 680rpx;
-  height: 950rpx;
+  height: 1000rpx;
   background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/bg.png?sign=b632e0b2c4aae8256ba838855e26fcac&t=1613650026);
-  background-size: 680rpx 950rpx;
+  background-size: 680rpx 1000rpx;
 }
 /* 单词 */
 /* .word{
@@ -22,48 +22,65 @@ page {
 } */
 
 /* 单词--英文 */
-.bg view:nth-child(1) {
+.en {
+  margin-bottom: 20rpx;
   font-size: 60rpx;
   font-weight: bolder;
-  line-height: 100rpx;
+  line-height: 1.1em;
+  word-spacing: -5rpx;
+  font-family: 'Arial';
 }
 
 /* 单词--中文 */
-.bg view:nth-child(2) {
+.ch {
   font-size: 50rpx;
-  /* font-weight: 700; */
-  /* color: gray; */
   line-height: .9em;
+  word-spacing: -30rpx;
+  margin-bottom: 20rpx;
 }
 
 /* 单词--音标 */
-.bg view:nth-child(3) {
-  display: inline-block;
-  font-size: 50rpx;
-  font-weight: 700;
-  font-family: 'SimHei';
-  /* color: gray; */
+.accent {
+  margin-top: 10rpx;
+  font-size: 40rpx;
+  font-family: 'Arial';
+  line-height: .9em;
 }
 
 /* 喇叭 */
 .play {
-  display: inline;
-  font-size: 50rpx;
+  font-size: 40rpx;
   color: #a52a2a;
+  line-height: .9em;
 }
-
+.played {
+  font-weight: bolder;
+}
+.eg {
+  margin-top: 60rpx;
+  border-bottom: 4rpx solid #551515;
+  font-size: 35rpx;
+  color: #641a1a;
+  /* line-height: .9em; */
+}
+/* 喇叭2 */
+.play2 {
+  font-size: 40rpx;
+  color: #a52a2a;
+  line-height: .9em;
+}
 .example {
-  margin-top: 40rpx;
+  /* margin-top: 40rpx; */
 }
 
 .example view:nth-child(odd){
-  /* margin-top: 10rpx; */
+  margin-top: 10rpx;
   /* padding-top: 20rpx; */
   /* padding-left: 40rpx; */
   font-size: 36rpx;
   font-weight: 400;
-  line-height: 72rpx;
-  color: #717171;
+  /* line-height: 72rpx; */
+  /* color: #717171; */
 }
 
 .example view:nth-child(even){
@@ -71,8 +88,8 @@ page {
   /* padding-left: 40rpx; */
   font-size: 36rpx;
   font-weight: 400;
-  line-height: 72rpx;
-  color: #717171;
+  /* line-height: 72rpx; */
+  /* color: #3b3b3b; */
 }
 
 .back {

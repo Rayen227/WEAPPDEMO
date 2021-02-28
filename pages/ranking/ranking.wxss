@@ -11,7 +11,7 @@ page {
 
 /* 标题 */
 .title {  
-    margin: 30% auto 0;
+    margin: 25% auto 0;
     width: 300rpx;
     height: 100rpx;    
     background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/leaderboard/learderboard.png?sign=f51f06fe54382dbfa38e993e6e9938ea&t=1612348369);

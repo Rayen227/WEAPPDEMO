@@ -4,11 +4,14 @@ var user_info;
 var words = [];
 var emptyStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/uncheck.png?sign=1a1007b614e4bf1dee63abc28508bcba&t=1613747581';
 var fullStar = 'https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/worddetails/check.png?sign=d40ff65c883775d60b70a1c2411785dc&t=1613747599';
+var bloderweight = 'bolder';
+
 Page({
     data: {
         word: {},
         isStar: false,
-        starUrl: ''
+        starUrl: '',
+        fontweight: '',
     },
 
     onLoad: function () {
@@ -43,11 +46,23 @@ Page({
     playMp3: function () {
         var audio = wx.createInnerAudioContext();
         var word = this.data.word;
+        var fontweight;
         audio.src = word.mp3;
         audio.onError(err => {
             console.log(err);
         });
+
         audio.play();
+
+        this.setData({
+            fontweightda: bloderweight
+        })
+        var that = this;
+        setTimeout(function () {
+            that.setData({
+                fontweight: ''
+            })
+        }, 3000);
     },
     playAac: function () {
         var audio = wx.createInnerAudioContext();

@@ -8,16 +8,19 @@ page {
 /* 气泡 */
 .bubble {
     position: absolute;
-    top: 10rpx;
+    top: 0rpx;
     right: 120rpx;
     box-sizing: border-box;
-    padding-top: 16rpx;
-    padding-left: 43rpx;
+    padding-top: 22rpx;
+    padding-left: 35rpx;
     width: 300rpx;
+    font-size: 35rpx;
     height: 100rpx;
     background-image: url(https://656c-elay-t6atq-1302369471.tcb.qcloud.la/program/game/bubble.png?sign=666560f2494a36304679793274fa029b&t=1613742404);
     background-size: 300rpx 100rpx;
-
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 /* 问题 */
@@ -38,11 +41,12 @@ page {
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 90rpx;
-    font-weight: bolder;
+    font-size: 85rpx;
+    /* font-weight: bolder; */
     color: black;
     text-shadow: 1rpx 1rpx gray;
     line-height:.9em;
+    word-spacing: -20rpx;
 }
 .question image {
     width: 550rpx;
@@ -77,7 +81,7 @@ page {
     font-weight: bolder;
     color: black;
     line-height:.9em;
-    font-size: 48rpx;
+    font-size: 43rpx;
     text-shadow: 3rpx 3rpx rgb(179, 179, 179);
 }
 .answer view:nth-child(odd) {
@@ -288,6 +292,7 @@ page {
       /* width: 500rpx; */
       font-size: 40rpx;
       /* background-color: khaki; */
+      word-spacing: -5rpx;
   }
   .meaning view {
       display: inline-block;
@@ -309,6 +314,7 @@ page {
       /* width: 500rpx; */
       font-size: 40rpx;
       /* background-color: khaki; */
+      word-spacing: -20rpx;
   }
   .meaning view {
       display: inline-block;
